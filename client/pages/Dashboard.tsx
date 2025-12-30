@@ -6,6 +6,7 @@ import { DashboardData, DrillDownCOW } from "@shared/api";
 import { RegionalDistributionCard } from "./components/dashboard/RegionalDistributionCard";
 import { StatusSummaryCards } from "./components/dashboard/StatusSummaryCards";
 import { OffAirByVendorCard } from "./components/dashboard/OffAirByVendorCard";
+import { OffAirByWarehouseCard } from "./components/dashboard/OffAirByWarehouseCard";
 import { CowAgeBreakdownCard } from "./components/dashboard/CowAgeBreakdownCard";
 import { DrillDownModal } from "./components/dashboard/DrillDownModal";
 
