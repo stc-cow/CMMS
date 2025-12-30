@@ -157,7 +157,7 @@ export default function Dashboard() {
               />
             </div>
 
-            {/* Section 2 & 3: Regional + Warehouse (2-column on desktop) */}
+            {/* Section 2 & 3: Regional + Vendor by Warehouse (2-column on desktop) */}
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
               <RegionalDistributionCard
                 data={dashboardData.regionalDistribution}
@@ -175,7 +175,12 @@ export default function Dashboard() {
               />
             </div>
 
-            {/* Section 4: New vs Old */}
+            {/* Section 4: OFF-AIR by Warehouse Location */}
+            <OffAirByWarehouseCard
+              data={dashboardData.offAirByWarehouse}
+            />
+
+            {/* Section 5: New vs Old */}
             <CowAgeBreakdownCard
               data={dashboardData.cowAgeBreakdown}
               onDrillDown={(age) => handleDrillDown(
