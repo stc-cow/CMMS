@@ -144,6 +144,9 @@ router.get("/stats", (_req, res) => {
 router.get("/dashboard", (_req, res) => {
   try {
     const cows = getAllCOWs();
+    const totalCows = cows.length;
+
+    console.log(`[DASHBOARD] Loaded ${totalCows} COW records from database`);
 
     // Section 1: COW Distribution by Region
     // Region from Column E - 4 regions only
@@ -157,11 +160,23 @@ router.get("/dashboard", (_req, res) => {
       .map(([region, count]) => ({ region, totalCows: count }))
       .sort((a, b) => b.totalCows - a.totalCows);
 
+    // Verify regional sum equals total
+    const regionalSum = regionalDistribution.reduce((sum, r) => sum + r.totalCows, 0);
+    if (regionalSum !== totalCows) {
+      console.warn(
+        `[DASHBOARD] ⚠️ Regional distribution sum (${regionalSum}) != total COWs (${totalCows})`
+      );
+    }
+
     // Section 2: COW Status Summary
     const onAir = cows.filter((c) => c.siteStatus === "ON-AIR").length;
     const offAir = cows.filter((c) => c.siteStatus === "OFF-AIR").length;
     const standby = cows.filter((c) => c.siteStatus === "STANDBY").length;
     const statusSummary = { onAir, offAir, standby };
+    const statusSum = onAir + offAir + standby;
+    if (statusSum !== totalCows) {
+      console.warn(`[DASHBOARD] ⚠️ Status sum (${statusSum}) != total COWs (${totalCows})`);
+    }
 
     // Section 3: OFF-AIR COWs by Vendor (Warehouse Stock)
     const vendorMap = new Map<string, number>();
@@ -186,7 +201,7 @@ router.get("/dashboard", (_req, res) => {
       offAirByVendor,
       cowAgeBreakdown,
       lastSyncedAt: getLastSyncTime(),
-      totalCows: cows.length,
+      totalCows,
     });
   } catch (error) {
     console.error("Error fetching dashboard data:", error);
