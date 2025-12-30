@@ -97,17 +97,13 @@ export function Sidebar() {
         )}
       >
         {/* Logo Section */}
-        <div className="h-20 flex items-center px-6 border-b border-sidebar-border">
-          <Link to="/" className="flex items-center gap-3 group">
-            <div className="w-10 h-10 bg-gradient-to-br from-sidebar-primary to-sidebar-accent rounded-lg flex items-center justify-center flex-shrink-0">
-              <Package className="w-6 h-6 text-sidebar-primary-foreground" />
-            </div>
-            <div className="flex flex-col">
-              <span className="text-sm font-bold text-sidebar-foreground">
-                CowTrack
-              </span>
-              <span className="text-xs text-sidebar-foreground/60">v1.0</span>
-            </div>
+        <div className="h-20 flex items-center justify-center px-6 border-b border-sidebar-border">
+          <Link to="/" className="flex items-center group">
+            <img
+              src="https://cdn.builder.io/api/v1/image/assets%2Fabc8ab05f7d144f289a582747d3e5ca3%2F2884fc9a1a5d47faad23fb841f7538d3?format=webp&width=150"
+              alt="ACES Managed Services"
+              className="h-16 w-auto opacity-90 group-hover:opacity-100 transition-opacity"
+            />
           </Link>
         </div>
 
