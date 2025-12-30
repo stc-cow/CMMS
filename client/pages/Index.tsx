@@ -122,10 +122,10 @@ export default function Dashboard() {
         <div className="bg-gradient-to-r from-primary/10 to-accent/10 rounded-xl border border-primary/20 p-8">
           <div className="max-w-2xl">
             <h1 className="text-3xl font-bold text-foreground mb-2">
-              Welcome back to CowTrack
+              Welcome to ACES Operations
             </h1>
             <p className="text-muted-foreground mb-4">
-              Manage your COW operations efficiently. Today you have 5 pending
+              Manage your COW movements and equipment operations efficiently. Today you have 5 pending
               movements and 8 invoices awaiting approval.
             </p>
             <div className="flex gap-3">
