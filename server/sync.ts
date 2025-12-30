@@ -6,42 +6,47 @@ const GOOGLE_SHEETS_CSV_URL =
 
 /**
  * Parse CSV text into COW records
- * Maps CSV columns to COW interface fields
+ * Uses column index mapping (A-CM = indices 0-98)
+ * Skips first row (metadata) and processes data rows
  */
 function parseCSVToCOWs(csvText: string): COW[] {
   const lines = csvText.trim().split("\n");
   if (lines.length < 2) return [];
 
-  const headers = parseCSVLine(lines[0]);
-  console.log("[CSV] Headers found:", headers.slice(0, 5).map(h => h.toLowerCase()));
-  console.log(`[CSV] Total headers: ${headers.length}, Total rows: ${lines.length - 1}`);
+  const firstRow = parseCSVLine(lines[0]);
+  console.log(`[CSV] First row (metadata): ${firstRow.slice(0, 3).join(" | ")}...`);
+  console.log(`[CSV] Columns detected: ${firstRow.length}`);
+  console.log(`[CSV] Total rows to process: ${lines.length - 1}`);
 
   const cows: COW[] = [];
   let successCount = 0;
-  let failCount = 0;
+  let skipCount = 0;
 
+  // Start from row 1 (skip metadata in row 0)
   for (let i = 1; i < lines.length; i++) {
     const values = parseCSVLine(lines[i]);
-    if (values.length === 0) continue;
+    if (values.length === 0) {
+      skipCount++;
+      continue;
+    }
 
-    const cow = mapRowToCOW(headers, values);
+    const cow = mapRowToCOW(firstRow, values);
     if (cow && cow.cowId) {
       cows.push(cow);
       successCount++;
     } else {
-      failCount++;
-      if (failCount <= 3) {
-        // Log first few failures for debugging
-        console.log(`[CSV] Failed to parse row ${i}: cowId="${values[0]}", values.length=${values.length}`);
+      skipCount++;
+      if (skipCount <= 3) {
+        console.log(`[CSV] Skipped row ${i}: missing or empty COW ID`);
       }
     }
   }
 
-  if (failCount > 3) {
-    console.log(`[CSV] ... and ${failCount - 3} more failed rows`);
+  if (skipCount > 3) {
+    console.log(`[CSV] ... and ${skipCount - 3} more rows skipped`);
   }
 
-  console.log(`[CSV] Parse results: ${successCount} success, ${failCount} failed`);
+  console.log(`[CSV] Parse results: ${successCount} valid COWs, ${skipCount} skipped`);
 
   return cows;
 }
