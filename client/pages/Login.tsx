@@ -48,9 +48,9 @@ export default function Login() {
               alt="ACES Managed Services"
               className="h-40 w-auto"
             />
-            {/* Brand accent line - 10px below logo, 18px above title */}
-            <div className="mt-2.5 mb-4.5">
-              <div className="w-48 h-0.5 bg-gradient-to-r from-red-500 via-red-500 to-transparent rounded-full shadow-sm shadow-red-900/20"></div>
+            {/* Brand accent line - 8-12px below logo, 16-20px above title */}
+            <div className="mt-3 mb-5">
+              <div className="w-56 h-0.5 bg-gradient-to-r from-red-500 via-red-500 to-transparent rounded-sm shadow-sm shadow-red-900/20"></div>
             </div>
           </div>
 
