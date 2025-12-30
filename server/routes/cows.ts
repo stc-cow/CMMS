@@ -137,6 +137,93 @@ router.get("/stats", (_req, res) => {
 });
 
 /**
+ * GET /api/cows/dashboard
+ * Get complete dashboard data (operational snapshot)
+ * Sections: Regional distribution, Status summary, OFF-AIR by vendor, New vs Old
+ */
+router.get("/dashboard", (_req, res) => {
+  try {
+    const cows = getAllCOWs();
+
+    // Section 1: COW Distribution by Region
+    const regionMap = new Map<string, number>();
+    cows.forEach((cow) => {
+      const region = cow.region || "Unknown";
+      regionMap.set(region, (regionMap.get(region) || 0) + 1);
+    });
+    const regionalDistribution = Array.from(regionMap.entries())
+      .map(([region, count]) => ({ region, totalCows: count }))
+      .sort((a, b) => b.totalCows - a.totalCows);
+
+    // Section 2: COW Status Summary
+    const onAir = cows.filter((c) => c.siteStatus === "ON-AIR").length;
+    const offAir = cows.filter((c) => c.siteStatus === "OFF-AIR").length;
+    const standby = cows.filter((c) => c.siteStatus === "STANDBY").length;
+    const statusSummary = { onAir, offAir, standby };
+
+    // Section 3: OFF-AIR COWs by Vendor (Warehouse Stock)
+    const vendorMap = new Map<string, number>();
+    cows
+      .filter((c) => c.siteStatus === "OFF-AIR")
+      .forEach((cow) => {
+        const vendor = cow.vendor || "Unknown";
+        vendorMap.set(vendor, (vendorMap.get(vendor) || 0) + 1);
+      });
+    const offAirByVendor = Array.from(vendorMap.entries())
+      .map(([vendor, count]) => ({ vendor, count }))
+      .sort((a, b) => b.count - a.count);
+
+    // Section 4: New vs Old COWs
+    const newCows = cows.filter((c) => c.cowAge === "NEW").length;
+    const oldCows = cows.filter((c) => c.cowAge === "OLD").length;
+    const cowAgeBreakdown = { new: newCows, old: oldCows };
+
+    res.json({
+      regionalDistribution,
+      statusSummary,
+      offAirByVendor,
+      cowAgeBreakdown,
+      lastSyncedAt: getLastSyncTime(),
+      totalCows: cows.length,
+    });
+  } catch (error) {
+    console.error("Error fetching dashboard data:", error);
+    res.status(500).json({ error: "Failed to fetch dashboard data" });
+  }
+});
+
+/**
+ * GET /api/cows/dashboard/drill-down
+ * Get filtered COW list for drill-down modal
+ * Query params: region, vendor, siteStatus, cowAge
+ */
+router.get("/dashboard/drill-down", (req, res) => {
+  try {
+    const { region, vendor, siteStatus, cowAge } = req.query;
+
+    let cows = getAllCOWs();
+
+    if (region) cows = cows.filter((c) => c.region === region);
+    if (vendor) cows = cows.filter((c) => c.vendor === vendor);
+    if (siteStatus) cows = cows.filter((c) => c.siteStatus === siteStatus);
+    if (cowAge) cows = cows.filter((c) => c.cowAge === cowAge);
+
+    const drillDownData = cows.map((cow) => ({
+      cowId: cow.cowId,
+      region: cow.region,
+      vendor: cow.vendor,
+      siteStatus: cow.siteStatus,
+      location: cow.location,
+    }));
+
+    res.json({ data: drillDownData, count: drillDownData.length });
+  } catch (error) {
+    console.error("Error fetching drill-down data:", error);
+    res.status(500).json({ error: "Failed to fetch drill-down data" });
+  }
+});
+
+/**
  * GET /api/cows/list
  * Get paginated list of COWs with optional search/filters
  */
