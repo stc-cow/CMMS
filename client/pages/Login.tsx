@@ -84,15 +84,15 @@ export default function Login() {
 
             {/* Form title */}
             <div className="space-y-2">
-              <h2 className="text-3xl font-bold text-slate-900">Welcome back</h2>
-              <p className="text-slate-600">Sign in to your ACES account to manage your operations</p>
+              <h2 className="text-3xl font-bold text-white">Welcome back</h2>
+              <p className="text-white">Sign in to your ACES account to manage your operations</p>
             </div>
 
             {/* Login form */}
             <form onSubmit={handleSubmit} className="space-y-6">
               {/* Email field */}
               <div className="space-y-2">
-                <label htmlFor="email" className="block text-sm font-medium text-slate-900">
+                <label htmlFor="email" className="block text-sm font-medium text-white">
                   Email Address
                 </label>
                 <div className="relative group">
@@ -110,7 +110,7 @@ export default function Login() {
 
               {/* Password field */}
               <div className="space-y-2">
-                <label htmlFor="password" className="block text-sm font-medium text-slate-900">
+                <label htmlFor="password" className="block text-sm font-medium text-white">
                   Password
                 </label>
                 <div className="relative group">
@@ -147,16 +147,16 @@ export default function Login() {
                     onChange={(e) => setRememberMe(e.target.checked)}
                     className="w-4 h-4 rounded border-slate-300 text-blue-600 focus:ring-2 focus:ring-blue-500 cursor-pointer"
                   />
-                  <span className="text-sm text-slate-600 group-hover:text-slate-900 transition-colors">
+                  <span className="text-sm text-white group-hover:text-white transition-colors">
                     Remember me
                   </span>
                 </label>
                 <a
                   href="#"
-                  className="text-sm text-slate-500 hover:text-blue-600 transition-all duration-200 relative group"
+                  className="text-sm text-white hover:text-blue-300 transition-all duration-200 relative group"
                 >
                   Forgot password?
-                  <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-blue-600 group-hover:w-full transition-all duration-300"></span>
+                  <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-blue-400 group-hover:w-full transition-all duration-300"></span>
                 </a>
               </div>
 
@@ -213,15 +213,15 @@ export default function Login() {
 
 
             {/* Help text with reduced visual weight */}
-            <div className="text-center text-sm text-slate-500">
+            <div className="text-center text-sm text-white">
               <p>
                 Don't have an account?{" "}
                 <a
                   href="#"
-                  className="text-slate-600 hover:text-blue-600 transition-all duration-200 relative group font-medium"
+                  className="text-white hover:text-blue-300 transition-all duration-200 relative group font-medium"
                 >
                   Contact your administrator
-                  <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-blue-600 group-hover:w-full transition-all duration-300"></span>
+                  <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-blue-400 group-hover:w-full transition-all duration-300"></span>
                 </a>
               </p>
             </div>
