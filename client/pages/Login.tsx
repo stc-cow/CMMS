@@ -50,43 +50,6 @@ export default function Login() {
             <h1 className="text-5xl font-bold leading-tight">
               Equipment Operations <span className="text-cyan-400">Simplified</span>
             </h1>
-            <p className="text-lg text-blue-100 max-w-lg">
-              Streamline your COW movements, automate invoicing, and track logistics in real-time.
-            </p>
-          </div>
-
-          {/* Features */}
-          <div className="space-y-4 pt-8">
-            {[
-              {
-                title: "Real-time Tracking",
-                description: "Monitor equipment movements across all sites instantly",
-              },
-              {
-                title: "Automated Invoicing",
-                description: "Generate accurate invoices based on approved movements",
-              },
-              {
-                title: "Supplier Management",
-                description: "Manage rate cards and supplier details efficiently",
-              },
-              {
-                title: "Role-based Access",
-                description: "Secure operations, supervision, and finance workflows",
-              },
-            ].map((feature, idx) => (
-              <div key={idx} className="flex gap-3">
-                <div className="flex-shrink-0">
-                  <div className="flex items-center justify-center h-6 w-6 rounded-full bg-cyan-400/20 border border-cyan-400/50">
-                    <Zap className="h-4 w-4 text-cyan-400" strokeWidth={3} />
-                  </div>
-                </div>
-                <div>
-                  <p className="font-semibold text-white">{feature.title}</p>
-                  <p className="text-sm text-blue-200">{feature.description}</p>
-                </div>
-              </div>
-            ))}
           </div>
 
           {/* Footer text */}
