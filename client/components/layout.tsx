@@ -34,9 +34,9 @@ export function Layout({ children }: { children: ReactNode }) {
       <div className="flex-1 flex flex-col md:ml-64">
         {/* Header */}
         <header className="sticky top-0 z-20 h-20 bg-card border-b border-border flex items-center justify-between px-6 md:px-8 shadow-sm">
-          <div className="md:block hidden">
+          <div className="md:block hidden flex items-center gap-2">
             <h1 className="text-xl font-bold text-foreground">
-              COW Movement Management System
+              ACES Operations Portal
             </h1>
           </div>
 
