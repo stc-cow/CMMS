@@ -381,9 +381,31 @@ export async function syncCOWsFromGoogleSheets(): Promise<{ success: boolean; co
 
     console.log(`[SYNC] Parsed ${cows.length} COW records`);
 
+    // Detect duplicate COW IDs
+    const cowIdCounts = new Map<string, number>();
+    const duplicates: string[] = [];
+    cows.forEach((cow) => {
+      const count = cowIdCounts.get(cow.cowId) || 0;
+      cowIdCounts.set(cow.cowId, count + 1);
+      if (count > 0) {
+        duplicates.push(cow.cowId);
+      }
+    });
+
+    if (duplicates.length > 0) {
+      console.warn(`[SYNC] ⚠️  Found ${duplicates.length} duplicate COW ID(s):`);
+      duplicates.forEach((id) => {
+        const count = cowIdCounts.get(id) || 0;
+        console.warn(`[SYNC]   - ${id}: appears ${count} times`);
+      });
+      console.warn(`[SYNC] When upserting, duplicates will overwrite earlier entries.`);
+      console.warn(`[SYNC] Database will contain ${cowIdCounts.size} unique COW IDs instead of ${cows.length}`);
+    }
+
     // Upsert into database
     upsertCOWs(cows);
     console.log(`[SYNC] Successfully synced ${cows.length} COW records`);
+    console.log(`[SYNC] Database now contains ${cowIdCounts.size} unique COW ID(s)`);
 
     return { success: true, count: cows.length };
   } catch (error) {
