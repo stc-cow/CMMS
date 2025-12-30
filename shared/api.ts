@@ -264,6 +264,7 @@ export interface DashboardData {
   regionalDistribution: RegionalDistribution[];
   statusSummary: StatusSummary;
   offAirByVendor: OffAirByVendor[];
+  offAirByWarehouse: OffAirByWarehouse[];
   cowAgeBreakdown: CowAgeBreakdown;
   lastSyncedAt: string;
   totalCows: number;
