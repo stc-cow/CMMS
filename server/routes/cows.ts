@@ -66,6 +66,77 @@ function cowToListItem(cow: COW): COWListItem {
 }
 
 /**
+ * POST /api/cows/sync
+ * Manually trigger a sync from Google Sheets
+ */
+router.post("/sync", async (req, res) => {
+  try {
+    const result = await syncCOWsFromGoogleSheets();
+    if (result.success) {
+      res.json({
+        success: true,
+        message: `Synced ${result.count} COW records`,
+        count: result.count,
+      });
+    } else {
+      res.status(500).json({
+        success: false,
+        error: result.error || "Sync failed",
+      });
+    }
+  } catch (error) {
+    console.error("Error during manual sync:", error);
+    res.status(500).json({ error: "Failed to trigger sync" });
+  }
+});
+
+/**
+ * GET /api/cows/sync/status
+ * Get last sync information
+ */
+router.get("/sync/status", (_req, res) => {
+  try {
+    const lastSyncedAt = getLastSyncTime();
+    res.json({
+      lastSyncedAt,
+      syncUrl: "Google Sheets CSV (scheduled every 15 minutes)",
+    });
+  } catch (error) {
+    console.error("Error fetching sync status:", error);
+    res.status(500).json({ error: "Failed to fetch sync status" });
+  }
+});
+
+/**
+ * GET /api/cows/stats
+ * Get COW registry statistics
+ */
+router.get("/stats", (_req, res) => {
+  try {
+    const cows = getAllCOWs();
+    const onAir = cows.filter((c) => c.siteStatus === "ON-AIR").length;
+    const offAir = cows.filter((c) => c.siteStatus === "OFF-AIR").length;
+    const standby = cows.filter((c) => c.siteStatus === "STANDBY").length;
+
+    const vendors = [...new Set(cows.map((c) => c.vendor))];
+    const regions = [...new Set(cows.map((c) => c.region))];
+    const cities = [...new Set(cows.map((c) => c.city))];
+
+    res.json({
+      totalCOWs: cows.length,
+      statusBreakdown: { onAir, offAir, standby },
+      uniqueVendors: vendors.length,
+      uniqueRegions: regions.length,
+      uniqueCities: cities.length,
+      lastSyncedAt: getLastSyncTime(),
+    });
+  } catch (error) {
+    console.error("Error fetching COW stats:", error);
+    res.status(500).json({ error: "Failed to fetch COW stats" });
+  }
+});
+
+/**
  * GET /api/cows/list
  * Get paginated list of COWs with optional search/filters
  */
@@ -135,77 +206,6 @@ router.get("/:cowId", (req, res) => {
   } catch (error) {
     console.error("Error fetching COW detail:", error);
     res.status(500).json({ error: "Failed to fetch COW detail" });
-  }
-});
-
-/**
- * POST /api/cows/sync
- * Manually trigger a sync from Google Sheets
- */
-router.post("/sync", async (req, res) => {
-  try {
-    const result = await syncCOWsFromGoogleSheets();
-    if (result.success) {
-      res.json({
-        success: true,
-        message: `Synced ${result.count} COW records`,
-        count: result.count,
-      });
-    } else {
-      res.status(500).json({
-        success: false,
-        error: result.error || "Sync failed",
-      });
-    }
-  } catch (error) {
-    console.error("Error during manual sync:", error);
-    res.status(500).json({ error: "Failed to trigger sync" });
-  }
-});
-
-/**
- * GET /api/cows/sync/status
- * Get last sync information
- */
-router.get("/sync/status", (_req, res) => {
-  try {
-    const lastSyncedAt = getLastSyncTime();
-    res.json({
-      lastSyncedAt,
-      syncUrl: "Google Sheets CSV (scheduled every 15 minutes)",
-    });
-  } catch (error) {
-    console.error("Error fetching sync status:", error);
-    res.status(500).json({ error: "Failed to fetch sync status" });
-  }
-});
-
-/**
- * GET /api/cows/stats
- * Get COW registry statistics
- */
-router.get("/stats", (_req, res) => {
-  try {
-    const cows = getAllCOWs();
-    const onAir = cows.filter((c) => c.siteStatus === "ON-AIR").length;
-    const offAir = cows.filter((c) => c.siteStatus === "OFF-AIR").length;
-    const standby = cows.filter((c) => c.siteStatus === "STANDBY").length;
-
-    const vendors = [...new Set(cows.map((c) => c.vendor))];
-    const regions = [...new Set(cows.map((c) => c.region))];
-    const cities = [...new Set(cows.map((c) => c.city))];
-
-    res.json({
-      totalCOWs: cows.length,
-      statusBreakdown: { onAir, offAir, standby },
-      uniqueVendors: vendors.length,
-      uniqueRegions: regions.length,
-      uniqueCities: cities.length,
-      lastSyncedAt: getLastSyncTime(),
-    });
-  } catch (error) {
-    console.error("Error fetching COW stats:", error);
-    res.status(500).json({ error: "Failed to fetch COW stats" });
   }
 });
 
