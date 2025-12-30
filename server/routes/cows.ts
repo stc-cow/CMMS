@@ -208,7 +208,19 @@ router.get("/dashboard", (_req, res) => {
       .map(([vendor, count]) => ({ vendor, count }))
       .sort((a, b) => b.count - a.count);
 
-    // Section 4: New vs Old COWs
+    // Section 4: OFF-AIR COWs by Warehouse Location
+    const warehouseMap = new Map<string, number>();
+    cows
+      .filter((c) => c.siteStatus === "OFF-AIR")
+      .forEach((cow) => {
+        const warehouse = cow.assignedWarehouse || "OFF-AIR – Unknown Location";
+        warehouseMap.set(warehouse, (warehouseMap.get(warehouse) || 0) + 1);
+      });
+    const offAirByWarehouse = Array.from(warehouseMap.entries())
+      .map(([warehouse, count]) => ({ warehouse, count }))
+      .sort((a, b) => b.count - a.count);
+
+    // Section 5: New vs Old COWs
     const newCows = cows.filter((c) => c.cowAge === "NEW").length;
     const oldCows = cows.filter((c) => c.cowAge === "OLD").length;
     const cowAgeBreakdown = { new: newCows, old: oldCows };
@@ -217,6 +229,7 @@ router.get("/dashboard", (_req, res) => {
       regionalDistribution,
       statusSummary,
       offAirByVendor,
+      offAirByWarehouse,
       cowAgeBreakdown,
       lastSyncedAt: getLastSyncTime(),
       totalCows,
