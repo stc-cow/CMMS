@@ -119,7 +119,7 @@ export const SAMPLE_COWS: COW[] = [
     configuration2g: "Basic",
     configuration3g: "Standard",
     configurationLte: "Standard",
-    configurationLte: "N/A",
+    configuration5g: "N/A",
     lteBandCount: 4,
     _5gBandCount: 0,
     lteConfigurationLevel: "Medium",
