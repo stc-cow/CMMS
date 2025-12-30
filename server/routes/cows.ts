@@ -73,10 +73,12 @@ router.post("/sync", async (req, res) => {
   try {
     const result = await syncCOWsFromGoogleSheets();
     if (result.success) {
+      const storedCount = getAllCOWs().length;
       res.json({
         success: true,
-        message: `Synced ${result.count} COW records`,
-        count: result.count,
+        message: `Synced ${result.count} COW records (${storedCount} unique stored)`,
+        parsedCount: result.count,
+        storedCount: storedCount,
       });
     } else {
       res.status(500).json({
