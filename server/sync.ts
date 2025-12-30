@@ -275,10 +275,12 @@ function mapRowToCOW(_headers: string[], values: string[]): COW | null {
 
 /**
  * Convert empty string to null (rule: blank cells = NULL)
+ * Also trims whitespace from all values
  */
 function nullifyEmpty(value: string | undefined): string | null {
-  if (!value || value.trim() === "") return null;
-  return value.trim();
+  if (!value) return null;
+  const trimmed = value.trim();
+  return trimmed === "" ? null : trimmed;
 }
 
 /**
