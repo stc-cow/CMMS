@@ -321,13 +321,14 @@ function parseInteger(value: string | undefined): number | undefined {
 
 /**
  * Parse site status (OFF-AIR, ON-AIR, STANDBY)
+ * Default to "OFF-AIR" for empty/invalid values (not deployed)
  */
-function parseStatus(value: string | undefined): "ON-AIR" | "OFF-AIR" | "STANDBY" | null {
-  if (!value) return null;
+function parseStatus(value: string | undefined): "ON-AIR" | "OFF-AIR" | "STANDBY" {
+  if (!value) return "OFF-AIR"; // Default for missing status
   const normalized = value.trim().toUpperCase();
   if (normalized === "ON-AIR" || normalized === "ON AIR") return "ON-AIR";
   if (normalized === "STANDBY") return "STANDBY";
-  return "OFF-AIR";
+  return "OFF-AIR"; // Default for unrecognized values
 }
 
 /**
