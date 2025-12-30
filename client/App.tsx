@@ -9,6 +9,7 @@ import Login from "./pages/Login";
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 import COWRegistry from "./pages/COWRegistry";
+import COWDetail from "./pages/COWDetail";
 import Movements from "./pages/Movements";
 import Suppliers from "./pages/Suppliers";
 import RateCards from "./pages/RateCards";
