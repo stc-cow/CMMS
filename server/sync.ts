@@ -205,18 +205,40 @@ function getFieldBoolean(row: Record<string, string>, possibleNames: string[]): 
 export async function syncCOWsFromGoogleSheets(): Promise<{ success: boolean; count: number; error?: string }> {
   try {
     console.log("[SYNC] Starting COW data sync from Google Sheets...");
+    console.log(`[SYNC] URL: ${GOOGLE_SHEETS_CSV_URL}`);
 
-    // Fetch CSV
-    const response = await fetch(GOOGLE_SHEETS_CSV_URL);
+    // Fetch CSV with timeout
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 10000); // 10 second timeout
+
+    const response = await fetch(GOOGLE_SHEETS_CSV_URL, {
+      signal: controller.signal,
+      headers: {
+        'User-Agent': 'ACES-CMMS/1.0 (COW Registry Sync Service)',
+      },
+    });
+
+    clearTimeout(timeoutId);
+
     if (!response.ok) {
-      throw new Error(`Failed to fetch Google Sheet: ${response.statusText}`);
+      throw new Error(`Failed to fetch Google Sheet: ${response.status} ${response.statusText}`);
     }
 
     const csvText = await response.text();
     console.log(`[SYNC] Downloaded CSV (${csvText.length} bytes)`);
 
+    if (!csvText || csvText.length < 10) {
+      throw new Error("CSV is empty or too small");
+    }
+
     // Parse CSV to COWs
     const cows = parseCSVToCOWs(csvText);
+
+    if (cows.length === 0) {
+      console.warn("[SYNC] No valid COW records found in CSV. Check column headers and data format.");
+      return { success: false, count: 0, error: "No valid COW records found in CSV" };
+    }
+
     console.log(`[SYNC] Parsed ${cows.length} COW records`);
 
     // Upsert into database
@@ -227,6 +249,16 @@ export async function syncCOWsFromGoogleSheets(): Promise<{ success: boolean; co
   } catch (error) {
     const errorMessage = error instanceof Error ? error.message : String(error);
     console.error(`[SYNC] Error during sync: ${errorMessage}`);
+
+    // Log more context for debugging
+    if (errorMessage.includes("ERR_ABORTED")) {
+      console.error("[SYNC] Request timed out - Google Sheets URL may be unreachable");
+    } else if (errorMessage.includes("401") || errorMessage.includes("403")) {
+      console.error("[SYNC] Access denied - Google Sheets may require authentication or be private");
+    } else if (errorMessage.includes("404")) {
+      console.error("[SYNC] Sheet not found - check the Google Sheets URL");
+    }
+
     return { success: false, count: 0, error: errorMessage };
   }
 }
