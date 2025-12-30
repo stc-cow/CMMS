@@ -37,6 +37,11 @@ export interface COW {
   remote?: boolean; // Remote or Metropolitan
   vendor: string;
   cowAge: "OLD" | "NEW";
+
+  // Warehouse Assignment (for OFF-AIR COWs only, calculated during sync)
+  assignedWarehouse?: string; // Nearest warehouse name or "Unknown Location"
+  warehouseDistanceKm?: number; // Distance to assigned warehouse in km
+
   remarks?: string;
 
   // Technology Configuration
