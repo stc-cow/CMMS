@@ -268,13 +268,20 @@ export const SAMPLE_COWS: COW[] = [
 
 /**
  * Seed the database with sample data
- * Call this function to populate the database for testing
+ * Only seeds if database is empty (doesn't overwrite existing data)
  */
 export function seedSampleData() {
-  console.log("[SEED] Seeding sample COW data...");
   try {
     // Lazy load to avoid circular dependencies
-    const { upsertCOWs } = require("./db");
+    const { getAllCOWs, upsertCOWs } = require("./db");
+    const existingCows = getAllCOWs();
+
+    if (existingCows && existingCows.length > 0) {
+      console.log(`[SEED] Database already has ${existingCows.length} COW records, skipping seed`);
+      return false;
+    }
+
+    console.log("[SEED] Database is empty, seeding sample COW data...");
     upsertCOWs(SAMPLE_COWS);
     console.log(`[SEED] Successfully seeded ${SAMPLE_COWS.length} COW records`);
     return true;
