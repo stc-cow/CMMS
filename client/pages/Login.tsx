@@ -101,14 +101,12 @@ export default function Login() {
         <div className="w-full max-w-md mx-auto">
           <div className="bg-white/95 backdrop-blur-xl rounded-2xl shadow-2xl p-8 md:p-10 space-y-8 border border-white/20">
             {/* Mobile ACES Logo */}
-            <div className="lg:hidden flex items-center justify-center gap-3 pb-4 border-b border-slate-200">
-              <div className="w-10 h-10 bg-gradient-to-br from-cyan-400 to-blue-500 rounded-lg flex items-center justify-center">
-                <Zap className="w-6 h-6 text-white" strokeWidth={2.5} />
-              </div>
-              <div>
-                <div className="text-xl font-bold text-slate-900">ACES</div>
-                <div className="text-xs text-slate-500">Operations System</div>
-              </div>
+            <div className="lg:hidden flex items-center justify-center pb-4 border-b border-slate-200">
+              <img
+                src="https://cdn.builder.io/api/v1/image/assets%2Fabc8ab05f7d144f289a582747d3e5ca3%2F2884fc9a1a5d47faad23fb841f7538d3?format=webp&width=200"
+                alt="ACES Managed Services"
+                className="h-14 w-auto"
+              />
             </div>
 
             {/* Form title */}
