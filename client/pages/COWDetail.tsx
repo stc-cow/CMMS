@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { useEffect, useState } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
 import { Layout } from "@/components/layout";
 import { ArrowLeft, Loader2, AlertCircle, MapPin } from "lucide-react";
