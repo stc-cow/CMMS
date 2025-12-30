@@ -2,6 +2,8 @@ import "dotenv/config";
 import express from "express";
 import cors from "cors";
 import { handleDemo } from "./routes/demo";
+import cowsRouter from "./routes/cows";
+import { startPeriodicSync } from "./sync";
 
 export function createServer() {
   const app = express();
@@ -11,6 +13,9 @@ export function createServer() {
   app.use(express.json());
   app.use(express.urlencoded({ extended: true }));
 
+  // Start periodic COW data sync (every 15 minutes)
+  startPeriodicSync(15);
+
   // Example API routes
   app.get("/api/ping", (_req, res) => {
     const ping = process.env.PING_MESSAGE ?? "ping";
@@ -18,6 +23,9 @@ export function createServer() {
   });
 
   app.get("/api/demo", handleDemo);
+
+  // COW Registry API routes
+  app.use("/api/cows", cowsRouter);
 
   return app;
 }
