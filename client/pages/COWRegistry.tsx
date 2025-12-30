@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { useEffect, useState } from "react";
 import { Layout } from "@/components/layout";
 import { Link } from "react-router-dom";
 import { Package, Search, Filter, RefreshCw, AlertCircle, Loader2 } from "lucide-react";
