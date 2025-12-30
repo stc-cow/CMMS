@@ -40,15 +40,18 @@ export default function Login() {
       <div className="relative w-full max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
         {/* Left side - Branding and features */}
         <div className="hidden lg:flex flex-col justify-center space-y-8 text-white">
-          {/* ACES Logo with accent line */}
-          <div className="flex flex-col items-start gap-4">
+          {/* ACES Logo Section */}
+          <div className="flex flex-col items-start">
+            {/* Logo */}
             <img
               src="https://cdn.builder.io/api/v1/image/assets%2Fabc8ab05f7d144f289a582747d3e5ca3%2F2884fc9a1a5d47faad23fb841f7538d3?format=webp&width=400"
               alt="ACES Managed Services"
               className="h-40 w-auto"
             />
-            {/* Brand accent line */}
-            <div className="w-12 h-1 bg-gradient-to-r from-red-500 to-transparent rounded-full"></div>
+            {/* Brand accent line - 10px below logo, 20px above title */}
+            <div className="mt-2.5 mb-5">
+              <div className="w-48 h-0.5 bg-gradient-to-r from-red-500 via-red-500 to-transparent rounded-full shadow-sm shadow-red-900/20"></div>
+            </div>
           </div>
 
           {/* Tagline with refined typography */}
