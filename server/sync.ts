@@ -274,6 +274,18 @@ function mapRowToCOW(_headers: string[], values: string[]): COW | null {
     createdAt: now,
   };
 
+  // Warehouse assignment for OFF-AIR COWs only
+  if (cow.siteStatus === "OFF-AIR" && cow.latitude && cow.longitude) {
+    const warehouseAssignment = findNearestWarehouse(cow.latitude, cow.longitude);
+    if (warehouseAssignment) {
+      cow.assignedWarehouse = warehouseAssignment.warehouse;
+      cow.warehouseDistanceKm = warehouseAssignment.distanceKm;
+    } else {
+      cow.assignedWarehouse = "OFF-AIR – Unknown Location";
+      cow.warehouseDistanceKm = undefined;
+    }
+  }
+
   return cow;
 }
 
