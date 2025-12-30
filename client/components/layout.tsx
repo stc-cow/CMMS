@@ -1,4 +1,6 @@
 import { ReactNode, useState } from "react";
+import * as React from "react";
+import { ReactNode, useState } from "react";
 import { Sidebar } from "./sidebar";
 import { Bell, User, LogOut, Settings } from "lucide-react";
 import { useNavigate } from "react-router-dom";
