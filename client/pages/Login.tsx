@@ -37,14 +37,12 @@ export default function Login() {
         {/* Left side - Branding and features */}
         <div className="hidden lg:flex flex-col justify-center space-y-8 text-white">
           {/* ACES Logo */}
-          <div className="flex items-center gap-3">
-            <div className="w-12 h-12 bg-gradient-to-br from-cyan-400 to-blue-500 rounded-lg flex items-center justify-center shadow-lg">
-              <Zap className="w-7 h-7 text-white" strokeWidth={2.5} />
-            </div>
-            <div>
-              <div className="text-2xl font-bold">ACES</div>
-              <div className="text-xs text-blue-200">Heavy Equipment & Logistics</div>
-            </div>
+          <div className="flex items-center gap-4">
+            <img
+              src="https://cdn.builder.io/api/v1/image/assets%2Fabc8ab05f7d144f289a582747d3e5ca3%2F2884fc9a1a5d47faad23fb841f7538d3?format=webp&width=200"
+              alt="ACES Managed Services"
+              className="h-20 w-auto"
+            />
           </div>
 
           {/* Tagline */}
