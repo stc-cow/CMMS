@@ -76,13 +76,17 @@ export default function Login() {
         {/* Right side - Login form */}
         <div className="w-full max-w-md mx-auto lg:mb-0 mb-4">
           <div className="bg-white/98 backdrop-blur-xl rounded-3xl shadow-[0_20px_40px_rgba(0,0,0,0.15)] p-8 md:p-10 space-y-8 border border-white/30">
-            {/* Mobile ACES Logo */}
-            <div className="lg:hidden flex items-center justify-center pb-4 border-b border-slate-200">
+            {/* Mobile ACES Logo with accent line */}
+            <div className="lg:hidden flex flex-col items-center pb-4 border-b border-slate-200 gap-3">
               <img
                 src="https://cdn.builder.io/api/v1/image/assets%2Fabc8ab05f7d144f289a582747d3e5ca3%2F2884fc9a1a5d47faad23fb841f7538d3?format=webp&width=400"
                 alt="ACES Managed Services"
                 className="h-28 w-auto"
               />
+              {/* Mobile brand accent line */}
+              <div className="mt-1">
+                <div className="w-36 h-0.5 bg-gradient-to-r from-red-500 via-red-500 to-transparent rounded-sm shadow-sm shadow-red-900/20"></div>
+              </div>
             </div>
 
             {/* Form title */}
