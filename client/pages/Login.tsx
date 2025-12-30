@@ -200,19 +200,9 @@ export default function Login() {
               <div className="absolute inset-0 flex items-center">
                 <div className="w-full border-t border-slate-200"></div>
               </div>
-              <div className="relative flex justify-center text-sm">
-                <span className="px-2 bg-white text-slate-500">Demo account</span>
-              </div>
+              <div className="relative flex justify-center text-sm" />
             </div>
 
-            {/* Demo credentials */}
-            <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 space-y-2">
-              <p className="text-xs font-semibold text-blue-900">Demo Credentials:</p>
-              <div className="text-xs text-blue-800 space-y-1">
-                <p><span className="font-medium">Email:</span> demo@aces.com</p>
-                <p><span className="font-medium">Password:</span> any password</p>
-              </div>
-            </div>
 
             {/* Help text */}
             <div className="text-center text-sm text-slate-600">
@@ -227,12 +217,6 @@ export default function Login() {
               </p>
             </div>
 
-            {/* Security note */}
-            <div className="border-t border-slate-200 pt-6">
-              <p className="text-xs text-slate-500 text-center">
-                🔒 Your login credentials are encrypted and secure. ACES systems comply with enterprise security standards.
-              </p>
-            </div>
           </div>
         </div>
       </div>
