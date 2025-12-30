@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { Layout } from "@/components/layout";
 import { Link } from "react-router-dom";
 import { Package, Search, Filter, RefreshCw, AlertCircle, Loader2 } from "lucide-react";
-import { COWListItem, COWListResponse } from "@/../shared/api";
+import { COWListItem, COWListResponse } from "@shared/api";
 import { StatusBadge } from "@/components/cow/StatusBadge";
 import { format } from "date-fns";
 
