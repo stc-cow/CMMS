@@ -103,9 +103,9 @@ export default function Login() {
             {/* Mobile ACES Logo */}
             <div className="lg:hidden flex items-center justify-center pb-4 border-b border-slate-200">
               <img
-                src="https://cdn.builder.io/api/v1/image/assets%2Fabc8ab05f7d144f289a582747d3e5ca3%2F2884fc9a1a5d47faad23fb841f7538d3?format=webp&width=200"
+                src="https://cdn.builder.io/api/v1/image/assets%2Fabc8ab05f7d144f289a582747d3e5ca3%2F2884fc9a1a5d47faad23fb841f7538d3?format=webp&width=400"
                 alt="ACES Managed Services"
-                className="h-14 w-auto"
+                className="h-28 w-auto"
               />
             </div>
 
