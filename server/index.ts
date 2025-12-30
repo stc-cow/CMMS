@@ -14,9 +14,9 @@ export function createServer() {
   app.use(express.json());
   app.use(express.urlencoded({ extended: true }));
 
-  // Seed sample data for initial testing
-  console.log("[SERVER] Checking for existing data...");
-  seedSampleData();
+  // NOTE: Seed data disabled - using live synced data only
+  // console.log("[SERVER] Checking for existing data...");
+  // seedSampleData();
 
   // Start periodic COW data sync (every 15 minutes)
   startPeriodicSync(15);
