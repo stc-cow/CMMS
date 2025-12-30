@@ -1,10 +1,9 @@
 import { ReactNode, useState } from "react";
 import * as React from "react";
-import { ReactNode, useState } from "react";
+import { ReactNode, useState, useRef, useEffect } from "react";
 import { Sidebar } from "./sidebar";
 import { Bell, User, LogOut, Settings } from "lucide-react";
 import { useNavigate } from "react-router-dom";
-import { useRef, useEffect } from "react";
 
 export function Layout({ children }: { children: ReactNode }) {
   const navigate = useNavigate();
