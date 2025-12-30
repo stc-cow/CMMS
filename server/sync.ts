@@ -13,7 +13,12 @@ function parseCSVToCOWs(csvText: string): COW[] {
   if (lines.length < 2) return [];
 
   const headers = parseCSVLine(lines[0]);
+  console.log("[CSV] Headers found:", headers.slice(0, 5).map(h => h.toLowerCase()));
+  console.log(`[CSV] Total headers: ${headers.length}, Total rows: ${lines.length - 1}`);
+
   const cows: COW[] = [];
+  let successCount = 0;
+  let failCount = 0;
 
   for (let i = 1; i < lines.length; i++) {
     const values = parseCSVLine(lines[i]);
@@ -22,8 +27,21 @@ function parseCSVToCOWs(csvText: string): COW[] {
     const cow = mapRowToCOW(headers, values);
     if (cow && cow.cowId) {
       cows.push(cow);
+      successCount++;
+    } else {
+      failCount++;
+      if (failCount <= 3) {
+        // Log first few failures for debugging
+        console.log(`[CSV] Failed to parse row ${i}: cowId="${values[0]}", values.length=${values.length}`);
+      }
     }
   }
+
+  if (failCount > 3) {
+    console.log(`[CSV] ... and ${failCount - 3} more failed rows`);
+  }
+
+  console.log(`[CSV] Parse results: ${successCount} success, ${failCount} failed`);
 
   return cows;
 }
