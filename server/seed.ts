@@ -269,6 +269,9 @@ export const SAMPLE_COWS: COW[] = [
 /**
  * Seed the database with sample data
  * Only seeds if database is empty (doesn't overwrite existing data)
+ *
+ * NOTE: This is DISABLED in production (server/index.ts)
+ * The system uses live Google Sheets synced data instead
  */
 export function seedSampleData() {
   try {
