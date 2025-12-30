@@ -228,6 +228,25 @@ export interface CowAgeBreakdown {
 }
 
 /**
+ * OFF-AIR COWs by warehouse location
+ */
+export interface OffAirByWarehouse {
+  warehouse: string;
+  count: number;
+}
+
+/**
+ * Warehouse drill-down COW record
+ */
+export interface WarehouseDistribution {
+  cowId: string;
+  vendor: string;
+  region: string;
+  location: string;
+  distanceKm: number;
+}
+
+/**
  * Drill-down COW record (simplified for modal)
  */
 export interface DrillDownCOW {
