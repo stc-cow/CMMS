@@ -178,6 +178,22 @@ router.get("/dashboard", (_req, res) => {
     const statusSum = onAir + offAir + standby;
     if (statusSum !== totalCows) {
       console.warn(`[DASHBOARD] ⚠️ Status sum (${statusSum}) != total COWs (${totalCows})`);
+
+      // Find COWs with invalid/missing status
+      const invalidStatusCows = cows.filter(
+        (c) => c.siteStatus !== "ON-AIR" && c.siteStatus !== "OFF-AIR" && c.siteStatus !== "STANDBY"
+      );
+      if (invalidStatusCows.length > 0) {
+        console.warn(`[DASHBOARD] Found ${invalidStatusCows.length} COW(s) with invalid/missing status:`);
+        invalidStatusCows.slice(0, 5).forEach((cow) => {
+          console.warn(
+            `[DASHBOARD]   - ${cow.cowId}: status="${cow.siteStatus}" (null=${cow.siteStatus === null})`
+          );
+        });
+        if (invalidStatusCows.length > 5) {
+          console.warn(`[DASHBOARD]   ... and ${invalidStatusCows.length - 5} more`);
+        }
+      }
     }
 
     // Section 3: OFF-AIR COWs by Vendor (Warehouse Stock)
