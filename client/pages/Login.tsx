@@ -54,9 +54,10 @@ export default function Login() {
 
           {/* Footer text */}
           <div className="pt-12 border-t border-blue-500/30">
-            <p className="text-sm text-blue-200">
-              © 2024 ACES - Advanced COW Equipment System. All rights reserved.
-            </p>
+            <h2 className="text-sm">
+              <span style={{ color: "rgb(155, 155, 155)" }}>Powered by</span>{" "}
+              <strong style={{ color: "rgb(239, 55, 75)" }}>ACES MSD</strong>
+            </h2>
           </div>
         </div>
 
