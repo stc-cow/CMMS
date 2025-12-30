@@ -267,19 +267,32 @@ export async function syncCOWsFromGoogleSheets(): Promise<{ success: boolean; co
  * Start periodic sync (every 15-30 minutes as recommended)
  */
 export function startPeriodicSync(intervalMinutes: number = 15) {
-  console.log(`[SYNC] Starting periodic sync every ${intervalMinutes} minutes`);
+  console.log(`[SYNC] Initializing periodic sync (every ${intervalMinutes} minutes)`);
 
-  // Run once on startup
-  syncCOWsFromGoogleSheets().catch((err) => {
-    console.error("[SYNC] Initial sync failed:", err);
-  });
+  // Run once on startup (async, don't block)
+  (async () => {
+    console.log("[SYNC] Running initial sync on startup...");
+    const result = await syncCOWsFromGoogleSheets();
+    if (result.success) {
+      console.log(`[SYNC] ✓ Initial sync successful: ${result.count} COW records`);
+    } else {
+      console.warn(`[SYNC] ✗ Initial sync failed: ${result.error}`);
+      console.warn("[SYNC] Using sample data for now. To enable live sync:");
+      console.warn("[SYNC] 1. Ensure Google Sheet is publicly shared");
+      console.warn("[SYNC] 2. Verify CSV export URL is correct");
+      console.warn("[SYNC] 3. Check server logs for detailed error messages");
+    }
+  })();
 
   // Then run periodically
   setInterval(
     () => {
-      syncCOWsFromGoogleSheets().catch((err) => {
-        console.error("[SYNC] Periodic sync failed:", err);
-      });
+      (async () => {
+        const result = await syncCOWsFromGoogleSheets();
+        if (!result.success) {
+          console.warn(`[SYNC] Periodic sync failed: ${result.error}`);
+        }
+      })();
     },
     intervalMinutes * 60 * 1000
   );
