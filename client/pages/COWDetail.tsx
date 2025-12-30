@@ -77,7 +77,6 @@ export default function COWDetail() {
     );
   }
 
-  // Helper to display field with label
   const Field = ({
     label,
     value,
@@ -98,7 +97,6 @@ export default function COWDetail() {
   return (
     <Layout>
       <div className="space-y-6">
-        {/* Header */}
         <div className="flex items-start justify-between">
           <div>
             <button
@@ -127,7 +125,6 @@ export default function COWDetail() {
           </div>
         </div>
 
-        {/* Key Info Card */}
         <div className="bg-card border border-border rounded-lg p-6 grid grid-cols-1 md:grid-cols-4 gap-6">
           <Field label="Region" value={cow.region} />
           <Field label="City" value={cow.city} />
@@ -135,7 +132,6 @@ export default function COWDetail() {
           <Field label="Vendor" value={cow.vendor} />
         </div>
 
-        {/* Tabbed Details */}
         <Tabs defaultValue="general" className="w-full">
           <TabsList className="bg-muted border-b border-border rounded-none w-full grid w-full grid-cols-7">
             <TabsTrigger value="general">General</TabsTrigger>
@@ -147,7 +143,6 @@ export default function COWDetail() {
             <TabsTrigger value="transport">Transport</TabsTrigger>
           </TabsList>
 
-          {/* Tab: General Info */}
           <TabsContent value="general" className="bg-card border border-t-0 border-border rounded-b-lg p-6">
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               <Field label="COW ID" value={cow.cowId} />
@@ -183,7 +178,6 @@ export default function COWDetail() {
             </div>
           </TabsContent>
 
-          {/* Tab: Technology Configuration */}
           <TabsContent value="technology" className="bg-card border border-t-0 border-border rounded-b-lg p-6">
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               <div>
@@ -217,7 +211,6 @@ export default function COWDetail() {
             </div>
           </TabsContent>
 
-          {/* Tab: Power & Generator */}
           <TabsContent value="power" className="bg-card border border-t-0 border-border rounded-b-lg p-6">
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               <div>
@@ -252,7 +245,6 @@ export default function COWDetail() {
             </div>
           </TabsContent>
 
-          {/* Tab: BBU & DC Power */}
           <TabsContent value="bbu" className="bg-card border border-t-0 border-border rounded-b-lg p-6">
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               <div>
@@ -287,7 +279,6 @@ export default function COWDetail() {
             </div>
           </TabsContent>
 
-          {/* Tab: HVAC & Shelter */}
           <TabsContent value="hvac" className="bg-card border border-t-0 border-border rounded-b-lg p-6">
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               <div>
@@ -319,7 +310,6 @@ export default function COWDetail() {
             </div>
           </TabsContent>
 
-          {/* Tab: Security & Safety */}
           <TabsContent value="security" className="bg-card border border-t-0 border-border rounded-b-lg p-6">
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               <div>
@@ -350,7 +340,6 @@ export default function COWDetail() {
             </div>
           </TabsContent>
 
-          {/* Tab: Transport & Tower */}
           <TabsContent value="transport" className="bg-card border border-t-0 border-border rounded-b-lg p-6">
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               <div>
@@ -388,7 +377,6 @@ export default function COWDetail() {
           </TabsContent>
         </Tabs>
 
-        {/* Metadata Footer */}
         <div className="text-xs text-muted-foreground space-y-1 pt-4 border-t border-border">
           <p>Last synced from source: {format(new Date(cow.lastSyncedAt), "dd-MM-yyyy HH:mm")}</p>
           <p>Last updated: {format(new Date(cow.lastUpdatedAt), "dd-MM-yyyy HH:mm")}</p>
