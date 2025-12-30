@@ -269,23 +269,64 @@ function mapRowToCOW(_headers: string[], values: string[]): COW | null {
 }
 
 /**
- * Get field value from row with multiple possible column names
+ * Convert empty string to null (rule: blank cells = NULL)
  */
-function getField(row: Record<string, string>, possibleNames: string[]): string {
-  for (const name of possibleNames) {
-    const value = row[name.toLowerCase()];
-    if (value) return value;
-  }
-  return "";
+function nullifyEmpty(value: string | undefined): string | null {
+  if (!value || value.trim() === "") return null;
+  return value.trim();
 }
 
 /**
- * Get boolean field value
+ * Parse boolean value from cell (without transformation, just interpretation)
  */
-function getFieldBoolean(row: Record<string, string>, possibleNames: string[]): boolean | undefined {
-  const value = getField(row, possibleNames).toLowerCase();
+function parseBoolean(value: string | undefined): boolean | undefined {
   if (!value) return undefined;
-  return value === "yes" || value === "true" || value === "1" || value === "on";
+  const normalized = value.trim().toLowerCase();
+  if (normalized === "yes" || normalized === "true" || normalized === "1" || normalized === "on") {
+    return true;
+  }
+  if (normalized === "no" || normalized === "false" || normalized === "0" || normalized === "off") {
+    return false;
+  }
+  return undefined;
+}
+
+/**
+ * Parse numeric value (returns undefined if not a number)
+ */
+function parseNumber(value: string | undefined): number | undefined {
+  if (!value || value.trim() === "") return undefined;
+  const num = parseFloat(value.trim());
+  return isNaN(num) ? undefined : num;
+}
+
+/**
+ * Parse integer value (returns undefined if not an integer)
+ */
+function parseInteger(value: string | undefined): number | undefined {
+  if (!value || value.trim() === "") return undefined;
+  const num = parseInt(value.trim(), 10);
+  return isNaN(num) ? undefined : num;
+}
+
+/**
+ * Parse site status (OFF-AIR, ON-AIR, STANDBY)
+ */
+function parseStatus(value: string | undefined): "ON-AIR" | "OFF-AIR" | "STANDBY" | null {
+  if (!value) return null;
+  const normalized = value.trim().toUpperCase();
+  if (normalized === "ON-AIR" || normalized === "ON AIR") return "ON-AIR";
+  if (normalized === "STANDBY") return "STANDBY";
+  return "OFF-AIR";
+}
+
+/**
+ * Parse COW age (OLD or NEW)
+ */
+function parseCowAge(value: string | undefined): "OLD" | "NEW" | null {
+  if (!value) return null;
+  const normalized = value.trim().toUpperCase();
+  return normalized === "OLD" ? "OLD" : "NEW";
 }
 
 /**
