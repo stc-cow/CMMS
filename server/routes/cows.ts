@@ -272,6 +272,41 @@ router.get("/dashboard/drill-down", (req, res) => {
 });
 
 /**
+ * GET /api/cows/dashboard/warehouse-drill-down
+ * Get OFF-AIR COWs for a specific warehouse
+ * Query params: warehouse
+ */
+router.get("/dashboard/warehouse-drill-down", (req, res) => {
+  try {
+    const { warehouse } = req.query;
+
+    if (!warehouse) {
+      return res.status(400).json({ error: "warehouse parameter is required" });
+    }
+
+    const cows = getAllCOWs().filter(
+      (c) =>
+        c.siteStatus === "OFF-AIR" &&
+        (c.assignedWarehouse === warehouse ||
+          (warehouse === "OFF-AIR – Unknown Location" && !c.assignedWarehouse))
+    );
+
+    const drillDownData = cows.map((cow) => ({
+      cowId: cow.cowId,
+      vendor: cow.vendor || "Unknown",
+      region: cow.region || "Unknown",
+      location: cow.location || "Unknown",
+      distanceKm: cow.warehouseDistanceKm || 0,
+    }));
+
+    res.json({ data: drillDownData, count: drillDownData.length });
+  } catch (error) {
+    console.error("Error fetching warehouse drill-down data:", error);
+    res.status(500).json({ error: "Failed to fetch warehouse drill-down data" });
+  }
+});
+
+/**
  * GET /api/cows/list
  * Get paginated list of COWs with optional search/filters
  */
