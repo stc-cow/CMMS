@@ -146,9 +146,11 @@ router.get("/dashboard", (_req, res) => {
     const cows = getAllCOWs();
 
     // Section 1: COW Distribution by Region
+    // Region from Column E - 4 regions only
     const regionMap = new Map<string, number>();
     cows.forEach((cow) => {
-      const region = cow.region || "Unknown";
+      // Normalize region: trim whitespace, handle empty values
+      const region = (cow.region || "").trim() || "Unassigned";
       regionMap.set(region, (regionMap.get(region) || 0) + 1);
     });
     const regionalDistribution = Array.from(regionMap.entries())
