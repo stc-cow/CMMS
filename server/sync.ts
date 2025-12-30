@@ -402,6 +402,40 @@ export async function syncCOWsFromGoogleSheets(): Promise<{ success: boolean; co
       console.warn(`[SYNC] Database will contain ${cowIdCounts.size} unique COW IDs instead of ${cows.length}`);
     }
 
+    // Check status distribution
+    const statusCounts = {
+      "ON-AIR": 0,
+      "OFF-AIR": 0,
+      "STANDBY": 0,
+      "UNKNOWN": 0,
+    };
+    const invalidStatusCows: string[] = [];
+    cows.forEach((cow) => {
+      if (cow.siteStatus === "ON-AIR") statusCounts["ON-AIR"]++;
+      else if (cow.siteStatus === "OFF-AIR") statusCounts["OFF-AIR"]++;
+      else if (cow.siteStatus === "STANDBY") statusCounts["STANDBY"]++;
+      else {
+        statusCounts["UNKNOWN"]++;
+        invalidStatusCows.push(cow.cowId);
+      }
+    });
+
+    console.log(`[SYNC] Status distribution: ON-AIR=${statusCounts["ON-AIR"]}, OFF-AIR=${statusCounts["OFF-AIR"]}, STANDBY=${statusCounts["STANDBY"]}`);
+    if (statusCounts["UNKNOWN"] > 0) {
+      console.warn(
+        `[SYNC] ⚠️  Found ${statusCounts["UNKNOWN"]} COW(s) with invalid/missing siteStatus:`
+      );
+      invalidStatusCows.slice(0, 5).forEach((id) => {
+        const cow = cows.find((c) => c.cowId === id);
+        console.warn(
+          `[SYNC]   - ${id}: status="${cow?.siteStatus}" (value is ${cow?.siteStatus === null ? "null" : "not one of the expected values"})`
+        );
+      });
+      if (invalidStatusCows.length > 5) {
+        console.warn(`[SYNC]   ... and ${invalidStatusCows.length - 5} more`);
+      }
+    }
+
     // Upsert into database
     upsertCOWs(cows);
     console.log(`[SYNC] Successfully synced ${cows.length} COW records`);
