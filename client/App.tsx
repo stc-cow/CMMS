@@ -29,6 +29,7 @@ function App() {
             <Route path="/login" element={<Login />} />
             <Route path="/" element={<Index />} />
             <Route path="/cows" element={<COWRegistry />} />
+            <Route path="/cows/:cowId" element={<COWDetail />} />
             <Route path="/movements" element={<Movements />} />
             <Route path="/suppliers" element={<Suppliers />} />
             <Route path="/rate-cards" element={<RateCards />} />
