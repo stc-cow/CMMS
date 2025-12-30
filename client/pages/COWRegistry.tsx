@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Layout } from "@/components/layout";
 import { Link } from "react-router-dom";
-import { Package, Search, Filter, RefreshCw, AlertCircle, Loader2 } from "lucide-react";
+import { Package, Search, RefreshCw, AlertCircle, Loader2 } from "lucide-react";
 import { COWListItem, COWListResponse } from "@shared/api";
 import { StatusBadge } from "@/components/cow/StatusBadge";
 import { format } from "date-fns";
@@ -15,15 +15,12 @@ export default function COWRegistry() {
   const [total, setTotal] = useState(0);
   const [lastSyncedAt, setLastSyncedAt] = useState<string>("");
   const [syncing, setSyncing] = useState(false);
-
-  // Search and filter state
   const [searchCowId, setSearchCowId] = useState("");
   const [filterRegion, setFilterRegion] = useState("");
   const [filterSiteStatus, setFilterSiteStatus] = useState("");
   const [filterVendor, setFilterVendor] = useState("");
   const [filterCity, setFilterCity] = useState("");
 
-  // Fetch COW list
   async function fetchCOWs() {
     setLoading(true);
     setError(null);
@@ -55,7 +52,6 @@ export default function COWRegistry() {
     }
   }
 
-  // Trigger manual sync
   async function handleSync() {
     setSyncing(true);
     try {
@@ -72,12 +68,10 @@ export default function COWRegistry() {
     }
   }
 
-  // Initial load
   useEffect(() => {
     fetchCOWs();
   }, [page, pageSize]);
 
-  // Debounced search
   useEffect(() => {
     const timer = setTimeout(() => {
       setPage(1);
@@ -91,7 +85,6 @@ export default function COWRegistry() {
   return (
     <Layout>
       <div className="space-y-6">
-        {/* Header */}
         <div className="flex items-center justify-between">
           <div>
             <h1 className="text-3xl font-bold text-foreground flex items-center gap-2 mb-2">
@@ -123,7 +116,6 @@ export default function COWRegistry() {
           </div>
         </div>
 
-        {/* Last Sync Info */}
         {lastSyncedAt && (
           <div className="bg-blue-50 border border-blue-200 rounded-lg p-3 flex items-start gap-3">
             <AlertCircle size={18} className="text-blue-600 flex-shrink-0 mt-0.5" />
@@ -136,7 +128,6 @@ export default function COWRegistry() {
           </div>
         )}
 
-        {/* Search & Filters */}
         <div className="bg-card border border-border rounded-lg p-4 space-y-4">
           <div className="flex items-center gap-2 mb-4">
             <Search size={18} className="text-muted-foreground" />
@@ -144,7 +135,6 @@ export default function COWRegistry() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {/* COW ID Search */}
             <div>
               <label className="block text-xs font-medium text-muted-foreground mb-1">
                 COW ID
@@ -158,7 +148,6 @@ export default function COWRegistry() {
               />
             </div>
 
-            {/* Region Filter */}
             <div>
               <label className="block text-xs font-medium text-muted-foreground mb-1">
                 Region
@@ -172,7 +161,6 @@ export default function COWRegistry() {
               />
             </div>
 
-            {/* City Filter */}
             <div>
               <label className="block text-xs font-medium text-muted-foreground mb-1">
                 City
@@ -186,7 +174,6 @@ export default function COWRegistry() {
               />
             </div>
 
-            {/* Site Status Filter */}
             <div>
               <label className="block text-xs font-medium text-muted-foreground mb-1">
                 Site Status
@@ -203,7 +190,6 @@ export default function COWRegistry() {
               </select>
             </div>
 
-            {/* Vendor Filter */}
             <div>
               <label className="block text-xs font-medium text-muted-foreground mb-1">
                 Vendor
@@ -217,7 +203,6 @@ export default function COWRegistry() {
               />
             </div>
 
-            {/* Clear Filters */}
             {(searchCowId || filterRegion || filterSiteStatus || filterVendor || filterCity) && (
               <div className="flex items-end">
                 <button
@@ -238,7 +223,6 @@ export default function COWRegistry() {
           </div>
         </div>
 
-        {/* Error State */}
         {error && (
           <div className="bg-red-50 border border-red-200 rounded-lg p-4 flex items-start gap-3">
             <AlertCircle size={18} className="text-red-600 flex-shrink-0 mt-0.5" />
@@ -246,7 +230,6 @@ export default function COWRegistry() {
           </div>
         )}
 
-        {/* Loading State */}
         {loading ? (
           <div className="flex items-center justify-center py-12">
             <div className="text-center">
@@ -263,7 +246,6 @@ export default function COWRegistry() {
           </div>
         ) : (
           <>
-            {/* COWs Table */}
             <div className="bg-card border border-border rounded-lg overflow-hidden">
               <div className="overflow-x-auto">
                 <table className="w-full text-sm">
@@ -336,7 +318,6 @@ export default function COWRegistry() {
               </div>
             </div>
 
-            {/* Pagination */}
             <div className="flex items-center justify-between">
               <div className="text-sm text-muted-foreground">
                 Showing {(page - 1) * pageSize + 1} to {Math.min(page * pageSize, total)} of{" "}
