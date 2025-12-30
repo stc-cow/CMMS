@@ -184,3 +184,63 @@ export interface COWSearchFilters {
   page?: number;
   pageSize?: number;
 }
+
+// ============================================
+// DASHBOARD TYPES
+// ============================================
+
+/**
+ * Regional distribution data
+ */
+export interface RegionalDistribution {
+  region: string;
+  totalCows: number;
+}
+
+/**
+ * Status summary KPI
+ */
+export interface StatusSummary {
+  onAir: number;
+  offAir: number;
+  standby: number;
+}
+
+/**
+ * OFF-AIR COWs by vendor (warehouse stock)
+ */
+export interface OffAirByVendor {
+  vendor: string;
+  count: number;
+}
+
+/**
+ * New vs Old COWs breakdown
+ */
+export interface CowAgeBreakdown {
+  new: number;
+  old: number;
+}
+
+/**
+ * Drill-down COW record (simplified for modal)
+ */
+export interface DrillDownCOW {
+  cowId: string;
+  region: string;
+  vendor: string;
+  siteStatus: string;
+  location: string;
+}
+
+/**
+ * Complete dashboard data
+ */
+export interface DashboardData {
+  regionalDistribution: RegionalDistribution[];
+  statusSummary: StatusSummary;
+  offAirByVendor: OffAirByVendor[];
+  cowAgeBreakdown: CowAgeBreakdown;
+  lastSyncedAt: string;
+  totalCows: number;
+}
