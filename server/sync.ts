@@ -232,6 +232,7 @@ function mapRowToCOW(_headers: string[], values: string[]): COW | null {
     secConnection: nullifyEmpty(values[34]),
     mdbType: nullifyEmpty(values[35]),
     pgStatus: nullifyEmpty(values[36]),
+    mdbStatus: nullifyEmpty(values[70]), // MDB Status (if available in CSV)
     gensetQty: parseInteger(values[37]),
     gensetMake: nullifyEmpty(values[48]),
     engine: nullifyEmpty(values[49]),
