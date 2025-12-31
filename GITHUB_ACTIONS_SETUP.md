@@ -8,7 +8,7 @@ This project uses GitHub Actions to automatically build and deploy to Netlify on
 
 The `.github/workflows/jekyll-gh-pages.yml` file (renamed from Jekyll to Node.js) contains:
 
-1. **Build Stage**: 
+1. **Build Stage**:
    - Checks out code
    - Sets up Node.js v20
    - Installs dependencies with pnpm
@@ -64,6 +64,7 @@ The `.github/workflows/jekyll-gh-pages.yml` file (renamed from Jekyll to Node.js
 ## Build Configuration
 
 The build process:
+
 - **Install**: `pnpm install --frozen-lockfile`
 - **Type Check**: `pnpm run typecheck`
 - **Build**: `pnpm run build:client`
@@ -77,19 +78,23 @@ If your application needs environment variables during the build, add them to:
 2. **Netlify environment variables** (for runtime variables)
 
 Currently set in Netlify:
+
 - None (add as needed)
 
 ## Troubleshooting
 
 ### Deployment fails with "NETLIFY_AUTH_TOKEN not found"
+
 - Verify the secrets are added to GitHub repository settings
 - Check that secret names match exactly
 
 ### Build fails
+
 - Check GitHub Actions logs for specific error messages
 - Run `pnpm install` and `pnpm run build:client` locally to debug
 
 ### Site shows old version
+
 - Clear Netlify cache: **Site settings** → **Builds & deploy** → **Clear cache and redeploy**
 - Or redeploy manually from Netlify dashboard
 
