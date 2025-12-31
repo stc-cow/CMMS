@@ -66,7 +66,7 @@ export interface COW {
   mdbType?: string;
   mdbStatus?: string;
   secConnection?: string;
-  gensetQty: number;
+  gensetQty?: number;
   gensetMake?: string;
   engine?: string;
   alternator?: string;
@@ -156,7 +156,7 @@ export interface COWListItem {
   vendor: string;
   technology: string; // e.g., "2G/3G/LTE/5G"
   towerHeight?: number;
-  gensetQty: number;
+  gensetQty?: number;
   lastDeployDate?: string;
   underReplacement: boolean;
   badges: QuickStatusBadge;
