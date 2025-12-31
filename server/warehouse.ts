@@ -87,18 +87,22 @@ function toRad(degrees: number): number {
 
 /**
  * Find the nearest warehouse for a COW location
- * Returns warehouse name and distance, or null if no warehouse within max distance
+ * Always returns the closest warehouse, regardless of distance
  */
 export function findNearestWarehouse(
   latitude: number,
   longitude: number,
-): { warehouse: string; distanceKm: number } | null {
+): { warehouse: string; distanceKm: number } {
   if (!latitude || !longitude) {
-    return null;
+    // This should never be called without coordinates, but return a fallback
+    return {
+      warehouse: "OFF-AIR – Unknown Location",
+      distanceKm: 0,
+    };
   }
 
   let nearestWarehouse: Warehouse | null = null;
-  let minDistance = MAX_WAREHOUSE_DISTANCE_KM;
+  let minDistance = Infinity;
 
   WAREHOUSES.forEach((warehouse) => {
     const distance = calculateDistance(
@@ -121,5 +125,9 @@ export function findNearestWarehouse(
     };
   }
 
-  return null;
+  // Fallback (should never reach here)
+  return {
+    warehouse: "OFF-AIR – Unknown Location",
+    distanceKm: 0,
+  };
 }
