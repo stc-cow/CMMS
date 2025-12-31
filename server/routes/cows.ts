@@ -305,11 +305,9 @@ router.get("/dashboard/warehouse-drill-down", (req, res) => {
     }
 
     const cows = getAllCOWs().filter(
-      (c) =>
-        c.siteStatus === "OFF-AIR" &&
-        (c.assignedWarehouse === warehouse ||
-          (warehouse === "OFF-AIR – Unknown Location" && !c.assignedWarehouse)),
-    );
+    (c) =>
+      c.siteStatus === "OFF-AIR" && c.assignedWarehouse === warehouse,
+  );
 
     const drillDownData = cows.map((cow) => ({
       cowId: cow.cowId,
