@@ -1,5 +1,5 @@
 import { StatusSummary } from "@shared/api";
-import { Activity, AlertCircle, Pause } from "lucide-react";
+import { Activity, AlertCircle } from "lucide-react";
 
 interface Props {
   data: StatusSummary;
