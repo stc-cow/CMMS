@@ -27,8 +27,6 @@ export function RegionalDistributionCard({ data, onDrillDown }: Props) {
             {data.map((item) => {
               const percentage =
                 totalCows > 0 ? (item.totalCows / totalCows) * 100 : 0;
-              const barPercentage =
-                maxValue > 0 ? (item.totalCows / maxValue) * 100 : 0;
               return (
                 <button
                   key={item.region}
