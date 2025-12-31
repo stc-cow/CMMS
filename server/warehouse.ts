@@ -96,7 +96,7 @@ export function findNearestWarehouse(
   if (!latitude || !longitude) {
     // This should never be called without coordinates, but return a fallback
     return {
-      warehouse: "OFF-AIR – Unknown Location",
+      warehouse: "OFF-AIR & Still on site",
       distanceKm: 0,
     };
   }
@@ -127,7 +127,7 @@ export function findNearestWarehouse(
 
   // Fallback (should never reach here)
   return {
-    warehouse: "OFF-AIR – Unknown Location",
+    warehouse: "OFF-AIR & Still on site",
     distanceKm: 0,
   };
 }
