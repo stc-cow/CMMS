@@ -152,7 +152,7 @@ export interface COWListItem {
   city: string;
   remote?: boolean;
   location: string;
-  siteStatus: string;
+  siteStatus: "ON-AIR" | "OFF-AIR" | "STANDBY";
   vendor: string;
   technology: string; // e.g., "2G/3G/LTE/5G"
   towerHeight?: number;
