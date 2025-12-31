@@ -62,7 +62,7 @@ export interface COW {
   lteConfigurationLevel?: string;
 
   // Power & Generator
-  pgStatus: string;
+  pgStatus?: string;
   mdbType?: string;
   mdbStatus?: string;
   secConnection?: string;
