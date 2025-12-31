@@ -233,7 +233,7 @@ router.get("/dashboard", (_req, res) => {
     cows
       .filter((c) => c.siteStatus === "OFF-AIR")
       .forEach((cow) => {
-        const warehouse = cow.assignedWarehouse || "OFF-AIR – Unknown Location";
+        const warehouse = cow.assignedWarehouse || "OFF-AIR & Still on site";
         warehouseMap.set(warehouse, (warehouseMap.get(warehouse) || 0) + 1);
       });
     const offAirByWarehouse = Array.from(warehouseMap.entries())
