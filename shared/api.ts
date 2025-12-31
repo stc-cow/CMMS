@@ -64,7 +64,7 @@ export interface COW {
   // Power & Generator
   pgStatus: string;
   mdbType?: string;
-  mdbStatus: string;
+  mdbStatus?: string;
   secConnection?: string;
   gensetQty: number;
   gensetMake?: string;
@@ -82,7 +82,7 @@ export interface COW {
   noOfCells?: number;
   noOfStrings?: number;
   backupTime?: string;
-  bbuStatus: string;
+  bbuStatus?: string;
   dcPowerBrand?: string;
   totalCapacity?: string;
   cabinetStatus?: string;
