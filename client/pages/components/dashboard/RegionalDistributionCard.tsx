@@ -33,7 +33,7 @@ export function RegionalDistributionCard({ data, onDrillDown }: Props) {
                 <button
                   key={item.region}
                   onClick={() => onDrillDown?.(item.region)}
-                  className="w-full text-left space-y-1 p-3 rounded-lg hover:bg-secondary/50 transition-colors cursor-pointer group"
+                  className="w-full text-left p-3 rounded-lg hover:bg-secondary/50 transition-colors cursor-pointer group"
                 >
                   <div className="flex justify-between items-center text-sm">
                     <span className="font-semibold text-foreground group-hover:text-primary transition-colors">
@@ -47,12 +47,6 @@ export function RegionalDistributionCard({ data, onDrillDown }: Props) {
                         ({percentage.toFixed(1)}%)
                       </span>
                     </div>
-                  </div>
-                  <div className="w-full bg-secondary rounded-full h-2 overflow-hidden">
-                    <div
-                      className="bg-gradient-to-r from-primary to-primary/70 h-full transition-all duration-300"
-                      style={{ width: `${barPercentage}%` }}
-                    />
                   </div>
                 </button>
               );
