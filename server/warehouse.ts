@@ -59,7 +59,7 @@ export function calculateDistance(
   lat1: number,
   lon1: number,
   lat2: number,
-  lon2: number
+  lon2: number,
 ): number {
   const R = 6371; // Earth's radius in kilometers
   const dLat = toRad(lat2 - lat1);
@@ -91,7 +91,7 @@ function toRad(degrees: number): number {
  */
 export function findNearestWarehouse(
   latitude: number,
-  longitude: number
+  longitude: number,
 ): { warehouse: string; distanceKm: number } | null {
   if (!latitude || !longitude) {
     return null;
@@ -105,7 +105,7 @@ export function findNearestWarehouse(
       latitude,
       longitude,
       warehouse.latitude,
-      warehouse.longitude
+      warehouse.longitude,
     );
 
     if (distance < minDistance) {

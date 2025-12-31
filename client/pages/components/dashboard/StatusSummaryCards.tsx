@@ -45,7 +45,9 @@ export function StatusSummaryCards({ data, onDrillDown }: Props) {
             className={`${card.color} border rounded-lg p-6 space-y-2 transition-all hover:shadow-md cursor-pointer text-left`}
           >
             <div className="flex items-center justify-between">
-              <h3 className="text-sm font-medium text-foreground">{card.label}</h3>
+              <h3 className="text-sm font-medium text-foreground">
+                {card.label}
+              </h3>
               <Icon size={20} className={card.iconColor} />
             </div>
             <p className="text-3xl font-bold text-foreground">{card.value}</p>

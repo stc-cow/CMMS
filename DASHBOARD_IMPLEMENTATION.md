@@ -1,6 +1,7 @@
 # COW Registry Dashboard Implementation
 
 ## Overview
+
 Replaced the COW Registry table view with an operational dashboard that provides a 10-second management snapshot of COW assets across regions, deployment status, and warehouse inventory.
 
 ## Architecture
@@ -8,7 +9,9 @@ Replaced the COW Registry table view with an operational dashboard that provides
 ### API Endpoints Added
 
 #### 1. `GET /api/cows/dashboard`
+
 Returns aggregated dashboard data for all 4 sections:
+
 - **Regional Distribution**: Total COWs per region (sorted by count)
 - **Status Summary**: Count of ON-AIR, OFF-AIR, and STANDBY COWs
 - **Warehouse Stock**: OFF-AIR COWs grouped by vendor
@@ -16,8 +19,10 @@ Returns aggregated dashboard data for all 4 sections:
 - **Metadata**: Total COWs count, last sync timestamp
 
 #### 2. `GET /api/cows/dashboard/drill-down`
+
 Filtered drill-down list for modal views.
 Query params:
+
 - `region` - Filter by region
 - `vendor` - Filter by vendor
 - `siteStatus` - Filter by status (ON-AIR, OFF-AIR, STANDBY)
@@ -39,7 +44,9 @@ Returns simplified COW list (cowId, region, vendor, siteStatus, location).
 ### Components
 
 #### Dashboard Page (`client/pages/Dashboard.tsx`)
+
 Main page component with:
+
 - Auto-refresh every 30 minutes
 - Manual sync button
 - Loading states
@@ -48,7 +55,9 @@ Main page component with:
 - Last updated timestamp (DD-MM-YYYY HH:MM format)
 
 #### Section 1: Status Summary Cards (`client/pages/components/dashboard/StatusSummaryCards.tsx`)
+
 Three KPI cards:
+
 - 🟢 ON-AIR COWs (green)
 - 🔴 Warehouse / Not Deployed (red, labeled as OFF-AIR)
 - 🟡 STANDBY COWs (amber)
@@ -56,26 +65,34 @@ Three KPI cards:
 Click-to-drill behavior for each status.
 
 #### Section 2: Regional Distribution (`client/pages/components/dashboard/RegionalDistributionCard.tsx`)
+
 Horizontal bar chart showing COW count per region:
+
 - Regions sorted by count (descending)
 - Percentage-based visual bars
 - Total display per region
 
 #### Section 3: Warehouse Stock by Vendor (`client/pages/components/dashboard/OffAirByVendorCard.tsx`)
+
 OFF-AIR COWs grouped by vendor:
+
 - Colored vendor indicators
 - Total warehouse count
 - Click-to-drill by vendor
 
 #### Section 4: New vs Old COWs (`client/pages/components/dashboard/CowAgeBreakdownCard.tsx`)
+
 Age breakdown with:
+
 - Two expandable cards (New / Old)
 - Percentage breakdown
 - Total COW count
 - Click-to-drill by age
 
 #### Drill-Down Modal (`client/pages/components/dashboard/DrillDownModal.tsx`)
+
 Read-only list modal showing:
+
 - COW ID
 - Location
 - Region
@@ -111,7 +128,7 @@ The dashboard answers these questions in under 10 seconds:
 ✅ **Read-Only Modal** (no editing in drill-down)  
 ✅ **Color-Coded Status** (green=ON-AIR, red=OFF-AIR, amber=STANDBY)  
 ✅ **Fast Load Times** (aggregated API responses)  
-✅ **Error Handling** (graceful failure messages)  
+✅ **Error Handling** (graceful failure messages)
 
 ## Data Flow
 
@@ -128,7 +145,7 @@ The dashboard answers these questions in under 10 seconds:
 ❌ Technical detail tabs (General, Tech, Power, BBU, HVAC, Security)  
 ❌ 100+ column table display  
 ❌ Edit forms  
-❌ Equipment specifications  
+❌ Equipment specifications
 
 ## Routing
 

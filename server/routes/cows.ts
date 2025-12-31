@@ -11,16 +11,20 @@ const router = Router();
 function computeQuickStatusBadges(cow: COW): QuickStatusBadge {
   // Power Health: Green if PG Status and MDB Status are good, Red if critical, Amber otherwise
   const powerHealth =
-    (cow.pgStatus?.toUpperCase().includes("OK") || cow.pgStatus?.toUpperCase().includes("GOOD")) &&
-    (cow.mdbStatus?.toUpperCase().includes("OK") || cow.mdbStatus?.toUpperCase().includes("GOOD"))
+    (cow.pgStatus?.toUpperCase().includes("OK") ||
+      cow.pgStatus?.toUpperCase().includes("GOOD")) &&
+    (cow.mdbStatus?.toUpperCase().includes("OK") ||
+      cow.mdbStatus?.toUpperCase().includes("GOOD"))
       ? "green"
-      : cow.pgStatus?.toUpperCase().includes("FAIL") || cow.mdbStatus?.toUpperCase().includes("FAIL")
+      : cow.pgStatus?.toUpperCase().includes("FAIL") ||
+          cow.mdbStatus?.toUpperCase().includes("FAIL")
         ? "red"
         : "amber";
 
   // BBU Health: Green if BBU Status is good, Red if critical, Amber otherwise
   const bbuHealth =
-    cow.bbuStatus?.toUpperCase().includes("OK") || cow.bbuStatus?.toUpperCase().includes("GOOD")
+    cow.bbuStatus?.toUpperCase().includes("OK") ||
+    cow.bbuStatus?.toUpperCase().includes("GOOD")
       ? "green"
       : cow.bbuStatus?.toUpperCase().includes("FAIL")
         ? "red"
@@ -28,7 +32,11 @@ function computeQuickStatusBadges(cow: COW): QuickStatusBadge {
 
   // Site Availability: Green if ON-AIR, Red if OFF-AIR, Amber for STANDBY
   const siteAvailability =
-    cow.siteStatus === "ON-AIR" ? "green" : cow.siteStatus === "OFF-AIR" ? "red" : "amber";
+    cow.siteStatus === "ON-AIR"
+      ? "green"
+      : cow.siteStatus === "OFF-AIR"
+        ? "red"
+        : "amber";
 
   return { powerHealth, bbuHealth, siteAvailability };
 }
@@ -163,10 +171,13 @@ router.get("/dashboard", (_req, res) => {
       .sort((a, b) => b.totalCows - a.totalCows);
 
     // Verify regional sum equals total
-    const regionalSum = regionalDistribution.reduce((sum, r) => sum + r.totalCows, 0);
+    const regionalSum = regionalDistribution.reduce(
+      (sum, r) => sum + r.totalCows,
+      0,
+    );
     if (regionalSum !== totalCows) {
       console.warn(
-        `[DASHBOARD] ⚠️ Regional distribution sum (${regionalSum}) != total COWs (${totalCows})`
+        `[DASHBOARD] ⚠️ Regional distribution sum (${regionalSum}) != total COWs (${totalCows})`,
       );
     }
 
@@ -177,21 +188,30 @@ router.get("/dashboard", (_req, res) => {
     const statusSummary = { onAir, offAir, standby };
     const statusSum = onAir + offAir + standby;
     if (statusSum !== totalCows) {
-      console.warn(`[DASHBOARD] ⚠️ Status sum (${statusSum}) != total COWs (${totalCows})`);
+      console.warn(
+        `[DASHBOARD] ⚠️ Status sum (${statusSum}) != total COWs (${totalCows})`,
+      );
 
       // Find COWs with invalid/missing status
       const invalidStatusCows = cows.filter(
-        (c) => c.siteStatus !== "ON-AIR" && c.siteStatus !== "OFF-AIR" && c.siteStatus !== "STANDBY"
+        (c) =>
+          c.siteStatus !== "ON-AIR" &&
+          c.siteStatus !== "OFF-AIR" &&
+          c.siteStatus !== "STANDBY",
       );
       if (invalidStatusCows.length > 0) {
-        console.warn(`[DASHBOARD] Found ${invalidStatusCows.length} COW(s) with invalid/missing status:`);
+        console.warn(
+          `[DASHBOARD] Found ${invalidStatusCows.length} COW(s) with invalid/missing status:`,
+        );
         invalidStatusCows.slice(0, 5).forEach((cow) => {
           console.warn(
-            `[DASHBOARD]   - ${cow.cowId}: status="${cow.siteStatus}" (null=${cow.siteStatus === null})`
+            `[DASHBOARD]   - ${cow.cowId}: status="${cow.siteStatus}" (null=${cow.siteStatus === null})`,
           );
         });
         if (invalidStatusCows.length > 5) {
-          console.warn(`[DASHBOARD]   ... and ${invalidStatusCows.length - 5} more`);
+          console.warn(
+            `[DASHBOARD]   ... and ${invalidStatusCows.length - 5} more`,
+          );
         }
       }
     }
@@ -288,7 +308,7 @@ router.get("/dashboard/warehouse-drill-down", (req, res) => {
       (c) =>
         c.siteStatus === "OFF-AIR" &&
         (c.assignedWarehouse === warehouse ||
-          (warehouse === "OFF-AIR – Unknown Location" && !c.assignedWarehouse))
+          (warehouse === "OFF-AIR – Unknown Location" && !c.assignedWarehouse)),
     );
 
     const drillDownData = cows.map((cow) => ({
@@ -302,7 +322,9 @@ router.get("/dashboard/warehouse-drill-down", (req, res) => {
     res.json({ data: drillDownData, count: drillDownData.length });
   } catch (error) {
     console.error("Error fetching warehouse drill-down data:", error);
-    res.status(500).json({ error: "Failed to fetch warehouse drill-down data" });
+    res
+      .status(500)
+      .json({ error: "Failed to fetch warehouse drill-down data" });
   }
 });
 
@@ -342,7 +364,10 @@ router.get("/list", (req, res) => {
 
     // Paginate
     const pageNum = Math.max(1, parseInt(String(page)) || 1);
-    const pageSizeNum = Math.max(1, Math.min(100, parseInt(String(pageSize)) || 20));
+    const pageSizeNum = Math.max(
+      1,
+      Math.min(100, parseInt(String(pageSize)) || 20),
+    );
     const startIdx = (pageNum - 1) * pageSizeNum;
     const endIdx = startIdx + pageSizeNum;
     const paginatedItems = items.slice(startIdx, endIdx);

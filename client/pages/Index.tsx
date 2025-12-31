@@ -125,8 +125,9 @@ export default function Dashboard() {
               Welcome to ACES Operations
             </h1>
             <p className="text-muted-foreground mb-4">
-              Manage your COW movements and equipment operations efficiently. Today you have 5 pending
-              movements and 8 invoices awaiting approval.
+              Manage your COW movements and equipment operations efficiently.
+              Today you have 5 pending movements and 8 invoices awaiting
+              approval.
             </p>
             <div className="flex gap-3">
               <Link
@@ -226,9 +227,7 @@ export default function Dashboard() {
                     className="p-4 bg-card border border-border rounded-lg hover:border-primary/50 transition-colors"
                   >
                     <div className="flex gap-4">
-                      <div
-                        className={`flex-shrink-0 ${activity.color} mt-1`}
-                      >
+                      <div className={`flex-shrink-0 ${activity.color} mt-1`}>
                         <ActivityIcon size={20} />
                       </div>
                       <div className="flex-1 min-w-0">

@@ -7,7 +7,11 @@ interface StatusBadgeProps {
   label?: string;
 }
 
-export function StatusBadge({ status, size = "normal", label }: StatusBadgeProps) {
+export function StatusBadge({
+  status,
+  size = "normal",
+  label,
+}: StatusBadgeProps) {
   // Map status to color and icon
   const statusMap: Record<
     string,

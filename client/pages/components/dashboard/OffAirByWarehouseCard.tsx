@@ -1,7 +1,12 @@
 import { OffAirByWarehouse, WarehouseDistribution } from "@shared/api";
 import { Package, MapPin } from "lucide-react";
 import { useState } from "react";
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
 import { ScrollArea } from "@/components/ui/scroll-area";
 
 interface Props {
@@ -36,7 +41,9 @@ export function OffAirByWarehouseCard({ data, onDrillDown }: Props) {
 
     try {
       const params = new URLSearchParams({ warehouse });
-      const response = await fetch(`/api/cows/dashboard/warehouse-drill-down?${params}`);
+      const response = await fetch(
+        `/api/cows/dashboard/warehouse-drill-down?${params}`,
+      );
       if (!response.ok) throw new Error("Failed to fetch warehouse data");
       const result = await response.json();
       setDrillDown((prev) => ({
@@ -70,16 +77,21 @@ export function OffAirByWarehouseCard({ data, onDrillDown }: Props) {
       <div className="bg-card border border-border rounded-lg p-6 space-y-4">
         <div className="flex items-center gap-2">
           <MapPin size={24} className="text-primary" />
-          <h2 className="text-xl font-semibold text-foreground">OFF-AIR COWs by Warehouse</h2>
+          <h2 className="text-xl font-semibold text-foreground">
+            OFF-AIR COWs by Warehouse
+          </h2>
         </div>
 
         {data.length === 0 ? (
-          <p className="text-muted-foreground text-sm">No OFF-AIR COWs assigned to warehouses</p>
+          <p className="text-muted-foreground text-sm">
+            No OFF-AIR COWs assigned to warehouses
+          </p>
         ) : (
           <div className="space-y-3">
             <div className="space-y-2">
               {data.map((item) => {
-                const percentage = totalOffAir > 0 ? (item.count / totalOffAir) * 100 : 0;
+                const percentage =
+                  totalOffAir > 0 ? (item.count / totalOffAir) * 100 : 0;
                 return (
                   <button
                     key={item.warehouse}
@@ -94,7 +106,9 @@ export function OffAirByWarehouseCard({ data, onDrillDown }: Props) {
                         <span className="text-muted-foreground font-semibold text-right min-w-12">
                           {item.count}
                         </span>
-                        <span className="text-xs text-muted-foreground">({percentage.toFixed(1)}%)</span>
+                        <span className="text-xs text-muted-foreground">
+                          ({percentage.toFixed(1)}%)
+                        </span>
                       </div>
                     </div>
                     <div className="w-full bg-secondary rounded-full h-2 overflow-hidden">
@@ -110,7 +124,10 @@ export function OffAirByWarehouseCard({ data, onDrillDown }: Props) {
 
             <div className="pt-2 border-t border-border">
               <p className="text-xs text-muted-foreground text-center">
-                Total OFF-AIR: <span className="font-semibold text-foreground">{totalOffAir} COWs</span>
+                Total OFF-AIR:{" "}
+                <span className="font-semibold text-foreground">
+                  {totalOffAir} COWs
+                </span>
               </p>
             </div>
           </div>
@@ -132,7 +149,9 @@ export function OffAirByWarehouseCard({ data, onDrillDown }: Props) {
             </div>
           ) : drillDown.items.length === 0 ? (
             <div className="flex items-center justify-center py-8">
-              <div className="text-muted-foreground">No COWs found for this warehouse</div>
+              <div className="text-muted-foreground">
+                No COWs found for this warehouse
+              </div>
             </div>
           ) : (
             <ScrollArea className="h-96">
@@ -144,8 +163,12 @@ export function OffAirByWarehouseCard({ data, onDrillDown }: Props) {
                   >
                     <div className="flex justify-between items-start gap-2">
                       <div>
-                        <p className="font-semibold text-foreground">{item.cowId}</p>
-                        <p className="text-xs text-muted-foreground">{item.location}</p>
+                        <p className="font-semibold text-foreground">
+                          {item.cowId}
+                        </p>
+                        <p className="text-xs text-muted-foreground">
+                          {item.location}
+                        </p>
                       </div>
                       <div className="text-right">
                         <p className="text-xs font-medium text-primary">
@@ -154,8 +177,12 @@ export function OffAirByWarehouseCard({ data, onDrillDown }: Props) {
                       </div>
                     </div>
                     <div className="flex gap-4 text-xs text-muted-foreground">
-                      <span><strong>Vendor:</strong> {item.vendor}</span>
-                      <span><strong>Region:</strong> {item.region}</span>
+                      <span>
+                        <strong>Vendor:</strong> {item.vendor}
+                      </span>
+                      <span>
+                        <strong>Region:</strong> {item.region}
+                      </span>
                     </div>
                   </div>
                 ))}

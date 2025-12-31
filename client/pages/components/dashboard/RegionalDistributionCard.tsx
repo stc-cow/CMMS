@@ -14,7 +14,9 @@ export function RegionalDistributionCard({ data, onDrillDown }: Props) {
     <div className="bg-card border border-border rounded-lg p-6 space-y-4">
       <div className="flex items-center gap-2">
         <MapPin size={24} className="text-primary" />
-        <h2 className="text-xl font-semibold text-foreground">COW Distribution by Region</h2>
+        <h2 className="text-xl font-semibold text-foreground">
+          COW Distribution by Region
+        </h2>
       </div>
 
       <div className="space-y-3">
@@ -23,8 +25,10 @@ export function RegionalDistributionCard({ data, onDrillDown }: Props) {
         ) : (
           <>
             {data.map((item) => {
-              const percentage = totalCows > 0 ? (item.totalCows / totalCows) * 100 : 0;
-              const barPercentage = maxValue > 0 ? (item.totalCows / maxValue) * 100 : 0;
+              const percentage =
+                totalCows > 0 ? (item.totalCows / totalCows) * 100 : 0;
+              const barPercentage =
+                maxValue > 0 ? (item.totalCows / maxValue) * 100 : 0;
               return (
                 <button
                   key={item.region}
@@ -39,7 +43,9 @@ export function RegionalDistributionCard({ data, onDrillDown }: Props) {
                       <span className="text-muted-foreground font-semibold text-right min-w-12">
                         {item.totalCows}
                       </span>
-                      <span className="text-xs text-muted-foreground">({percentage.toFixed(1)}%)</span>
+                      <span className="text-xs text-muted-foreground">
+                        ({percentage.toFixed(1)}%)
+                      </span>
                     </div>
                   </div>
                   <div className="w-full bg-secondary rounded-full h-2 overflow-hidden">

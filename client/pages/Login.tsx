@@ -13,10 +13,10 @@ export default function Login() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
-    
+
     // Simulate login delay
     await new Promise((resolve) => setTimeout(resolve, 1000));
-    
+
     // For demo purposes, allow any email/password
     if (email && password) {
       navigate("/");
@@ -31,7 +31,10 @@ export default function Login() {
       {/* Animated background elements with enhanced depth */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute top-0 right-0 w-96 h-96 bg-blue-500/8 rounded-full blur-3xl animate-pulse"></div>
-        <div className="absolute bottom-0 left-0 w-96 h-96 bg-cyan-500/8 rounded-full blur-3xl animate-pulse" style={{ animationDelay: "1s" }}></div>
+        <div
+          className="absolute bottom-0 left-0 w-96 h-96 bg-cyan-500/8 rounded-full blur-3xl animate-pulse"
+          style={{ animationDelay: "1s" }}
+        ></div>
         {/* Radial light source behind card */}
         <div className="absolute right-1/4 top-1/3 w-80 h-80 bg-blue-400/5 rounded-full blur-3xl"></div>
       </div>
@@ -92,14 +95,19 @@ export default function Login() {
             {/* Form title */}
             <div className="space-y-2">
               <h2 className="text-3xl font-bold text-white">Welcome back</h2>
-              <p className="text-white">Sign in to your ACES account to manage your operations</p>
+              <p className="text-white">
+                Sign in to your ACES account to manage your operations
+              </p>
             </div>
 
             {/* Login form */}
             <form onSubmit={handleSubmit} className="space-y-6">
               {/* Email field */}
               <div className="space-y-2">
-                <label htmlFor="email" className="block text-sm font-medium text-white">
+                <label
+                  htmlFor="email"
+                  className="block text-sm font-medium text-white"
+                >
                   Email Address
                 </label>
                 <div className="relative group">
@@ -117,7 +125,10 @@ export default function Login() {
 
               {/* Password field */}
               <div className="space-y-2">
-                <label htmlFor="password" className="block text-sm font-medium text-white">
+                <label
+                  htmlFor="password"
+                  className="block text-sm font-medium text-white"
+                >
                   Password
                 </label>
                 <div className="relative group">
@@ -134,7 +145,9 @@ export default function Login() {
                     type="button"
                     onClick={() => setShowPassword(!showPassword)}
                     className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 hover:text-blue-500 transition-colors p-1.5 rounded hover:bg-blue-50"
-                    aria-label={showPassword ? "Hide password" : "Show password"}
+                    aria-label={
+                      showPassword ? "Hide password" : "Show password"
+                    }
                   >
                     {showPassword ? (
                       <EyeOff className="w-5 h-5" />
@@ -175,10 +188,7 @@ export default function Login() {
               >
                 {isLoading ? (
                   <>
-                    <svg
-                      className="animate-spin h-5 w-5"
-                      viewBox="0 0 50 50"
-                    >
+                    <svg className="animate-spin h-5 w-5" viewBox="0 0 50 50">
                       <circle
                         className="opacity-30"
                         cx="25"
@@ -218,7 +228,6 @@ export default function Login() {
               </div>
             </div>
 
-
             {/* Help text with reduced visual weight */}
             <div className="text-center text-sm text-white">
               <p>
@@ -232,7 +241,6 @@ export default function Login() {
                 </a>
               </p>
             </div>
-
           </div>
         </div>
       </div>

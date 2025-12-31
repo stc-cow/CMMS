@@ -16,7 +16,10 @@ function ensureDbDir() {
     fs.mkdirSync(DB_DIR, { recursive: true });
   }
   if (!fs.existsSync(COW_DB_FILE)) {
-    fs.writeFileSync(COW_DB_FILE, JSON.stringify({ cows: {}, lastSyncedAt: new Date().toISOString() }));
+    fs.writeFileSync(
+      COW_DB_FILE,
+      JSON.stringify({ cows: {}, lastSyncedAt: new Date().toISOString() }),
+    );
   }
 }
 
@@ -99,16 +102,30 @@ export function searchCOWs(filters: {
 
   return cows.filter((cow) => {
     if (filters.cowId && !cow.cowId.includes(filters.cowId)) return false;
-    if (filters.location && !cow.location.toLowerCase().includes(filters.location.toLowerCase()))
+    if (
+      filters.location &&
+      !cow.location.toLowerCase().includes(filters.location.toLowerCase())
+    )
       return false;
-    if (filters.city && !cow.city.toLowerCase().includes(filters.city.toLowerCase()))
+    if (
+      filters.city &&
+      !cow.city.toLowerCase().includes(filters.city.toLowerCase())
+    )
       return false;
-    if (filters.region && !cow.region.toLowerCase().includes(filters.region.toLowerCase()))
+    if (
+      filters.region &&
+      !cow.region.toLowerCase().includes(filters.region.toLowerCase())
+    )
       return false;
-    if (filters.siteStatus && cow.siteStatus !== filters.siteStatus) return false;
-    if (filters.vendor && !cow.vendor.toLowerCase().includes(filters.vendor.toLowerCase()))
+    if (filters.siteStatus && cow.siteStatus !== filters.siteStatus)
       return false;
-    if (filters.remote !== undefined && cow.remote !== filters.remote) return false;
+    if (
+      filters.vendor &&
+      !cow.vendor.toLowerCase().includes(filters.vendor.toLowerCase())
+    )
+      return false;
+    if (filters.remote !== undefined && cow.remote !== filters.remote)
+      return false;
     return true;
   });
 }

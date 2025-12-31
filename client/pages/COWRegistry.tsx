@@ -62,7 +62,9 @@ export default function COWRegistry() {
       setPage(1);
       fetchCOWs();
     } catch (err) {
-      alert(`Sync failed: ${err instanceof Error ? err.message : "Unknown error"}`);
+      alert(
+        `Sync failed: ${err instanceof Error ? err.message : "Unknown error"}`,
+      );
     } finally {
       setSyncing(false);
     }
@@ -118,7 +120,10 @@ export default function COWRegistry() {
 
         {lastSyncedAt && (
           <div className="bg-blue-50 border border-blue-200 rounded-lg p-3 flex items-start gap-3">
-            <AlertCircle size={18} className="text-blue-600 flex-shrink-0 mt-0.5" />
+            <AlertCircle
+              size={18}
+              className="text-blue-600 flex-shrink-0 mt-0.5"
+            />
             <div className="text-sm text-blue-800">
               Last synced from Google Sheets:{" "}
               <span className="font-medium">
@@ -203,7 +208,11 @@ export default function COWRegistry() {
               />
             </div>
 
-            {(searchCowId || filterRegion || filterSiteStatus || filterVendor || filterCity) && (
+            {(searchCowId ||
+              filterRegion ||
+              filterSiteStatus ||
+              filterVendor ||
+              filterCity) && (
               <div className="flex items-end">
                 <button
                   onClick={() => {
@@ -225,7 +234,10 @@ export default function COWRegistry() {
 
         {error && (
           <div className="bg-red-50 border border-red-200 rounded-lg p-4 flex items-start gap-3">
-            <AlertCircle size={18} className="text-red-600 flex-shrink-0 mt-0.5" />
+            <AlertCircle
+              size={18}
+              className="text-red-600 flex-shrink-0 mt-0.5"
+            />
             <div className="text-sm text-red-800">{error}</div>
           </div>
         )}
@@ -233,15 +245,23 @@ export default function COWRegistry() {
         {loading ? (
           <div className="flex items-center justify-center py-12">
             <div className="text-center">
-              <Loader2 size={32} className="animate-spin text-primary mx-auto mb-3" />
+              <Loader2
+                size={32}
+                className="animate-spin text-primary mx-auto mb-3"
+              />
               <p className="text-muted-foreground">Loading COW Registry...</p>
             </div>
           </div>
         ) : cows.length === 0 ? (
           <div className="flex items-center justify-center py-12 bg-card border border-border rounded-lg">
             <div className="text-center">
-              <Package size={48} className="text-muted-foreground mx-auto mb-3 opacity-50" />
-              <p className="text-muted-foreground">No COWs found matching your criteria</p>
+              <Package
+                size={48}
+                className="text-muted-foreground mx-auto mb-3 opacity-50"
+              />
+              <p className="text-muted-foreground">
+                No COWs found matching your criteria
+              </p>
             </div>
           </div>
         ) : (
@@ -251,17 +271,39 @@ export default function COWRegistry() {
                 <table className="w-full text-sm">
                   <thead>
                     <tr className="border-b border-border bg-muted/50">
-                      <th className="px-4 py-3 text-left font-medium text-foreground">COW ID</th>
-                      <th className="px-4 py-3 text-left font-medium text-foreground">Site Label</th>
-                      <th className="px-4 py-3 text-left font-medium text-foreground">Region</th>
-                      <th className="px-4 py-3 text-left font-medium text-foreground">City</th>
-                      <th className="px-4 py-3 text-left font-medium text-foreground">Location</th>
-                      <th className="px-4 py-3 text-left font-medium text-foreground">Vendor</th>
-                      <th className="px-4 py-3 text-left font-medium text-foreground">Technology</th>
-                      <th className="px-4 py-3 text-left font-medium text-foreground">Tower Height</th>
-                      <th className="px-4 py-3 text-left font-medium text-foreground">Status</th>
-                      <th className="px-4 py-3 text-center font-medium text-foreground">Health</th>
-                      <th className="px-4 py-3 text-center font-medium text-foreground">Action</th>
+                      <th className="px-4 py-3 text-left font-medium text-foreground">
+                        COW ID
+                      </th>
+                      <th className="px-4 py-3 text-left font-medium text-foreground">
+                        Site Label
+                      </th>
+                      <th className="px-4 py-3 text-left font-medium text-foreground">
+                        Region
+                      </th>
+                      <th className="px-4 py-3 text-left font-medium text-foreground">
+                        City
+                      </th>
+                      <th className="px-4 py-3 text-left font-medium text-foreground">
+                        Location
+                      </th>
+                      <th className="px-4 py-3 text-left font-medium text-foreground">
+                        Vendor
+                      </th>
+                      <th className="px-4 py-3 text-left font-medium text-foreground">
+                        Technology
+                      </th>
+                      <th className="px-4 py-3 text-left font-medium text-foreground">
+                        Tower Height
+                      </th>
+                      <th className="px-4 py-3 text-left font-medium text-foreground">
+                        Status
+                      </th>
+                      <th className="px-4 py-3 text-center font-medium text-foreground">
+                        Health
+                      </th>
+                      <th className="px-4 py-3 text-center font-medium text-foreground">
+                        Action
+                      </th>
                     </tr>
                   </thead>
                   <tbody>
@@ -273,13 +315,25 @@ export default function COWRegistry() {
                         }`}
                       >
                         <td className="px-4 py-3">
-                          <span className="font-medium text-primary">{cow.cowId}</span>
+                          <span className="font-medium text-primary">
+                            {cow.cowId}
+                          </span>
                         </td>
-                        <td className="px-4 py-3 text-foreground">{cow.siteLabel}</td>
-                        <td className="px-4 py-3 text-foreground">{cow.region}</td>
-                        <td className="px-4 py-3 text-foreground">{cow.city}</td>
-                        <td className="px-4 py-3 text-foreground text-xs">{cow.location}</td>
-                        <td className="px-4 py-3 text-foreground text-xs">{cow.vendor}</td>
+                        <td className="px-4 py-3 text-foreground">
+                          {cow.siteLabel}
+                        </td>
+                        <td className="px-4 py-3 text-foreground">
+                          {cow.region}
+                        </td>
+                        <td className="px-4 py-3 text-foreground">
+                          {cow.city}
+                        </td>
+                        <td className="px-4 py-3 text-foreground text-xs">
+                          {cow.location}
+                        </td>
+                        <td className="px-4 py-3 text-foreground text-xs">
+                          {cow.vendor}
+                        </td>
                         <td className="px-4 py-3 text-foreground text-xs font-medium">
                           {cow.technology}
                         </td>
@@ -320,8 +374,8 @@ export default function COWRegistry() {
 
             <div className="flex items-center justify-between">
               <div className="text-sm text-muted-foreground">
-                Showing {(page - 1) * pageSize + 1} to {Math.min(page * pageSize, total)} of{" "}
-                {total} COWs
+                Showing {(page - 1) * pageSize + 1} to{" "}
+                {Math.min(page * pageSize, total)} of {total} COWs
               </div>
               <div className="flex gap-2">
                 <button

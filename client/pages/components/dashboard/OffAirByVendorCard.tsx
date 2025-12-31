@@ -21,7 +21,9 @@ export function OffAirByVendorCard({ data, onDrillDown }: Props) {
     <div className="bg-card border border-border rounded-lg p-6 space-y-4">
       <div className="flex items-center gap-2">
         <Package size={24} className="text-primary" />
-        <h2 className="text-xl font-semibold text-foreground">Warehouse Stock by Vendor</h2>
+        <h2 className="text-xl font-semibold text-foreground">
+          Warehouse Stock by Vendor
+        </h2>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -39,7 +41,9 @@ export function OffAirByVendorCard({ data, onDrillDown }: Props) {
                   <div
                     className={`w-3 h-3 rounded-full ${colors[idx % colors.length]}`}
                   />
-                  <span className="font-medium text-foreground text-sm">{item.vendor}</span>
+                  <span className="font-medium text-foreground text-sm">
+                    {item.vendor}
+                  </span>
                 </div>
                 <span className="font-bold text-foreground group-hover:text-primary transition-colors">
                   {item.count}

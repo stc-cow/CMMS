@@ -35,7 +35,9 @@ export default function COWDetail() {
       const data = await response.json();
       setCow(data.data);
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Failed to fetch COW details");
+      setError(
+        err instanceof Error ? err.message : "Failed to fetch COW details",
+      );
     } finally {
       setLoading(false);
     }
@@ -46,7 +48,10 @@ export default function COWDetail() {
       <Layout>
         <div className="flex items-center justify-center py-12">
           <div className="text-center">
-            <Loader2 size={32} className="animate-spin text-primary mx-auto mb-3" />
+            <Loader2
+              size={32}
+              className="animate-spin text-primary mx-auto mb-3"
+            />
             <p className="text-muted-foreground">Loading COW details...</p>
           </div>
         </div>
@@ -143,7 +148,10 @@ export default function COWDetail() {
             <TabsTrigger value="transport">Transport</TabsTrigger>
           </TabsList>
 
-          <TabsContent value="general" className="bg-card border border-t-0 border-border rounded-b-lg p-6">
+          <TabsContent
+            value="general"
+            className="bg-card border border-t-0 border-border rounded-b-lg p-6"
+          >
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               <Field label="COW ID" value={cow.cowId} />
               <Field label="Site Label" value={cow.siteLabel} />
@@ -155,11 +163,16 @@ export default function COWDetail() {
               <Field label="Site Status" value={cow.siteStatus} />
               <Field label="Vendor" value={cow.vendor} />
               <Field label="COW Age" value={cow.cowAge} />
-              <Field label="Remote / Metro" value={cow.remote ? "Remote" : "Metropolitan"} />
+              <Field
+                label="Remote / Metro"
+                value={cow.remote ? "Remote" : "Metropolitan"}
+              />
 
               {(cow.latitude || cow.longitude) && (
                 <div className="md:col-span-2 lg:col-span-3">
-                  <p className="text-xs font-medium text-muted-foreground mb-2">Location Coordinates</p>
+                  <p className="text-xs font-medium text-muted-foreground mb-2">
+                    Location Coordinates
+                  </p>
                   <div className="flex items-center gap-2 text-sm font-medium text-foreground">
                     <MapPin size={16} className="text-primary" />
                     {cow.latitude}, {cow.longitude}
@@ -169,7 +182,9 @@ export default function COWDetail() {
 
               {cow.remarks && (
                 <div className="md:col-span-2 lg:col-span-3">
-                  <p className="text-xs font-medium text-muted-foreground mb-2">Remarks</p>
+                  <p className="text-xs font-medium text-muted-foreground mb-2">
+                    Remarks
+                  </p>
                   <p className="text-sm text-foreground bg-muted/50 p-3 rounded border border-border">
                     {cow.remarks}
                   </p>
@@ -178,20 +193,47 @@ export default function COWDetail() {
             </div>
           </TabsContent>
 
-          <TabsContent value="technology" className="bg-card border border-t-0 border-border rounded-b-lg p-6">
+          <TabsContent
+            value="technology"
+            className="bg-card border border-t-0 border-border rounded-b-lg p-6"
+          >
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               <div>
-                <p className="text-xs font-semibold text-muted-foreground mb-3 uppercase">Availability</p>
+                <p className="text-xs font-semibold text-muted-foreground mb-3 uppercase">
+                  Availability
+                </p>
                 <div className="space-y-3">
-                  <Field label="2G" value={cow.availability2g || (cow.technology2g ? "Yes" : "—")} />
-                  <Field label="3G" value={cow.availability3g || (cow.technology3g ? "Yes" : "—")} />
-                  <Field label="LTE" value={cow.availabilityLte || (cow.technologyLte ? "Yes" : "—")} />
-                  <Field label="5G" value={cow.availability5g || (cow.technology5g ? "Yes" : "—")} />
+                  <Field
+                    label="2G"
+                    value={
+                      cow.availability2g || (cow.technology2g ? "Yes" : "—")
+                    }
+                  />
+                  <Field
+                    label="3G"
+                    value={
+                      cow.availability3g || (cow.technology3g ? "Yes" : "—")
+                    }
+                  />
+                  <Field
+                    label="LTE"
+                    value={
+                      cow.availabilityLte || (cow.technologyLte ? "Yes" : "—")
+                    }
+                  />
+                  <Field
+                    label="5G"
+                    value={
+                      cow.availability5g || (cow.technology5g ? "Yes" : "—")
+                    }
+                  />
                 </div>
               </div>
 
               <div>
-                <p className="text-xs font-semibold text-muted-foreground mb-3 uppercase">Configuration</p>
+                <p className="text-xs font-semibold text-muted-foreground mb-3 uppercase">
+                  Configuration
+                </p>
                 <div className="space-y-3">
                   <Field label="2G Config" value={cow.configuration2g} />
                   <Field label="3G Config" value={cow.configuration3g} />
@@ -201,20 +243,30 @@ export default function COWDetail() {
               </div>
 
               <div>
-                <p className="text-xs font-semibold text-muted-foreground mb-3 uppercase">Band Configuration</p>
+                <p className="text-xs font-semibold text-muted-foreground mb-3 uppercase">
+                  Band Configuration
+                </p>
                 <div className="space-y-3">
                   <Field label="LTE Band Count" value={cow.lteBandCount} />
                   <Field label="5G Band Count" value={cow._5gBandCount} />
-                  <Field label="LTE Config Level" value={cow.lteConfigurationLevel} />
+                  <Field
+                    label="LTE Config Level"
+                    value={cow.lteConfigurationLevel}
+                  />
                 </div>
               </div>
             </div>
           </TabsContent>
 
-          <TabsContent value="power" className="bg-card border border-t-0 border-border rounded-b-lg p-6">
+          <TabsContent
+            value="power"
+            className="bg-card border border-t-0 border-border rounded-b-lg p-6"
+          >
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               <div>
-                <p className="text-xs font-semibold text-muted-foreground mb-3 uppercase">Status</p>
+                <p className="text-xs font-semibold text-muted-foreground mb-3 uppercase">
+                  Status
+                </p>
                 <div className="space-y-3">
                   <Field label="PG Status" value={cow.pgStatus} />
                   <Field label="MDB Status" value={cow.mdbStatus} />
@@ -224,7 +276,9 @@ export default function COWDetail() {
               </div>
 
               <div>
-                <p className="text-xs font-semibold text-muted-foreground mb-3 uppercase">Generator</p>
+                <p className="text-xs font-semibold text-muted-foreground mb-3 uppercase">
+                  Generator
+                </p>
                 <div className="space-y-3">
                   <Field label="Genset Qty" value={cow.gensetQty} />
                   <Field label="Genset Make" value={cow.gensetMake} />
@@ -234,21 +288,34 @@ export default function COWDetail() {
               </div>
 
               <div>
-                <p className="text-xs font-semibold text-muted-foreground mb-3 uppercase">Specs</p>
+                <p className="text-xs font-semibold text-muted-foreground mb-3 uppercase">
+                  Specs
+                </p>
                 <div className="space-y-3">
                   <Field label="Capacity" value={cow.capacity} />
-                  <Field label="Fuel Tank Capacity" value={cow.fuelTankCapacity} />
+                  <Field
+                    label="Fuel Tank Capacity"
+                    value={cow.fuelTankCapacity}
+                  />
                   <Field label="Cooling System" value={cow.coolingSystem} />
-                  <Field label="Under Repairing/OVH" value={cow.underRepairingOvhauling} />
+                  <Field
+                    label="Under Repairing/OVH"
+                    value={cow.underRepairingOvhauling}
+                  />
                 </div>
               </div>
             </div>
           </TabsContent>
 
-          <TabsContent value="bbu" className="bg-card border border-t-0 border-border rounded-b-lg p-6">
+          <TabsContent
+            value="bbu"
+            className="bg-card border border-t-0 border-border rounded-b-lg p-6"
+          >
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               <div>
-                <p className="text-xs font-semibold text-muted-foreground mb-3 uppercase">BBU</p>
+                <p className="text-xs font-semibold text-muted-foreground mb-3 uppercase">
+                  BBU
+                </p>
                 <div className="space-y-3">
                   <Field label="Installed BBU" value={cow.installedBbu} />
                   <Field label="BBU Brand" value={cow.bbuBrand} />
@@ -258,7 +325,9 @@ export default function COWDetail() {
               </div>
 
               <div>
-                <p className="text-xs font-semibold text-muted-foreground mb-3 uppercase">Cells & Strings</p>
+                <p className="text-xs font-semibold text-muted-foreground mb-3 uppercase">
+                  Cells & Strings
+                </p>
                 <div className="space-y-3">
                   <Field label="No of Cells" value={cow.noOfCells} />
                   <Field label="No of Strings" value={cow.noOfStrings} />
@@ -267,29 +336,44 @@ export default function COWDetail() {
               </div>
 
               <div>
-                <p className="text-xs font-semibold text-muted-foreground mb-3 uppercase">DC Power</p>
+                <p className="text-xs font-semibold text-muted-foreground mb-3 uppercase">
+                  DC Power
+                </p>
                 <div className="space-y-3">
                   <Field label="DC Power Brand" value={cow.dcPowerBrand} />
                   <Field label="Total Capacity" value={cow.totalCapacity} />
                   <Field label="Cabinet Status" value={cow.cabinetStatus} />
-                  <Field label="Rectifiers Installed" value={cow.rectifiersInstalled} />
-                  <Field label="Rectifiers Required" value={cow.rectifiersRequired} />
+                  <Field
+                    label="Rectifiers Installed"
+                    value={cow.rectifiersInstalled}
+                  />
+                  <Field
+                    label="Rectifiers Required"
+                    value={cow.rectifiersRequired}
+                  />
                 </div>
               </div>
             </div>
           </TabsContent>
 
-          <TabsContent value="hvac" className="bg-card border border-t-0 border-border rounded-b-lg p-6">
+          <TabsContent
+            value="hvac"
+            className="bg-card border border-t-0 border-border rounded-b-lg p-6"
+          >
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               <div>
-                <p className="text-xs font-semibold text-muted-foreground mb-3 uppercase">Shelter</p>
+                <p className="text-xs font-semibold text-muted-foreground mb-3 uppercase">
+                  Shelter
+                </p>
                 <div className="space-y-3">
                   <Field label="Shelter / Outdoor" value={cow.shelterOutdoor} />
                 </div>
               </div>
 
               <div>
-                <p className="text-xs font-semibold text-muted-foreground mb-3 uppercase">AC</p>
+                <p className="text-xs font-semibold text-muted-foreground mb-3 uppercase">
+                  AC
+                </p>
                 <div className="space-y-3">
                   <Field label="AC Make" value={cow.acMake} />
                   <Field label="AC Type" value={cow.acType} />
@@ -301,7 +385,9 @@ export default function COWDetail() {
               </div>
 
               <div>
-                <p className="text-xs font-semibold text-muted-foreground mb-3 uppercase">HVAC</p>
+                <p className="text-xs font-semibold text-muted-foreground mb-3 uppercase">
+                  HVAC
+                </p>
                 <div className="space-y-3">
                   <Field label="HVAC Brand" value={cow.hvacBrand} />
                   <Field label="HVAC Status" value={cow.hvacStatus} />
@@ -310,18 +396,28 @@ export default function COWDetail() {
             </div>
           </TabsContent>
 
-          <TabsContent value="security" className="bg-card border border-t-0 border-border rounded-b-lg p-6">
+          <TabsContent
+            value="security"
+            className="bg-card border border-t-0 border-border rounded-b-lg p-6"
+          >
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               <div>
-                <p className="text-xs font-semibold text-muted-foreground mb-3 uppercase">Fire Panel</p>
+                <p className="text-xs font-semibold text-muted-foreground mb-3 uppercase">
+                  Fire Panel
+                </p>
                 <div className="space-y-3">
                   <Field label="Fire Panel Type" value={cow.firePanelType} />
-                  <Field label="Fire Panel Status" value={cow.firePanelStatus} />
+                  <Field
+                    label="Fire Panel Status"
+                    value={cow.firePanelStatus}
+                  />
                 </div>
               </div>
 
               <div>
-                <p className="text-xs font-semibold text-muted-foreground mb-3 uppercase">Cylinders</p>
+                <p className="text-xs font-semibold text-muted-foreground mb-3 uppercase">
+                  Cylinders
+                </p>
                 <div className="space-y-3">
                   <Field label="Cylinder Status" value={cow.cylinderStatus} />
                   <Field label="Manual / Auto" value={cow.manualAuto} />
@@ -329,10 +425,18 @@ export default function COWDetail() {
               </div>
 
               <div>
-                <p className="text-xs font-semibold text-muted-foreground mb-3 uppercase">Other Security</p>
+                <p className="text-xs font-semibold text-muted-foreground mb-3 uppercase">
+                  Other Security
+                </p>
                 <div className="space-y-3">
-                  <Field label="Shelter Tube Rods" value={cow.shelterTubeRodsStatus} />
-                  <Field label="Security Light Status" value={cow.securityLightStatus} />
+                  <Field
+                    label="Shelter Tube Rods"
+                    value={cow.shelterTubeRodsStatus}
+                  />
+                  <Field
+                    label="Security Light Status"
+                    value={cow.securityLightStatus}
+                  />
                   <Field label="GPS Status" value={cow.gpsStatus} />
                   <Field label="Combination #" value={cow.combinationNumber} />
                 </div>
@@ -340,28 +444,47 @@ export default function COWDetail() {
             </div>
           </TabsContent>
 
-          <TabsContent value="transport" className="bg-card border border-t-0 border-border rounded-b-lg p-6">
+          <TabsContent
+            value="transport"
+            className="bg-card border border-t-0 border-border rounded-b-lg p-6"
+          >
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               <div>
-                <p className="text-xs font-semibold text-muted-foreground mb-3 uppercase">Tower</p>
+                <p className="text-xs font-semibold text-muted-foreground mb-3 uppercase">
+                  Tower
+                </p>
                 <div className="space-y-3">
-                  <Field label="Tower Height" value={cow.towerHeight} unit="m" />
+                  <Field
+                    label="Tower Height"
+                    value={cow.towerHeight}
+                    unit="m"
+                  />
                   <Field label="Tower Type" value={cow.towerType} />
                   <Field label="Tower System" value={cow.towerSystem} />
                 </div>
               </div>
 
               <div>
-                <p className="text-xs font-semibold text-muted-foreground mb-3 uppercase">Vehicle</p>
+                <p className="text-xs font-semibold text-muted-foreground mb-3 uppercase">
+                  Vehicle
+                </p>
                 <div className="space-y-3">
                   <Field label="Vehicle Make" value={cow.vehicleMake} />
-                  <Field label="Plate # (English)" value={cow.plateNumberEnglish} />
-                  <Field label="Plate # (Arabic)" value={cow.plateNumberArabic} />
+                  <Field
+                    label="Plate # (English)"
+                    value={cow.plateNumberEnglish}
+                  />
+                  <Field
+                    label="Plate # (Arabic)"
+                    value={cow.plateNumberArabic}
+                  />
                 </div>
               </div>
 
               <div>
-                <p className="text-xs font-semibold text-muted-foreground mb-3 uppercase">Microwave Link</p>
+                <p className="text-xs font-semibold text-muted-foreground mb-3 uppercase">
+                  Microwave Link
+                </p>
                 <div className="space-y-3">
                   <Field label="MW Dish" value={cow.mwDish} />
                   <Field label="MW Frequency" value={cow.mwFrequency} />
@@ -378,8 +501,14 @@ export default function COWDetail() {
         </Tabs>
 
         <div className="text-xs text-muted-foreground space-y-1 pt-4 border-t border-border">
-          <p>Last synced from source: {format(new Date(cow.lastSyncedAt), "dd-MM-yyyy HH:mm")}</p>
-          <p>Last updated: {format(new Date(cow.lastUpdatedAt), "dd-MM-yyyy HH:mm")}</p>
+          <p>
+            Last synced from source:{" "}
+            {format(new Date(cow.lastSyncedAt), "dd-MM-yyyy HH:mm")}
+          </p>
+          <p>
+            Last updated:{" "}
+            {format(new Date(cow.lastUpdatedAt), "dd-MM-yyyy HH:mm")}
+          </p>
         </div>
       </div>
     </Layout>

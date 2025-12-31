@@ -4,7 +4,13 @@ import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Checkbox } from "@/components/ui/checkbox";
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Plus, Trash2, Edit2, Package } from "lucide-react";
 
@@ -56,8 +62,16 @@ const INITIAL_SUPPLIERS: Supplier[] = [
   { id: "8", name: "Quick Arrive for transportation Est.", equipment: [] },
   { id: "9", name: "Hamad Abdullah H . Al-Obaidan EST", equipment: [] },
   { id: "10", name: "Majed Sunhat Alotaibi EST", equipment: [] },
-  { id: "11", name: "Balansia Alarbaia for General Contracting Est.", equipment: [] },
-  { id: "12", name: "Abdullah Ibrahim Al-Subaie Contracting Est.", equipment: [] },
+  {
+    id: "11",
+    name: "Balansia Alarbaia for General Contracting Est.",
+    equipment: [],
+  },
+  {
+    id: "12",
+    name: "Abdullah Ibrahim Al-Subaie Contracting Est.",
+    equipment: [],
+  },
 ];
 
 export default function Suppliers() {
@@ -115,9 +129,13 @@ export default function Suppliers() {
       setSuppliers(
         suppliers.map((s) =>
           s.id === editingId
-            ? { ...formData, id: editingId, equipment: formData.equipment || [] }
-            : s
-        )
+            ? {
+                ...formData,
+                id: editingId,
+                equipment: formData.equipment || [],
+              }
+            : s,
+        ),
       );
     } else {
       // Add new supplier
@@ -144,9 +162,12 @@ export default function Suppliers() {
         {/* Header */}
         <div className="flex items-center justify-between">
           <div>
-            <h1 className="text-3xl font-bold text-foreground mb-2">Supplier Management</h1>
+            <h1 className="text-3xl font-bold text-foreground mb-2">
+              Supplier Management
+            </h1>
             <p className="text-muted-foreground">
-              Manage supplier master data including names, CR/VAT numbers, contact details, equipment, and contract terms
+              Manage supplier master data including names, CR/VAT numbers,
+              contact details, equipment, and contract terms
             </p>
           </div>
           <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
@@ -211,7 +232,10 @@ export default function Suppliers() {
                     placeholder="Primary contact person name"
                     value={formData.contactPerson || ""}
                     onChange={(e) =>
-                      setFormData({ ...formData, contactPerson: e.target.value })
+                      setFormData({
+                        ...formData,
+                        contactPerson: e.target.value,
+                      })
                     }
                   />
                 </div>
@@ -251,12 +275,20 @@ export default function Suppliers() {
                     <ScrollArea className="h-48">
                       <div className="space-y-3 pr-4">
                         {EQUIPMENT_LIST.map((equipment) => (
-                          <div key={equipment} className="flex items-center gap-3">
+                          <div
+                            key={equipment}
+                            className="flex items-center gap-3"
+                          >
                             <Checkbox
                               id={equipment}
-                              checked={(formData.equipment || []).includes(equipment)}
+                              checked={(formData.equipment || []).includes(
+                                equipment,
+                              )}
                               onCheckedChange={(checked) =>
-                                handleEquipmentChange(equipment, checked as boolean)
+                                handleEquipmentChange(
+                                  equipment,
+                                  checked as boolean,
+                                )
                               }
                             />
                             <label
@@ -298,7 +330,9 @@ export default function Suppliers() {
           {suppliers.length === 0 ? (
             <div className="col-span-full flex items-center justify-center min-h-96 text-center">
               <div className="space-y-2">
-                <p className="text-lg font-semibold text-foreground">No suppliers found</p>
+                <p className="text-lg font-semibold text-foreground">
+                  No suppliers found
+                </p>
                 <p className="text-sm text-muted-foreground">
                   Click "Add Supplier" to create your first supplier
                 </p>
@@ -316,27 +350,32 @@ export default function Suppliers() {
                   </h3>
                   {supplier.crNumber && (
                     <p className="text-xs text-muted-foreground">
-                      <span className="font-medium">CR:</span> {supplier.crNumber}
+                      <span className="font-medium">CR:</span>{" "}
+                      {supplier.crNumber}
                     </p>
                   )}
                   {supplier.vatNumber && (
                     <p className="text-xs text-muted-foreground">
-                      <span className="font-medium">VAT:</span> {supplier.vatNumber}
+                      <span className="font-medium">VAT:</span>{" "}
+                      {supplier.vatNumber}
                     </p>
                   )}
                   {supplier.contactPerson && (
                     <p className="text-xs text-muted-foreground">
-                      <span className="font-medium">Contact:</span> {supplier.contactPerson}
+                      <span className="font-medium">Contact:</span>{" "}
+                      {supplier.contactPerson}
                     </p>
                   )}
                   {supplier.phone && (
                     <p className="text-xs text-muted-foreground">
-                      <span className="font-medium">Phone:</span> {supplier.phone}
+                      <span className="font-medium">Phone:</span>{" "}
+                      {supplier.phone}
                     </p>
                   )}
                   {supplier.email && (
                     <p className="text-xs text-muted-foreground truncate">
-                      <span className="font-medium">Email:</span> {supplier.email}
+                      <span className="font-medium">Email:</span>{" "}
+                      {supplier.email}
                     </p>
                   )}
 
@@ -406,14 +445,21 @@ export default function Suppliers() {
             <div className="grid grid-cols-2 gap-4">
               <div>
                 <p className="text-sm text-muted-foreground">
-                  Total suppliers: <span className="font-semibold text-foreground">{suppliers.length}</span>
+                  Total suppliers:{" "}
+                  <span className="font-semibold text-foreground">
+                    {suppliers.length}
+                  </span>
                 </p>
               </div>
               <div>
                 <p className="text-sm text-muted-foreground">
                   Suppliers with equipment:{" "}
                   <span className="font-semibold text-foreground">
-                    {suppliers.filter((s) => s.equipment && s.equipment.length > 0).length}
+                    {
+                      suppliers.filter(
+                        (s) => s.equipment && s.equipment.length > 0,
+                      ).length
+                    }
                   </span>
                 </p>
               </div>

@@ -11,7 +11,9 @@ import { CowAgeBreakdownCard } from "./components/dashboard/CowAgeBreakdownCard"
 import { DrillDownModal } from "./components/dashboard/DrillDownModal";
 
 export default function Dashboard() {
-  const [dashboardData, setDashboardData] = useState<DashboardData | null>(null);
+  const [dashboardData, setDashboardData] = useState<DashboardData | null>(
+    null,
+  );
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [syncing, setSyncing] = useState(false);
@@ -31,7 +33,9 @@ export default function Dashboard() {
       const data = await response.json();
       setDashboardData(data);
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Failed to fetch dashboard data");
+      setError(
+        err instanceof Error ? err.message : "Failed to fetch dashboard data",
+      );
       console.error("Error fetching dashboard:", err);
     } finally {
       setLoading(false);
@@ -46,7 +50,9 @@ export default function Dashboard() {
       await fetchDashboard();
       alert("Sync successful! Dashboard updated.");
     } catch (err) {
-      alert(`Sync failed: ${err instanceof Error ? err.message : "Unknown error"}`);
+      alert(
+        `Sync failed: ${err instanceof Error ? err.message : "Unknown error"}`,
+      );
     } finally {
       setSyncing(false);
     }
@@ -54,7 +60,7 @@ export default function Dashboard() {
 
   async function handleDrillDown(
     title: string,
-    params: Record<string, string>
+    params: Record<string, string>,
   ) {
     setDrillDownTitle(title);
     setDrillDownOpen(true);
@@ -96,9 +102,12 @@ export default function Dashboard() {
         {/* Header */}
         <div className="flex items-center justify-between">
           <div>
-            <h1 className="text-3xl font-bold text-foreground mb-2">COW Registry Dashboard</h1>
+            <h1 className="text-3xl font-bold text-foreground mb-2">
+              COW Registry Dashboard
+            </h1>
             <p className="text-muted-foreground">
-              Operational snapshot: Regional distribution, deployment status, warehouse inventory
+              Operational snapshot: Regional distribution, deployment status,
+              warehouse inventory
             </p>
           </div>
           <button
@@ -114,8 +123,12 @@ export default function Dashboard() {
         {/* Last Updated */}
         {dashboardData && (
           <div className="flex items-center gap-2 text-sm text-muted-foreground bg-secondary/30 px-4 py-2 rounded-lg">
-            <span>Last updated: {formatLastUpdated(dashboardData.lastSyncedAt)}</span>
-            <span className="text-xs">({dashboardData.totalCows} total COWs)</span>
+            <span>
+              Last updated: {formatLastUpdated(dashboardData.lastSyncedAt)}
+            </span>
+            <span className="text-xs">
+              ({dashboardData.totalCows} total COWs)
+            </span>
           </div>
         )}
 
@@ -124,7 +137,9 @@ export default function Dashboard() {
           <div className="flex items-center gap-3 p-4 bg-red-500/10 border border-red-500/20 rounded-lg">
             <AlertCircle size={20} className="text-red-600" />
             <div>
-              <p className="text-red-700 font-medium">Failed to load dashboard</p>
+              <p className="text-red-700 font-medium">
+                Failed to load dashboard
+              </p>
               <p className="text-red-600 text-sm">{error}</p>
             </div>
           </div>
@@ -146,14 +161,16 @@ export default function Dashboard() {
             <div>
               <StatusSummaryCards
                 data={dashboardData.statusSummary}
-                onDrillDown={(status) => handleDrillDown(
-                  status === "ON-AIR" 
-                    ? "ON-AIR COWs" 
-                    : status === "OFF-AIR"
-                      ? "Warehouse / Not Deployed"
-                      : "STANDBY COWs",
-                  { siteStatus: status }
-                )}
+                onDrillDown={(status) =>
+                  handleDrillDown(
+                    status === "ON-AIR"
+                      ? "ON-AIR COWs"
+                      : status === "OFF-AIR"
+                        ? "Warehouse / Not Deployed"
+                        : "STANDBY COWs",
+                    { siteStatus: status },
+                  )
+                }
               />
             </div>
 
@@ -161,32 +178,30 @@ export default function Dashboard() {
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
               <RegionalDistributionCard
                 data={dashboardData.regionalDistribution}
-                onDrillDown={(region) => handleDrillDown(
-                  `${region} - COW Distribution`,
-                  { region }
-                )}
+                onDrillDown={(region) =>
+                  handleDrillDown(`${region} - COW Distribution`, { region })
+                }
               />
               <OffAirByVendorCard
                 data={dashboardData.offAirByVendor}
-                onDrillDown={(vendor) => handleDrillDown(
-                  `${vendor} - Warehouse Stock`,
-                  { vendor, siteStatus: "OFF-AIR" }
-                )}
+                onDrillDown={(vendor) =>
+                  handleDrillDown(`${vendor} - Warehouse Stock`, {
+                    vendor,
+                    siteStatus: "OFF-AIR",
+                  })
+                }
               />
             </div>
 
             {/* Section 4: OFF-AIR by Warehouse Location */}
-            <OffAirByWarehouseCard
-              data={dashboardData.offAirByWarehouse}
-            />
+            <OffAirByWarehouseCard data={dashboardData.offAirByWarehouse} />
 
             {/* Section 5: New vs Old */}
             <CowAgeBreakdownCard
               data={dashboardData.cowAgeBreakdown}
-              onDrillDown={(age) => handleDrillDown(
-                `${age} COWs`,
-                { cowAge: age }
-              )}
+              onDrillDown={(age) =>
+                handleDrillDown(`${age} COWs`, { cowAge: age })
+              }
             />
           </div>
         ) : null}

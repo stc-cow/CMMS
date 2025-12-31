@@ -93,7 +93,7 @@ export function Sidebar() {
         className={cn(
           "fixed left-0 top-0 h-screen w-64 bg-sidebar border-r border-sidebar-border transition-transform duration-300 z-40",
           "md:translate-x-0",
-          isOpen ? "translate-x-0" : "-translate-x-full md:translate-x-0"
+          isOpen ? "translate-x-0" : "-translate-x-full md:translate-x-0",
         )}
       >
         {/* Logo Section */}
@@ -122,7 +122,7 @@ export function Sidebar() {
                   "flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium transition-all duration-200 group relative overflow-hidden",
                   active
                     ? "bg-sidebar-primary text-sidebar-primary-foreground shadow-lg shadow-sidebar-primary/20"
-                    : "text-sidebar-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground"
+                    : "text-sidebar-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground",
                 )}
               >
                 <Icon className="w-5 h-5 flex-shrink-0" />
@@ -144,7 +144,11 @@ export function Sidebar() {
         <div className="p-6 border-t border-sidebar-border space-y-4">
           <div className="bg-sidebar-accent/10 rounded-lg p-4">
             <p className="text-xs text-sidebar-foreground/70">
-              💡 Tip: Use keyboard shortcut <kbd className="bg-sidebar-background px-2 py-1 rounded text-xs font-mono">Cmd+K</kbd> to search
+              💡 Tip: Use keyboard shortcut{" "}
+              <kbd className="bg-sidebar-background px-2 py-1 rounded text-xs font-mono">
+                Cmd+K
+              </kbd>{" "}
+              to search
             </p>
           </div>
           <div className="text-xs text-sidebar-foreground/50">

@@ -60,8 +60,12 @@ export function Layout({ children }: { children: ReactNode }) {
                 <div className="absolute right-0 mt-2 w-56 bg-card border border-border rounded-lg shadow-lg py-2 animate-in fade-in duration-200">
                   {/* User Info */}
                   <div className="px-4 py-3 border-b border-border">
-                    <p className="text-sm font-semibold text-foreground">Admin User</p>
-                    <p className="text-xs text-muted-foreground">admin@aces.com</p>
+                    <p className="text-sm font-semibold text-foreground">
+                      Admin User
+                    </p>
+                    <p className="text-xs text-muted-foreground">
+                      admin@aces.com
+                    </p>
                   </div>
 
                   {/* Menu Items */}
@@ -92,9 +96,7 @@ export function Layout({ children }: { children: ReactNode }) {
 
         {/* Main Content */}
         <main className="flex-1 overflow-auto">
-          <div className="p-6 md:p-8">
-            {children}
-          </div>
+          <div className="p-6 md:p-8">{children}</div>
         </main>
       </div>
     </div>

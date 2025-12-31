@@ -9,7 +9,13 @@ interface Props {
   onClose: () => void;
 }
 
-export function DrillDownModal({ isOpen, title, data, loading, onClose }: Props) {
+export function DrillDownModal({
+  isOpen,
+  title,
+  data,
+  loading,
+  onClose,
+}: Props) {
   if (!isOpen) return null;
 
   return (
@@ -46,7 +52,9 @@ export function DrillDownModal({ isOpen, title, data, loading, onClose }: Props)
                 >
                   <div className="space-y-1 flex-1">
                     <p className="font-semibold text-foreground">{cow.cowId}</p>
-                    <p className="text-sm text-muted-foreground">{cow.location}</p>
+                    <p className="text-sm text-muted-foreground">
+                      {cow.location}
+                    </p>
                     <div className="flex gap-4 text-xs text-muted-foreground mt-2">
                       <span>Region: {cow.region}</span>
                       <span>Vendor: {cow.vendor}</span>
@@ -73,7 +81,9 @@ export function DrillDownModal({ isOpen, title, data, loading, onClose }: Props)
 
         {/* Footer */}
         <div className="p-4 border-t border-border bg-secondary/20 flex items-center justify-between sticky bottom-0">
-          <p className="text-sm text-muted-foreground">{data.length} COWs found</p>
+          <p className="text-sm text-muted-foreground">
+            {data.length} COWs found
+          </p>
           <button
             onClick={onClose}
             className="px-4 py-2 bg-primary text-primary-foreground rounded hover:bg-primary/90 transition-colors font-medium text-sm"

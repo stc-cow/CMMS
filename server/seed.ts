@@ -280,7 +280,9 @@ export function seedSampleData() {
     const existingCows = getAllCOWs();
 
     if (existingCows && existingCows.length > 0) {
-      console.log(`[SEED] Database already has ${existingCows.length} COW records, skipping seed`);
+      console.log(
+        `[SEED] Database already has ${existingCows.length} COW records, skipping seed`,
+      );
       return false;
     }
 

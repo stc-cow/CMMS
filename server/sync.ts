@@ -15,7 +15,9 @@ function parseCSVToCOWs(csvText: string): COW[] {
   if (lines.length < 2) return [];
 
   const firstRow = parseCSVLine(lines[0]);
-  console.log(`[CSV] First row (metadata): ${firstRow.slice(0, 3).join(" | ")}...`);
+  console.log(
+    `[CSV] First row (metadata): ${firstRow.slice(0, 3).join(" | ")}...`,
+  );
   console.log(`[CSV] Columns detected: ${firstRow.length}`);
   console.log(`[CSV] Total rows to process: ${lines.length - 1}`);
 
@@ -47,7 +49,9 @@ function parseCSVToCOWs(csvText: string): COW[] {
     console.log(`[CSV] ... and ${skipCount - 3} more rows skipped`);
   }
 
-  console.log(`[CSV] Parse results: ${successCount} valid COWs, ${skipCount} skipped`);
+  console.log(
+    `[CSV] Parse results: ${successCount} valid COWs, ${skipCount} skipped`,
+  );
 
   return cows;
 }
@@ -276,7 +280,10 @@ function mapRowToCOW(_headers: string[], values: string[]): COW | null {
 
   // Warehouse assignment for OFF-AIR COWs only
   if (cow.siteStatus === "OFF-AIR" && cow.latitude && cow.longitude) {
-    const warehouseAssignment = findNearestWarehouse(cow.latitude, cow.longitude);
+    const warehouseAssignment = findNearestWarehouse(
+      cow.latitude,
+      cow.longitude,
+    );
     if (warehouseAssignment) {
       cow.assignedWarehouse = warehouseAssignment.warehouse;
       cow.warehouseDistanceKm = warehouseAssignment.distanceKm;
@@ -305,10 +312,20 @@ function nullifyEmpty(value: string | undefined): string | null {
 function parseBoolean(value: string | undefined): boolean | undefined {
   if (!value) return undefined;
   const normalized = value.trim().toLowerCase();
-  if (normalized === "yes" || normalized === "true" || normalized === "1" || normalized === "on") {
+  if (
+    normalized === "yes" ||
+    normalized === "true" ||
+    normalized === "1" ||
+    normalized === "on"
+  ) {
     return true;
   }
-  if (normalized === "no" || normalized === "false" || normalized === "0" || normalized === "off") {
+  if (
+    normalized === "no" ||
+    normalized === "false" ||
+    normalized === "0" ||
+    normalized === "off"
+  ) {
     return false;
   }
   return undefined;
@@ -336,7 +353,9 @@ function parseInteger(value: string | undefined): number | undefined {
  * Parse site status (OFF-AIR, ON-AIR, STANDBY)
  * Default to "OFF-AIR" for empty/invalid values (not deployed)
  */
-function parseStatus(value: string | undefined): "ON-AIR" | "OFF-AIR" | "STANDBY" {
+function parseStatus(
+  value: string | undefined,
+): "ON-AIR" | "OFF-AIR" | "STANDBY" {
   if (!value) return "OFF-AIR"; // Default for missing status
   const normalized = value.trim().toUpperCase();
   if (normalized === "ON-AIR" || normalized === "ON AIR") return "ON-AIR";
@@ -356,7 +375,11 @@ function parseCowAge(value: string | undefined): "OLD" | "NEW" | null {
 /**
  * Fetch CSV from Google Sheets and sync to database
  */
-export async function syncCOWsFromGoogleSheets(): Promise<{ success: boolean; count: number; error?: string }> {
+export async function syncCOWsFromGoogleSheets(): Promise<{
+  success: boolean;
+  count: number;
+  error?: string;
+}> {
   try {
     console.log("[SYNC] Starting COW data sync from Google Sheets...");
     console.log(`[SYNC] URL: ${GOOGLE_SHEETS_CSV_URL}`);
@@ -368,14 +391,16 @@ export async function syncCOWsFromGoogleSheets(): Promise<{ success: boolean; co
     const response = await fetch(GOOGLE_SHEETS_CSV_URL, {
       signal: controller.signal,
       headers: {
-        'User-Agent': 'ACES-CMMS/1.0 (COW Registry Sync Service)',
+        "User-Agent": "ACES-CMMS/1.0 (COW Registry Sync Service)",
       },
     });
 
     clearTimeout(timeoutId);
 
     if (!response.ok) {
-      throw new Error(`Failed to fetch Google Sheet: ${response.status} ${response.statusText}`);
+      throw new Error(
+        `Failed to fetch Google Sheet: ${response.status} ${response.statusText}`,
+      );
     }
 
     const csvText = await response.text();
@@ -389,8 +414,14 @@ export async function syncCOWsFromGoogleSheets(): Promise<{ success: boolean; co
     const cows = parseCSVToCOWs(csvText);
 
     if (cows.length === 0) {
-      console.warn("[SYNC] No valid COW records found in CSV. Check column headers and data format.");
-      return { success: false, count: 0, error: "No valid COW records found in CSV" };
+      console.warn(
+        "[SYNC] No valid COW records found in CSV. Check column headers and data format.",
+      );
+      return {
+        success: false,
+        count: 0,
+        error: "No valid COW records found in CSV",
+      };
     }
 
     console.log(`[SYNC] Parsed ${cows.length} COW records`);
@@ -407,21 +438,27 @@ export async function syncCOWsFromGoogleSheets(): Promise<{ success: boolean; co
     });
 
     if (duplicates.length > 0) {
-      console.warn(`[SYNC] ⚠️  Found ${duplicates.length} duplicate COW ID(s):`);
+      console.warn(
+        `[SYNC] ⚠️  Found ${duplicates.length} duplicate COW ID(s):`,
+      );
       duplicates.forEach((id) => {
         const count = cowIdCounts.get(id) || 0;
         console.warn(`[SYNC]   - ${id}: appears ${count} times`);
       });
-      console.warn(`[SYNC] When upserting, duplicates will overwrite earlier entries.`);
-      console.warn(`[SYNC] Database will contain ${cowIdCounts.size} unique COW IDs instead of ${cows.length}`);
+      console.warn(
+        `[SYNC] When upserting, duplicates will overwrite earlier entries.`,
+      );
+      console.warn(
+        `[SYNC] Database will contain ${cowIdCounts.size} unique COW IDs instead of ${cows.length}`,
+      );
     }
 
     // Check status distribution
     const statusCounts = {
       "ON-AIR": 0,
       "OFF-AIR": 0,
-      "STANDBY": 0,
-      "UNKNOWN": 0,
+      STANDBY: 0,
+      UNKNOWN: 0,
     };
     const invalidStatusCows: string[] = [];
     cows.forEach((cow) => {
@@ -434,15 +471,17 @@ export async function syncCOWsFromGoogleSheets(): Promise<{ success: boolean; co
       }
     });
 
-    console.log(`[SYNC] Status distribution: ON-AIR=${statusCounts["ON-AIR"]}, OFF-AIR=${statusCounts["OFF-AIR"]}, STANDBY=${statusCounts["STANDBY"]}`);
+    console.log(
+      `[SYNC] Status distribution: ON-AIR=${statusCounts["ON-AIR"]}, OFF-AIR=${statusCounts["OFF-AIR"]}, STANDBY=${statusCounts["STANDBY"]}`,
+    );
     if (statusCounts["UNKNOWN"] > 0) {
       console.warn(
-        `[SYNC] ⚠️  Found ${statusCounts["UNKNOWN"]} COW(s) with invalid/missing siteStatus:`
+        `[SYNC] ⚠️  Found ${statusCounts["UNKNOWN"]} COW(s) with invalid/missing siteStatus:`,
       );
       invalidStatusCows.slice(0, 5).forEach((id) => {
         const cow = cows.find((c) => c.cowId === id);
         console.warn(
-          `[SYNC]   - ${id}: status="${cow?.siteStatus}" (value is ${cow?.siteStatus === null ? "null" : "not one of the expected values"})`
+          `[SYNC]   - ${id}: status="${cow?.siteStatus}" (value is ${cow?.siteStatus === null ? "null" : "not one of the expected values"})`,
         );
       });
       if (invalidStatusCows.length > 5) {
@@ -453,7 +492,9 @@ export async function syncCOWsFromGoogleSheets(): Promise<{ success: boolean; co
     // Upsert into database
     upsertCOWs(cows);
     console.log(`[SYNC] Successfully synced ${cows.length} COW records`);
-    console.log(`[SYNC] Database now contains ${cowIdCounts.size} unique COW ID(s)`);
+    console.log(
+      `[SYNC] Database now contains ${cowIdCounts.size} unique COW ID(s)`,
+    );
 
     return { success: true, count: cows.length };
   } catch (error) {
@@ -462,9 +503,13 @@ export async function syncCOWsFromGoogleSheets(): Promise<{ success: boolean; co
 
     // Log more context for debugging
     if (errorMessage.includes("ERR_ABORTED")) {
-      console.error("[SYNC] Request timed out - Google Sheets URL may be unreachable");
+      console.error(
+        "[SYNC] Request timed out - Google Sheets URL may be unreachable",
+      );
     } else if (errorMessage.includes("401") || errorMessage.includes("403")) {
-      console.error("[SYNC] Access denied - Google Sheets may require authentication or be private");
+      console.error(
+        "[SYNC] Access denied - Google Sheets may require authentication or be private",
+      );
     } else if (errorMessage.includes("404")) {
       console.error("[SYNC] Sheet not found - check the Google Sheets URL");
     }
@@ -477,14 +522,18 @@ export async function syncCOWsFromGoogleSheets(): Promise<{ success: boolean; co
  * Start periodic sync (every 15-30 minutes as recommended)
  */
 export function startPeriodicSync(intervalMinutes: number = 15) {
-  console.log(`[SYNC] Initializing periodic sync (every ${intervalMinutes} minutes)`);
+  console.log(
+    `[SYNC] Initializing periodic sync (every ${intervalMinutes} minutes)`,
+  );
 
   // Run once on startup (async, don't block)
   (async () => {
     console.log("[SYNC] Running initial sync on startup...");
     const result = await syncCOWsFromGoogleSheets();
     if (result.success) {
-      console.log(`[SYNC] ✓ Initial sync successful: ${result.count} COW records`);
+      console.log(
+        `[SYNC] ✓ Initial sync successful: ${result.count} COW records`,
+      );
     } else {
       console.warn(`[SYNC] ✗ Initial sync failed: ${result.error}`);
       console.warn("[SYNC] Using sample data for now. To enable live sync:");
@@ -504,6 +553,6 @@ export function startPeriodicSync(intervalMinutes: number = 15) {
         }
       })();
     },
-    intervalMinutes * 60 * 1000
+    intervalMinutes * 60 * 1000,
   );
 }
