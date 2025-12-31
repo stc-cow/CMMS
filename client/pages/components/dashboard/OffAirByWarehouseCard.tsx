@@ -96,7 +96,7 @@ export function OffAirByWarehouseCard({ data, onDrillDown }: Props) {
                   <button
                     key={item.warehouse}
                     onClick={() => handleDrillDown(item.warehouse)}
-                    className="w-full text-left space-y-1 p-3 rounded-lg hover:bg-secondary/50 transition-colors cursor-pointer group border border-transparent hover:border-primary/20"
+                    className="w-full text-left p-3 rounded-lg hover:bg-secondary/50 transition-colors cursor-pointer group border border-transparent hover:border-primary/20"
                   >
                     <div className="flex justify-between items-center text-sm">
                       <span className="font-semibold text-foreground group-hover:text-primary transition-colors">
@@ -110,12 +110,6 @@ export function OffAirByWarehouseCard({ data, onDrillDown }: Props) {
                           ({percentage.toFixed(1)}%)
                         </span>
                       </div>
-                    </div>
-                    <div className="w-full bg-secondary rounded-full h-2 overflow-hidden">
-                      <div
-                        className="bg-gradient-to-r from-amber-500 to-amber-400 h-full transition-all duration-300"
-                        style={{ width: `${percentage}%` }}
-                      />
                     </div>
                   </button>
                 );
