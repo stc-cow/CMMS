@@ -32,13 +32,7 @@ export function CowAgeBreakdownCard({ data, onDrillDown }: Props) {
             <p className="text-4xl font-bold text-green-600 group-hover:text-green-700 transition-colors">
               {data.new}
             </p>
-            <div className="mt-2 w-full bg-secondary rounded-full h-2">
-              <div
-                className="bg-green-500 h-full rounded-full"
-                style={{ width: `${newPercentage}%` }}
-              />
-            </div>
-            <p className="text-xs text-muted-foreground mt-1">
+            <p className="text-xs text-muted-foreground mt-2">
               {newPercentage.toFixed(1)}%
             </p>
           </button>
@@ -53,13 +47,7 @@ export function CowAgeBreakdownCard({ data, onDrillDown }: Props) {
             <p className="text-4xl font-bold text-orange-600 group-hover:text-orange-700 transition-colors">
               {data.old}
             </p>
-            <div className="mt-2 w-full bg-secondary rounded-full h-2">
-              <div
-                className="bg-orange-500 h-full rounded-full"
-                style={{ width: `${oldPercentage}%` }}
-              />
-            </div>
-            <p className="text-xs text-muted-foreground mt-1">
+            <p className="text-xs text-muted-foreground mt-2">
               {oldPercentage.toFixed(1)}%
             </p>
           </button>
