@@ -7,7 +7,6 @@ interface Props {
 }
 
 export function RegionalDistributionCard({ data, onDrillDown }: Props) {
-  const maxValue = Math.max(...data.map((d) => d.totalCows), 0);
   const totalCows = data.reduce((sum, item) => sum + item.totalCows, 0);
 
   return (
