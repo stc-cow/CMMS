@@ -24,14 +24,6 @@ export function StatusSummaryCards({ data, onDrillDown }: Props) {
       iconColor: "text-red-600",
       status: "OFF-AIR",
     },
-    {
-      label: "STANDBY COWs",
-      value: data.standby,
-      color: "bg-yellow-500/10 border-yellow-500/20",
-      icon: Pause,
-      iconColor: "text-yellow-600",
-      status: "STANDBY",
-    },
   ];
 
   return (
