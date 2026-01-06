@@ -157,9 +157,6 @@ export function Sidebar() {
           </div>
         </div>
       </aside>
-
-      {/* Main Content Spacer */}
-      <div className="md:ml-64" />
     </>
   );
 }
