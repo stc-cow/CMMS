@@ -12,7 +12,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { Plus, Trash2, Edit2, Package } from "lucide-react";
+import { Plus, Trash2, Edit2, Package, X } from "lucide-react";
 
 interface Supplier {
   id: string;
