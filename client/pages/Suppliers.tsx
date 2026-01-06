@@ -436,9 +436,12 @@ export default function Suppliers() {
                 <div className="space-y-6 py-4">
                   {/* Basic Information */}
                   <div className="space-y-3">
-                    <h3 className="text-sm font-semibold text-foreground">
-                      Basic Information
-                    </h3>
+                    <div className="flex items-center gap-2">
+                      <div className="w-1 h-4 bg-primary rounded-sm"></div>
+                      <h3 className="text-sm font-semibold text-foreground">
+                        Basic Information
+                      </h3>
+                    </div>
                     <div className="grid grid-cols-2 gap-4 text-sm">
                       {selectedSupplier.crNumber && (
                         <div>
