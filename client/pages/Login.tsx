@@ -10,6 +10,7 @@ import {
   CheckCircle,
 } from "lucide-react";
 import { useAuthForm } from "@/hooks/useAuthForm";
+import { signInWithGoogle } from "@/lib/auth";
 
 export default function Login() {
   const [isSignUp, setIsSignUp] = useState(false);
