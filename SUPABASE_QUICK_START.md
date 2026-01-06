@@ -50,6 +50,7 @@ npm run migrate:setup
 ```
 
 **What this does:**
+
 - ✓ Migrates 7 warehouses
 - ✓ Migrates 555 COW records
 - ✓ Migrates 12 supplier records
@@ -102,8 +103,8 @@ SELECT COUNT(*) as warehouse_count FROM warehouses;
 -- Expected: 7
 
 -- Sample COW record
-SELECT cow_id, region, city, site_status, vendor 
-FROM cows 
+SELECT cow_id, region, city, site_status, vendor
+FROM cows
 LIMIT 1;
 ```
 
@@ -120,15 +121,19 @@ SUPABASE_SERVICE_ROLE_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
 ## Troubleshooting
 
 ### "Error: Tables don't exist"
+
 **Solution:** Run Step 1 again - make sure to execute the schema SQL
 
 ### "Error: permission denied"
+
 **Solution:** Make sure you're using the correct Service Role Key (not the Anon Key)
 
 ### "Error: Duplicate key value"
+
 **Solution:** This is OK! It means the data is already in the database. Just skip and continue.
 
 ### "Migration taking too long"
+
 **Solution:** This is normal for 555 COW records. It processes in batches of 100. Give it 2-3 minutes.
 
 ## What's Next?
@@ -143,14 +148,14 @@ After migration completes:
 
 ## Key Files
 
-| File | Purpose |
-|------|---------|
-| `server/supabase-client.ts` | Supabase client initialization |
-| `server/migrations/setup-schema.sql` | Database schema creation |
-| `server/setup-and-migrate.ts` | Complete migration script |
-| `server/scripts/migrate-cows.ts` | COW data migration |
-| `server/scripts/migrate-suppliers.ts` | Supplier data migration |
-| `server/scripts/migrate-warehouses.ts` | Warehouse data migration |
+| File                                   | Purpose                        |
+| -------------------------------------- | ------------------------------ |
+| `server/supabase-client.ts`            | Supabase client initialization |
+| `server/migrations/setup-schema.sql`   | Database schema creation       |
+| `server/setup-and-migrate.ts`          | Complete migration script      |
+| `server/scripts/migrate-cows.ts`       | COW data migration             |
+| `server/scripts/migrate-suppliers.ts`  | Supplier data migration        |
+| `server/scripts/migrate-warehouses.ts` | Warehouse data migration       |
 
 ## Need Help?
 

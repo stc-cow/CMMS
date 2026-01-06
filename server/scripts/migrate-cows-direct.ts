@@ -30,9 +30,11 @@ async function migrateCows() {
       cowsArray = cowsData.data;
     } else if (Array.isArray(cowsData.cows)) {
       cowsArray = cowsData.cows;
-    } else if (typeof cowsData.cows === 'object' && cowsData.cows !== null) {
+    } else if (typeof cowsData.cows === "object" && cowsData.cows !== null) {
       // It's an object of objects - extract values
-      cowsArray = Object.values(cowsData.cows).filter(item => typeof item === 'object');
+      cowsArray = Object.values(cowsData.cows).filter(
+        (item) => typeof item === "object",
+      );
     }
 
     if (cowsArray.length === 0) {
@@ -43,21 +45,23 @@ async function migrateCows() {
 
     // Prepare data
     const cowsToInsert = cowsArray.map((cow: any) => ({
-      cow_id: cow.cowId || cow.cow_id || '',
-      site_label: cow.siteLabel || cow.site_label || '',
-      ebu_non_ebu: cow.ebuNonEbu || cow.ebu_non_ebu || '',
-      region: cow.region || '',
+      cow_id: cow.cowId || cow.cow_id || "",
+      site_label: cow.siteLabel || cow.site_label || "",
+      ebu_non_ebu: cow.ebuNonEbu || cow.ebu_non_ebu || "",
+      region: cow.region || "",
       district: cow.district || null,
-      city: cow.city || '',
-      location: cow.location || '',
+      city: cow.city || "",
+      location: cow.location || "",
       latitude: cow.latitude || null,
       longitude: cow.longitude || null,
-      site_status: cow.siteStatus || cow.site_status || 'STANDBY',
+      site_status: cow.siteStatus || cow.site_status || "STANDBY",
       remote: cow.remote || null,
-      vendor: cow.vendor || '',
-      cow_age: cow.cowAge || cow.cow_age || 'NEW',
-      assigned_warehouse: cow.assignedWarehouse || cow.assigned_warehouse || null,
-      warehouse_distance_km: cow.warehouseDistanceKm || cow.warehouse_distance_km || null,
+      vendor: cow.vendor || "",
+      cow_age: cow.cowAge || cow.cow_age || "NEW",
+      assigned_warehouse:
+        cow.assignedWarehouse || cow.assigned_warehouse || null,
+      warehouse_distance_km:
+        cow.warehouseDistanceKm || cow.warehouse_distance_km || null,
       remarks: cow.remarks || null,
       technology_2g: cow.technology2g || cow.technology_2g || null,
       technology_3g: cow.technology3g || cow.technology_3g || null,
@@ -73,7 +77,8 @@ async function migrateCows() {
       configuration_5g: cow.configuration5g || cow.configuration_5g || null,
       lte_band_count: cow.lteBandCount || cow.lte_band_count || null,
       _5g_band_count: cow._5gBandCount || cow._5g_band_count || null,
-      lte_configuration_level: cow.lteConfigurationLevel || cow.lte_configuration_level || null,
+      lte_configuration_level:
+        cow.lteConfigurationLevel || cow.lte_configuration_level || null,
       pg_status: cow.pgStatus || cow.pg_status || null,
       mdb_type: cow.mdbType || cow.mdb_type || null,
       mdb_status: cow.mdbStatus || cow.mdb_status || null,
@@ -83,9 +88,11 @@ async function migrateCows() {
       engine: cow.engine || null,
       alternator: cow.alternator || null,
       capacity: cow.capacity || null,
-      fuel_tank_capacity: cow.fuelTankCapacity || cow.fuel_tank_capacity || null,
+      fuel_tank_capacity:
+        cow.fuelTankCapacity || cow.fuel_tank_capacity || null,
       cooling_system: cow.coolingSystem || cow.cooling_system || null,
-      under_repairing_ovhauling: cow.underRepairingOvhauling || cow.under_repairing_ovhauling || null,
+      under_repairing_ovhauling:
+        cow.underRepairingOvhauling || cow.under_repairing_ovhauling || null,
       installed_bbu: cow.installedBbu || cow.installed_bbu || null,
       bbu_brand: cow.bbuBrand || cow.bbu_brand || null,
       volt_capacity: cow.voltCapacity || cow.volt_capacity || null,
@@ -96,8 +103,10 @@ async function migrateCows() {
       dc_power_brand: cow.dcPowerBrand || cow.dc_power_brand || null,
       total_capacity: cow.totalCapacity || cow.total_capacity || null,
       cabinet_status: cow.cabinetStatus || cow.cabinet_status || null,
-      rectifiers_installed: cow.rectifiersInstalled || cow.rectifiers_installed || null,
-      rectifiers_required: cow.rectifiersRequired || cow.rectifiers_required || null,
+      rectifiers_installed:
+        cow.rectifiersInstalled || cow.rectifiers_installed || null,
+      rectifiers_required:
+        cow.rectifiersRequired || cow.rectifiers_required || null,
       shelter_outdoor: cow.shelterOutdoor || cow.shelter_outdoor || null,
       ac_make: cow.acMake || cow.ac_make || null,
       ac_capacity: cow.acCapacity || cow.ac_capacity || null,
@@ -111,39 +120,55 @@ async function migrateCows() {
       fire_panel_status: cow.firePanelStatus || cow.fire_panel_status || null,
       cylinder_status: cow.cylinderStatus || cow.cylinder_status || null,
       manual_auto: cow.manualAuto || cow.manual_auto || null,
-      shelter_tube_rods_status: cow.shelterTubeRodsStatus || cow.shelter_tube_rods_status || null,
-      security_light_status: cow.securityLightStatus || cow.security_light_status || null,
-      combination_number: cow.combinationNumber || cow.combination_number || null,
+      shelter_tube_rods_status:
+        cow.shelterTubeRodsStatus || cow.shelter_tube_rods_status || null,
+      security_light_status:
+        cow.securityLightStatus || cow.security_light_status || null,
+      combination_number:
+        cow.combinationNumber || cow.combination_number || null,
       gps_status: cow.gpsStatus || cow.gps_status || null,
       tower_height: cow.towerHeight || cow.tower_height || null,
       tower_type: cow.towerType || cow.tower_type || null,
       tower_system: cow.towerSystem || cow.tower_system || null,
       vehicle_make: cow.vehicleMake || cow.vehicle_make || null,
-      plate_number_english: cow.plateNumberEnglish || cow.plate_number_english || null,
-      plate_number_arabic: cow.plateNumberArabic || cow.plate_number_arabic || null,
+      plate_number_english:
+        cow.plateNumberEnglish || cow.plate_number_english || null,
+      plate_number_arabic:
+        cow.plateNumberArabic || cow.plate_number_arabic || null,
       mw_dish: cow.mwDish || cow.mw_dish || null,
       mw_frequency: cow.mwFrequency || cow.mw_frequency || null,
       mw_configuration: cow.mwConfiguration || cow.mw_configuration || null,
       mw_link_type: cow.mwLinkType || cow.mw_link_type || null,
       last_deploy_date: cow.lastDeployDate || cow.last_deploy_date || null,
       under_replacement: cow.underReplacement || cow.under_replacement || false,
-      last_synced_at: cow.lastSyncedAt ? new Date(cow.lastSyncedAt).toISOString() : new Date().toISOString(),
-      last_updated_at: cow.lastUpdatedAt ? new Date(cow.lastUpdatedAt).toISOString() : new Date().toISOString(),
-      created_at: cow.createdAt ? new Date(cow.createdAt).toISOString() : new Date().toISOString(),
+      last_synced_at: cow.lastSyncedAt
+        ? new Date(cow.lastSyncedAt).toISOString()
+        : new Date().toISOString(),
+      last_updated_at: cow.lastUpdatedAt
+        ? new Date(cow.lastUpdatedAt).toISOString()
+        : new Date().toISOString(),
+      created_at: cow.createdAt
+        ? new Date(cow.createdAt).toISOString()
+        : new Date().toISOString(),
     }));
 
     // Insert in batches
     const batchSize = 100;
     let inserted = 0;
 
-    console.log(`Inserting ${cowsToInsert.length} records in batches of ${batchSize}...`);
+    console.log(
+      `Inserting ${cowsToInsert.length} records in batches of ${batchSize}...`,
+    );
 
     for (let i = 0; i < cowsToInsert.length; i += batchSize) {
       const batch = cowsToInsert.slice(i, i + batchSize);
       const { error } = await supabase.from("cows").insert(batch);
 
       if (error && !error.message.includes("duplicate")) {
-        console.error(`Batch ${Math.floor(i / batchSize) + 1} error:`, error.message);
+        console.error(
+          `Batch ${Math.floor(i / batchSize) + 1} error:`,
+          error.message,
+        );
         throw error;
       }
 

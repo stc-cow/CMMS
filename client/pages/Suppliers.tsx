@@ -461,7 +461,9 @@ export default function Suppliers() {
                       )}
                       {selectedSupplier.contactPerson && (
                         <div>
-                          <p className="text-muted-foreground">Contact Person</p>
+                          <p className="text-muted-foreground">
+                            Contact Person
+                          </p>
                           <p className="font-medium text-foreground">
                             {selectedSupplier.contactPerson}
                           </p>
@@ -495,7 +497,8 @@ export default function Suppliers() {
                         Equipment ({selectedSupplier.equipment?.length || 0})
                       </h3>
                     </div>
-                    {selectedSupplier.equipment && selectedSupplier.equipment.length > 0 ? (
+                    {selectedSupplier.equipment &&
+                    selectedSupplier.equipment.length > 0 ? (
                       <div className="grid grid-cols-2 gap-2">
                         {selectedSupplier.equipment.map((eq) => (
                           <div

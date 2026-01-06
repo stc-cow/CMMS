@@ -57,7 +57,8 @@ export default function Login() {
       formData.password === formData.confirmPassword
     : formData.email && formData.password;
 
-  const isSuccessMessage = error?.includes("created") || error?.includes("check your email");
+  const isSuccessMessage =
+    error?.includes("created") || error?.includes("check your email");
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900 flex items-center justify-center p-4 relative overflow-hidden">
@@ -151,7 +152,9 @@ export default function Login() {
                 )}
                 <p
                   className={
-                    isSuccessMessage ? "text-green-800 text-sm" : "text-red-800 text-sm"
+                    isSuccessMessage
+                      ? "text-green-800 text-sm"
+                      : "text-red-800 text-sm"
                   }
                 >
                   {error}
@@ -262,7 +265,9 @@ export default function Login() {
                     />
                     <button
                       type="button"
-                      onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                      onClick={() =>
+                        setShowConfirmPassword(!showConfirmPassword)
+                      }
                       className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 hover:text-blue-500 transition-colors p-1.5 rounded hover:bg-blue-50"
                     >
                       {showConfirmPassword ? (
@@ -344,7 +349,9 @@ export default function Login() {
                 <div className="w-full border-t border-slate-100"></div>
               </div>
               <div className="relative flex justify-center text-sm">
-                <span className="px-2 bg-white/98 text-slate-500">or continue with</span>
+                <span className="px-2 bg-white/98 text-slate-500">
+                  or continue with
+                </span>
               </div>
             </div>
 
@@ -378,7 +385,9 @@ export default function Login() {
             {/* Toggle between signin and signup */}
             <div className="text-center text-sm text-white">
               <p>
-                {isSignUp ? "Already have an account? " : "Don't have an account? "}
+                {isSignUp
+                  ? "Already have an account? "
+                  : "Don't have an account? "}
                 <button
                   type="button"
                   onClick={handleModeToggle}

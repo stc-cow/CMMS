@@ -25,7 +25,9 @@ async function migrateCows() {
     // Handle both possible structures
     let cows: any[] = [];
 
-    console.log(`JSON structure detected. Keys: ${Object.keys(cowsData).join(", ")}`);
+    console.log(
+      `JSON structure detected. Keys: ${Object.keys(cowsData).join(", ")}`,
+    );
     console.log(`cowsData.cows type: ${typeof cowsData.cows}`);
     console.log(`Is array? ${Array.isArray(cowsData.cows)}`);
 
@@ -39,9 +41,11 @@ async function migrateCows() {
       // Try direct assignment without checking isArray (in case it's already parsed)
       if (Array.isArray(cowsData.cows)) {
         cows = cowsData.cows;
-      } else if (typeof cowsData.cows === 'object' && cowsData.cows !== null) {
+      } else if (typeof cowsData.cows === "object" && cowsData.cows !== null) {
         // It might be a single object, but in our case it should be an array
-        console.warn(`⚠️  cows field exists but is not an array. Type: ${typeof cowsData.cows}`);
+        console.warn(
+          `⚠️  cows field exists but is not an array. Type: ${typeof cowsData.cows}`,
+        );
         if (cowsData.cows.data && Array.isArray(cowsData.cows.data)) {
           cows = cowsData.cows.data;
         } else {
@@ -63,8 +67,7 @@ async function migrateCows() {
 
     // Prepare data for insertion
     const cowsToInsert = cows.map((cow: any) => {
-      const siteStatus =
-        cow.siteStatus || cow.site_status || "STANDBY";
+      const siteStatus = cow.siteStatus || cow.site_status || "STANDBY";
       const cowAge = cow.cowAge || cow.cow_age || "NEW";
 
       return {
@@ -81,8 +84,10 @@ async function migrateCows() {
         remote: cow.remote || null,
         vendor: cow.vendor,
         cow_age: cowAge,
-        assigned_warehouse: cow.assignedWarehouse || cow.assigned_warehouse || null,
-        warehouse_distance_km: cow.warehouseDistanceKm || cow.warehouse_distance_km || null,
+        assigned_warehouse:
+          cow.assignedWarehouse || cow.assigned_warehouse || null,
+        warehouse_distance_km:
+          cow.warehouseDistanceKm || cow.warehouse_distance_km || null,
         remarks: cow.remarks || null,
         technology_2g: cow.technology2g || cow.technology_2g || null,
         technology_3g: cow.technology3g || cow.technology_3g || null,
@@ -94,7 +99,8 @@ async function migrateCows() {
         availability_5g: cow.availability5g || cow.availability_5g || null,
         configuration_2g: cow.configuration2g || cow.configuration_2g || null,
         configuration_3g: cow.configuration3g || cow.configuration_3g || null,
-        configuration_lte: cow.configurationLte || cow.configuration_lte || null,
+        configuration_lte:
+          cow.configurationLte || cow.configuration_lte || null,
         configuration_5g: cow.configuration5g || cow.configuration_5g || null,
         lte_band_count: cow.lteBandCount || cow.lte_band_count || null,
         _5g_band_count: cow._5gBandCount || cow._5g_band_count || null,
@@ -109,7 +115,8 @@ async function migrateCows() {
         engine: cow.engine || null,
         alternator: cow.alternator || null,
         capacity: cow.capacity || null,
-        fuel_tank_capacity: cow.fuelTankCapacity || cow.fuel_tank_capacity || null,
+        fuel_tank_capacity:
+          cow.fuelTankCapacity || cow.fuel_tank_capacity || null,
         cooling_system: cow.coolingSystem || cow.cooling_system || null,
         under_repairing_ovhauling:
           cow.underRepairingOvhauling || cow.under_repairing_ovhauling || null,
@@ -123,8 +130,10 @@ async function migrateCows() {
         dc_power_brand: cow.dcPowerBrand || cow.dc_power_brand || null,
         total_capacity: cow.totalCapacity || cow.total_capacity || null,
         cabinet_status: cow.cabinetStatus || cow.cabinet_status || null,
-        rectifiers_installed: cow.rectifiersInstalled || cow.rectifiers_installed || null,
-        rectifiers_required: cow.rectifiersRequired || cow.rectifiers_required || null,
+        rectifiers_installed:
+          cow.rectifiersInstalled || cow.rectifiers_installed || null,
+        rectifiers_required:
+          cow.rectifiersRequired || cow.rectifiers_required || null,
         shelter_outdoor: cow.shelterOutdoor || cow.shelter_outdoor || null,
         ac_make: cow.acMake || cow.ac_make || null,
         ac_capacity: cow.acCapacity || cow.ac_capacity || null,
@@ -142,7 +151,8 @@ async function migrateCows() {
           cow.shelterTubeRodsStatus || cow.shelter_tube_rods_status || null,
         security_light_status:
           cow.securityLightStatus || cow.security_light_status || null,
-        combination_number: cow.combinationNumber || cow.combination_number || null,
+        combination_number:
+          cow.combinationNumber || cow.combination_number || null,
         gps_status: cow.gpsStatus || cow.gps_status || null,
         tower_height: cow.towerHeight || cow.tower_height || null,
         tower_type: cow.towerType || cow.tower_type || null,
@@ -157,10 +167,17 @@ async function migrateCows() {
         mw_configuration: cow.mwConfiguration || cow.mw_configuration || null,
         mw_link_type: cow.mwLinkType || cow.mw_link_type || null,
         last_deploy_date: cow.lastDeployDate || cow.last_deploy_date || null,
-        under_replacement: cow.underReplacement || cow.under_replacement || false,
-        last_synced_at: cow.lastSyncedAt ? new Date(cow.lastSyncedAt).toISOString() : new Date().toISOString(),
-        last_updated_at: cow.lastUpdatedAt ? new Date(cow.lastUpdatedAt).toISOString() : new Date().toISOString(),
-        created_at: cow.createdAt ? new Date(cow.createdAt).toISOString() : new Date().toISOString(),
+        under_replacement:
+          cow.underReplacement || cow.under_replacement || false,
+        last_synced_at: cow.lastSyncedAt
+          ? new Date(cow.lastSyncedAt).toISOString()
+          : new Date().toISOString(),
+        last_updated_at: cow.lastUpdatedAt
+          ? new Date(cow.lastUpdatedAt).toISOString()
+          : new Date().toISOString(),
+        created_at: cow.createdAt
+          ? new Date(cow.createdAt).toISOString()
+          : new Date().toISOString(),
       };
     });
 
@@ -169,14 +186,19 @@ async function migrateCows() {
     let inserted = 0;
     let failed = 0;
 
-    console.log(`Inserting ${cowsToInsert.length} records in batches of ${batchSize}...`);
+    console.log(
+      `Inserting ${cowsToInsert.length} records in batches of ${batchSize}...`,
+    );
 
     for (let i = 0; i < cowsToInsert.length; i += batchSize) {
       const batch = cowsToInsert.slice(i, i + batchSize);
       const { error, data } = await supabase.from("cows").insert(batch);
 
       if (error) {
-        console.error(`❌ Batch ${Math.floor(i / batchSize) + 1} error:`, error.message);
+        console.error(
+          `❌ Batch ${Math.floor(i / batchSize) + 1} error:`,
+          error.message,
+        );
         failed += batch.length;
       } else {
         inserted += batch.length;
@@ -187,7 +209,9 @@ async function migrateCows() {
       console.log(`   ${progress}/${cowsToInsert.length} (${percent}%)`);
     }
 
-    console.log(`\n✓ Migration complete: ${inserted} inserted, ${failed} failed`);
+    console.log(
+      `\n✓ Migration complete: ${inserted} inserted, ${failed} failed`,
+    );
     return inserted > 0;
   } catch (error) {
     console.error("Migration failed:", error);

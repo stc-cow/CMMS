@@ -3,17 +3,20 @@
 ## ✅ Completed Setup
 
 ### 1. Environment Configuration
+
 - ✅ `VITE_SUPABASE_URL` configured
 - ✅ `VITE_SUPABASE_ANON_KEY` configured
 - ✅ `SUPABASE_SERVICE_ROLE_KEY` configured
 - ✅ Supabase client (`server/supabase-client.ts`) created
 
 ### 2. Database Schema
+
 - ✅ Schema SQL prepared (`server/migrations/setup-schema.sql`)
 - ✅ Includes 4 tables: `cows`, `suppliers`, `supplier_equipment`, `warehouses`
 - ✅ Includes indexes for optimal query performance
 
 ### 3. Migration Scripts
+
 - ✅ Complete setup script: `npm run migrate:setup`
 - ✅ Individual migration scripts ready:
   - `npm run migrate:warehouses` (7 records)
@@ -21,6 +24,7 @@
   - `npm run migrate:suppliers` (12 records)
 
 ### 4. Documentation
+
 - ✅ `SUPABASE_QUICK_START.md` - Step-by-step guide
 - ✅ `SUPABASE_MIGRATION_GUIDE.md` - Comprehensive reference
 - ✅ `package.json` - Updated with migration scripts
@@ -44,6 +48,7 @@
 9. Wait for ✓ completion
 
 **Verify**: Click **Table Editor** and confirm you see:
+
 - `cows` table
 - `suppliers` table
 - `warehouses` table
@@ -52,12 +57,14 @@
 ### Step 2: Run Data Migrations (3 minutes)
 
 **From terminal:**
+
 ```bash
 pnpm install
 npm run migrate:setup
 ```
 
 **You should see:**
+
 ```
 ✓ Schema created successfully
 ✓ Migrated 7 warehouses
@@ -71,11 +78,13 @@ npm run migrate:setup
 ### Step 3: Verify Data
 
 **In Supabase Dashboard > Table Editor:**
+
 - Open `cows` → should show 555 rows
 - Open `suppliers` → should show 12 rows
 - Open `warehouses` → should show 7 rows
 
 **Or run SQL:**
+
 ```sql
 SELECT COUNT(*) FROM cows;      -- 555
 SELECT COUNT(*) FROM suppliers; -- 12
@@ -87,11 +96,13 @@ SELECT COUNT(*) FROM warehouses; -- 7
 ## 📊 Data Being Migrated
 
 ### COWs (555 records)
+
 - All fields from `.data/cows.json`
 - Includes: location, status, vendor, warehouse assignment, equipment status
 - Timestamps: created_at, updated_at, last_synced_at
 
 ### Suppliers (12 records)
+
 - Masar Al Metahidah
 - Engineering Intelligence
 - Sheikha Al-Mutairi
@@ -106,6 +117,7 @@ SELECT COUNT(*) FROM warehouses; -- 7
 - Abdullah Ibrahim Al-Subaie Contracting Est.
 
 ### Warehouses (7 reference records)
+
 - ACES WH Muzahmiya
 - STC WH Jeddah
 - STC Sharma WH
@@ -119,6 +131,7 @@ SELECT COUNT(*) FROM warehouses; -- 7
 ## 🔧 Configuration Summary
 
 ### Environment Variables Set
+
 ```
 VITE_SUPABASE_URL=https://rmcgmcmqpjhqxrwuzbmy.supabase.co
 VITE_SUPABASE_ANON_KEY=sb_publishable_GD5r_Ixnmpmd9VoBi8L2qg_L5nyiZEP
@@ -126,11 +139,13 @@ SUPABASE_SERVICE_ROLE_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
 ```
 
 ### Dependencies Added
+
 ```json
 "@supabase/supabase-js": "^2.39.1"
 ```
 
 ### NPM Scripts Added
+
 ```json
 "migrate:setup": "tsx server/setup-and-migrate.ts",
 "migrate:cows": "tsx server/scripts/migrate-cows.ts",
@@ -146,16 +161,19 @@ SUPABASE_SERVICE_ROLE_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
 After migration completes:
 
 ### 5. Update Backend Routes ⏳
+
 - [ ] `/api/cows/dashboard/*` - Use Supabase queries
 - [ ] `/api/cows/*` - COW registry endpoints
 - [ ] `/api/suppliers/*` - Supplier endpoints
 
 ### 6. Update Frontend ⏳
+
 - [ ] Update Suppliers.tsx to fetch from API
 - [ ] Update Dashboard components
 - [ ] Update COW Registry views
 
 ### 7. Testing & Deployment ⏳
+
 - [ ] Verify all routes work
 - [ ] Test dashboard metrics
 - [ ] Test supplier management
@@ -165,13 +183,13 @@ After migration completes:
 
 ## 💡 Quick Reference
 
-| Action | Command |
-|--------|---------|
-| View full guide | `SUPABASE_QUICK_START.md` |
-| View detailed guide | `SUPABASE_MIGRATION_GUIDE.md` |
-| Copy schema SQL | `server/migrations/setup-schema.sql` |
-| Run migrations | `npm run migrate:setup` |
-| Dashboard | https://app.supabase.com |
+| Action              | Command                              |
+| ------------------- | ------------------------------------ |
+| View full guide     | `SUPABASE_QUICK_START.md`            |
+| View detailed guide | `SUPABASE_MIGRATION_GUIDE.md`        |
+| Copy schema SQL     | `server/migrations/setup-schema.sql` |
+| Run migrations      | `npm run migrate:setup`              |
+| Dashboard           | https://app.supabase.com             |
 
 ---
 

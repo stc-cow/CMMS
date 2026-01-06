@@ -45,7 +45,7 @@ The ACES Operations Portal now includes a complete user authentication system po
         │                    │
         ▼                    ▼
    Email Verification   Auto-Login
-   (if enabled)         
+   (if enabled)
         │                    │
         └─────────┬──────────┘
                   │
@@ -99,7 +99,7 @@ The ACES Operations Portal now includes a complete user authentication system po
 
 ### Supabase Auth Requirements
 
-Your Supabase project needs to have Auth enabled (it's enabled by default). 
+Your Supabase project needs to have Auth enabled (it's enabled by default).
 
 **To configure email settings:**
 
@@ -217,11 +217,11 @@ updated_at      Last update timestamp
 const { user } = useAuth();
 
 // Access user properties
-user?.email                              // User's email
-user?.id                                 // UUID
-user?.user_metadata?.full_name           // User's full name
-user?.email_confirmed                    // Email verified?
-user?.created_at                         // When account created
+user?.email; // User's email
+user?.id; // UUID
+user?.user_metadata?.full_name; // User's full name
+user?.email_confirmed; // Email verified?
+user?.created_at; // When account created
 ```
 
 ---
@@ -257,7 +257,7 @@ import { signUp } from "@/lib/auth";
 const { data, error } = await signUp(
   "user@example.com",
   "password123",
-  "John Doe"
+  "John Doe",
 );
 
 if (error) {
@@ -272,10 +272,7 @@ if (error) {
 ```typescript
 import { signIn } from "@/lib/auth";
 
-const { data, error } = await signIn(
-  "user@example.com",
-  "password123"
-);
+const { data, error } = await signIn("user@example.com", "password123");
 
 if (error) {
   console.error("Login failed:", error.message);
@@ -289,6 +286,7 @@ if (error) {
 ## Testing Authentication
 
 ### Test Sign Up
+
 1. Go to `/login`
 2. Click "Create one"
 3. Enter email: `test@example.com`
@@ -299,6 +297,7 @@ if (error) {
 8. Check Supabase Dashboard > Users to see new user
 
 ### Test Sign In
+
 1. Go to `/login`
 2. Enter email from above
 3. Enter password
@@ -307,12 +306,14 @@ if (error) {
 6. User menu shows your email
 
 ### Test Protected Routes
+
 1. Log out
 2. Try to visit `/suppliers` or `/cows`
 3. Should redirect to `/login`
 4. Log back in to access
 
 ### Test Sign Out
+
 1. While logged in, click user avatar (top right)
 2. Click "Sign out"
 3. Should redirect to login
@@ -323,26 +324,31 @@ if (error) {
 ## Security Features
 
 ✅ **Password Security**
+
 - Minimum 6 characters
 - Bcrypt hashing in Supabase
 - Never logged or exposed
 
 ✅ **Session Management**
+
 - Secure JWT tokens
 - Automatic session refresh
 - Sign out clears session
 
 ✅ **Protected Routes**
+
 - Unauthenticated users redirected to login
 - Loading state during auth check
 - No data exposed without auth
 
 ✅ **Email Verification** (Optional)
+
 - Configurable in Supabase
 - Verification link sent via email
 - User must confirm before full access
 
 ✅ **Data Privacy**
+
 - No passwords stored in app
 - Secure Supabase API
 - HTTPS only
@@ -378,15 +384,16 @@ const { error } = await supabase.auth.signUp({
       company: "ACES",
       role: "Admin",
       // Add any custom fields
-    }
-  }
+    },
+  },
 });
 ```
 
 Access in app:
+
 ```typescript
-user?.user_metadata?.company
-user?.user_metadata?.role
+user?.user_metadata?.company;
+user?.user_metadata?.role;
 ```
 
 ### Require Email Verification
@@ -402,6 +409,7 @@ if (user && !user.email_confirmed) {
 ### Social Login (Future)
 
 Supabase supports OAuth providers:
+
 - Google
 - GitHub
 - Microsoft
@@ -414,25 +422,30 @@ Configure in Supabase Dashboard → Auth → Providers.
 ## Troubleshooting
 
 ### "Missing Supabase environment variables"
+
 - Check `.env` file has `VITE_SUPABASE_URL` and `VITE_SUPABASE_ANON_KEY`
 - Restart dev server after updating `.env`
 
 ### "Invalid login credentials"
+
 - Verify email and password are correct
 - Check user exists in Supabase Dashboard → Users
 - Password is case-sensitive
 
 ### "Redirect URI mismatch"
+
 - For email confirmation links to work, set correct redirect URL
 - In Supabase: Auth → URL Configuration
 - Add your domain (dev: `http://localhost:5173`)
 
 ### User gets logged out randomly
+
 - Check session expiry in Supabase
 - Browser clearing cookies between sessions
 - Multiple tabs/windows signing out
 
 ### "useAuth must be used within AuthProvider"
+
 - Ensure `<AuthProvider>` wraps the entire app
 - Check `App.tsx` has the provider
 

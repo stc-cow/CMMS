@@ -44,7 +44,7 @@ export function useAuthForm(): UseAuthFormReturn {
     try {
       const { error: signInError } = await signIn(
         formData.email,
-        formData.password
+        formData.password,
       );
 
       if (signInError) {
@@ -84,7 +84,7 @@ export function useAuthForm(): UseAuthFormReturn {
       const { error: signUpError, data } = await signUp(
         formData.email,
         formData.password,
-        formData.fullName
+        formData.fullName,
       );
 
       if (signUpError) {
@@ -95,7 +95,7 @@ export function useAuthForm(): UseAuthFormReturn {
       // Check if email confirmation is required
       if (data?.user && !data.user.confirmed_at) {
         setError(
-          "Account created! Please check your email to confirm your account."
+          "Account created! Please check your email to confirm your account.",
         );
         // Still navigate after 3 seconds to show the message
         setTimeout(() => {

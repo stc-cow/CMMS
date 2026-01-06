@@ -6,12 +6,12 @@ All data has been successfully migrated from local JSON files to Supabase!
 
 ### Migration Results
 
-| Table | Records | Status |
-|-------|---------|--------|
-| **cows** | 555 | ✅ MIGRATED |
-| **suppliers** | 12 | ✅ MIGRATED |
-| **warehouses** | 7 | ✅ MIGRATED |
-| **supplier_equipment** | 0 | ✅ CREATED (empty) |
+| Table                  | Records | Status             |
+| ---------------------- | ------- | ------------------ |
+| **cows**               | 555     | ✅ MIGRATED        |
+| **suppliers**          | 12      | ✅ MIGRATED        |
+| **warehouses**         | 7       | ✅ MIGRATED        |
+| **supplier_equipment** | 0       | ✅ CREATED (empty) |
 
 **Total Records Migrated: 574**
 
@@ -20,12 +20,14 @@ All data has been successfully migrated from local JSON files to Supabase!
 ## 📊 What Was Migrated
 
 ### COWs (555 records)
+
 - All COW registry data with complete technical specifications
 - Includes: Site details, technology configuration, power systems, AC/HVAC, security, transport info
 - All timestamps preserved (created_at, updated_at, lastSyncedAt)
 - Warehouse assignments and distance calculations
 
 **Sample COW Data:**
+
 ```
 COW001 | Central | Riyadh City | ON-AIR | Ericsson
 COW002 | Central | Riyadh City | ON-AIR | Ericsson
@@ -33,6 +35,7 @@ COW005 | WEST | JEDDAH | ON-AIR | Ericsson
 ```
 
 ### Suppliers (12 records)
+
 - Masar Al Metahidah
 - Engineering Intelligence
 - Sheikha Al-Mutairi
@@ -47,6 +50,7 @@ COW005 | WEST | JEDDAH | ON-AIR | Ericsson
 - Abdullah Ibrahim Al-Subaie Contracting Est.
 
 ### Warehouses (7 reference records)
+
 - ACES WH Muzahmiya (24.517206, 46.268152)
 - STC WH Jeddah (21.458816, 39.211939)
 - STC Sharma WH (28.0659, 35.1728)
@@ -60,6 +64,7 @@ COW005 | WEST | JEDDAH | ON-AIR | Ericsson
 ## 🔧 Technical Details
 
 ### Database Schema
+
 - ✅ `cows` table with 73 columns
 - ✅ `suppliers` table with 8 columns
 - ✅ `supplier_equipment` junction table
@@ -67,6 +72,7 @@ COW005 | WEST | JEDDAH | ON-AIR | Ericsson
 - ✅ All indexes created for optimal performance
 
 ### Configuration
+
 - **Project URL**: https://rmcgmcmqpjhqxrwuzbmy.supabase.co
 - **Environment Variables**: All set
   - `VITE_SUPABASE_URL` ✅
@@ -74,6 +80,7 @@ COW005 | WEST | JEDDAH | ON-AIR | Ericsson
   - `SUPABASE_SERVICE_ROLE_KEY` ✅
 
 ### Backup
+
 - Original JSON files remain intact at `.data/cows.json`
 - Can be rolled back anytime
 
@@ -86,6 +93,7 @@ COW005 | WEST | JEDDAH | ON-AIR | Ericsson
 The backend needs to be updated to query Supabase instead of JSON files:
 
 **Dashboard Routes:**
+
 ```
 /api/cows/dashboard/status-summary
 /api/cows/dashboard/regional-distribution
@@ -96,6 +104,7 @@ The backend needs to be updated to query Supabase instead of JSON files:
 ```
 
 **COW Registry Routes:**
+
 ```
 /api/cows/list
 /api/cows/search
@@ -103,6 +112,7 @@ The backend needs to be updated to query Supabase instead of JSON files:
 ```
 
 **Supplier Routes:**
+
 ```
 GET /api/suppliers
 POST /api/suppliers
@@ -114,6 +124,7 @@ GET /api/suppliers/:id/equipment
 ### 2. Frontend Integration
 
 Frontend components need to fetch from the new API endpoints:
+
 - `client/pages/Suppliers.tsx` → Update to use Supabase
 - `client/pages/Dashboard.tsx` → Update dashboard queries
 - `client/pages/CowRegistry.tsx` → Update COW queries
@@ -130,14 +141,14 @@ Frontend components need to fetch from the new API endpoints:
 
 ## 📁 Important Files
 
-| File | Purpose |
-|------|---------|
-| `server/supabase-client.ts` | Supabase client initialization |
-| `server/migrations/setup-schema.sql` | Database schema (reference) |
-| `server/scripts/migrate-cows-direct.ts` | COW migration script |
-| `server/scripts/migrate-suppliers.ts` | Supplier migration script |
-| `server/scripts/migrate-warehouses.ts` | Warehouse migration script |
-| `.data/cows.json` | Original backup |
+| File                                    | Purpose                        |
+| --------------------------------------- | ------------------------------ |
+| `server/supabase-client.ts`             | Supabase client initialization |
+| `server/migrations/setup-schema.sql`    | Database schema (reference)    |
+| `server/scripts/migrate-cows-direct.ts` | COW migration script           |
+| `server/scripts/migrate-suppliers.ts`   | Supplier migration script      |
+| `server/scripts/migrate-warehouses.ts`  | Warehouse migration script     |
+| `.data/cows.json`                       | Original backup                |
 
 ---
 

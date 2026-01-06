@@ -12,7 +12,11 @@ export const supabase = createClient(supabaseUrl, supabaseAnonKey);
 /**
  * Sign up a new user with email and password
  */
-export async function signUp(email: string, password: string, fullName?: string) {
+export async function signUp(
+  email: string,
+  password: string,
+  fullName?: string,
+) {
   const { data, error } = await supabase.auth.signUp({
     email,
     password,
@@ -65,7 +69,10 @@ export async function signOut() {
  * Get the current user
  */
 export async function getCurrentUser() {
-  const { data: { user }, error } = await supabase.auth.getUser();
+  const {
+    data: { user },
+    error,
+  } = await supabase.auth.getUser();
   return { user, error };
 }
 
@@ -73,14 +80,19 @@ export async function getCurrentUser() {
  * Get the current session
  */
 export async function getSession() {
-  const { data: { session }, error } = await supabase.auth.getSession();
+  const {
+    data: { session },
+    error,
+  } = await supabase.auth.getSession();
   return { session, error };
 }
 
 /**
  * Listen to auth state changes
  */
-export function onAuthStateChange(callback: (event: string, session: any) => void) {
+export function onAuthStateChange(
+  callback: (event: string, session: any) => void,
+) {
   const {
     data: { subscription },
   } = supabase.auth.onAuthStateChange((event, session) => {

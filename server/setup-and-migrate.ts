@@ -171,13 +171,8 @@ async function createSchema() {
       });
 
       // If exec_sql doesn't exist, try the direct approach
-      if (
-        error &&
-        error.message.includes("function exec_sql")
-      ) {
-        console.warn(
-          "   ⚠️  Note: Schema creation via RPC not available.",
-        );
+      if (error && error.message.includes("function exec_sql")) {
+        console.warn("   ⚠️  Note: Schema creation via RPC not available.");
         console.warn(
           "   📝 Please run the SQL manually in Supabase dashboard:",
         );
@@ -361,7 +356,9 @@ async function migrateCows() {
 
       inserted += batch.length;
       if (i === 0 || (i + batchSize) % 500 === 0) {
-        console.log(`   Processing ${Math.min(i + batchSize, cowsToInsert.length)}/${cowsToInsert.length}`);
+        console.log(
+          `   Processing ${Math.min(i + batchSize, cowsToInsert.length)}/${cowsToInsert.length}`,
+        );
       }
     }
 
@@ -430,31 +427,35 @@ async function main() {
   console.log("╚════════════════════════════════════════╝");
 
   if (!schemaOk) {
-    console.log(
-      "\n⚠️  IMPORTANT: Schema creation step skipped",
-    );
+    console.log("\n⚠️  IMPORTANT: Schema creation step skipped");
     console.log("\n   You need to create the tables manually:");
     console.log("   1. Go to: https://app.supabase.com");
     console.log("   2. Select your project");
     console.log("   3. Go to: SQL Editor");
     console.log("   4. Create new query");
-    console.log(
-      "   5. Copy & paste: server/migrations/setup-schema.sql",
-    );
+    console.log("   5. Copy & paste: server/migrations/setup-schema.sql");
     console.log("   6. Click Run");
-    console.log(
-      "\n   After that, rerun this script to migrate data.",
-    );
+    console.log("\n   After that, rerun this script to migrate data.");
   }
 
-  console.log("\n" + (warehousesOk ? "✓" : "✗") + " Warehouses: " + (warehousesOk ? "OK" : "FAILED"));
-  console.log("" + (cowsOk ? "✓" : "✗") + " COWs (555): " + (cowsOk ? "OK" : "FAILED"));
-  console.log("" + (suppliersOk ? "✓" : "✗") + " Suppliers (12): " + (suppliersOk ? "OK" : "FAILED"));
+  console.log(
+    "\n" +
+      (warehousesOk ? "✓" : "✗") +
+      " Warehouses: " +
+      (warehousesOk ? "OK" : "FAILED"),
+  );
+  console.log(
+    "" + (cowsOk ? "✓" : "✗") + " COWs (555): " + (cowsOk ? "OK" : "FAILED"),
+  );
+  console.log(
+    "" +
+      (suppliersOk ? "✓" : "✗") +
+      " Suppliers (12): " +
+      (suppliersOk ? "OK" : "FAILED"),
+  );
 
   if (warehousesOk && cowsOk && suppliersOk) {
-    console.log(
-      "\n✨ All migrations completed successfully!",
-    );
+    console.log("\n✨ All migrations completed successfully!");
     console.log("\n📊 Next steps:");
     console.log("   1. Verify data in Supabase dashboard");
     console.log("   2. Update backend routes to use Supabase");

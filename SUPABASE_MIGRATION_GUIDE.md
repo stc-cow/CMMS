@@ -1,9 +1,11 @@
 # Supabase Migration Guide
 
 ## Overview
+
 This guide walks you through migrating all data from the local JSON files to Supabase.
 
 ## Prerequisites
+
 - Supabase project: https://rmcgmcmqpjhqxrwuzbmy.supabase.co
 - Publishable Key: `sb_publishable_GD5r_Ixnmpmd9VoBi8L2qg_L5nyiZEP`
 - You need a **Service Role Key** from Supabase to run migrations
@@ -29,6 +31,7 @@ This guide walks you through migrating all data from the local JSON files to Sup
 6. Click "Run" to execute
 
 This will create:
+
 - `cows` table (main COW registry)
 - `suppliers` table (supplier master data)
 - `supplier_equipment` table (equipment-supplier relationships)
@@ -46,11 +49,13 @@ This installs `@supabase/supabase-js` which is required for migrations.
 ## Step 4: Run Migrations
 
 **Option A: Migrate Everything at Once**
+
 ```bash
 npm run migrate:all
 ```
 
 **Option B: Migrate Individual Tables**
+
 ```bash
 # Migrate warehouses first (reference data)
 npm run migrate:warehouses
@@ -90,6 +95,7 @@ SELECT * FROM suppliers LIMIT 1;
 The following routes need to be updated to use Supabase:
 
 **Dashboard API Routes:**
+
 - `/api/cows/dashboard/status-summary` - Query `cows` table
 - `/api/cows/dashboard/regional-distribution` - Group by region
 - `/api/cows/dashboard/off-air-by-vendor` - Filter OFF-AIR by vendor
@@ -98,11 +104,13 @@ The following routes need to be updated to use Supabase:
 - `/api/cows/dashboard/warehouse-drill-down` - Join with warehouses
 
 **COW Registry Routes:**
+
 - `/api/cows/list` - List all COWs with pagination
 - `/api/cows/search` - Search COWs by filters
 - `/api/cows/:id` - Get single COW detail
 
 **Supplier Routes:**
+
 - `GET /api/suppliers` - List all suppliers
 - `POST /api/suppliers` - Create new supplier
 - `PUT /api/suppliers/:id` - Update supplier
@@ -112,6 +120,7 @@ The following routes need to be updated to use Supabase:
 ## Environment Variables
 
 Make sure these are set:
+
 ```bash
 VITE_SUPABASE_URL=https://rmcgmcmqpjhqxrwuzbmy.supabase.co
 VITE_SUPABASE_ANON_KEY=sb_publishable_GD5r_Ixnmpmd9VoBi8L2qg_L5nyiZEP
@@ -121,6 +130,7 @@ SUPABASE_SERVICE_ROLE_KEY=your-service-role-key-here
 ## Data Structure Mapping
 
 ### COWs Table
+
 ```
 Local JSON Field → Database Column
 cowId → cow_id
@@ -142,6 +152,7 @@ warehouseDistanceKm → warehouse_distance_km
 ```
 
 ### Suppliers Table
+
 ```
 Local Field → Database Column
 name → name
@@ -155,19 +166,23 @@ email → email
 ## Troubleshooting
 
 **Error: "Missing Supabase environment variables"**
+
 - Make sure `SUPABASE_SERVICE_ROLE_KEY` is set
 - Check that it's the correct key from your Supabase dashboard
 
 **Error: "Permission denied"**
+
 - Verify you're using the Service Role Key, not the Anon Key
 - Check your Supabase RLS policies (they may need to be configured)
 
 **Error: "Duplicate key value"**
+
 - Some records may already exist in the database
 - This is normal if you're re-running migrations
 - The database constraints prevent duplicates (good for data integrity!)
 
 **Migration is slow**
+
 - Migrations run in batches of 100 records
 - 555 COWs should take less than a minute
 - This is normal and prevents timeout issues
@@ -189,6 +204,7 @@ If you need to rollback:
 1. Go to Supabase dashboard
 2. Navigate to **SQL Editor**
 3. Run:
+
 ```sql
 DROP TABLE IF EXISTS supplier_equipment;
 DROP TABLE IF EXISTS suppliers;
