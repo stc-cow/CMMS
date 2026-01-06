@@ -25,26 +25,30 @@ async function migrateCows() {
     // Handle both possible structures
     let cows: any[] = [];
 
+    console.log(`JSON structure detected. Keys: ${Object.keys(cowsData).join(", ")}`);
+    console.log(`cowsData.cows type: ${typeof cowsData.cows}`);
+    console.log(`Is array? ${Array.isArray(cowsData.cows)}`);
+
     if (Array.isArray(cowsData)) {
       cows = cowsData;
-      console.log(`Found ${cows.length} COWs (direct array)`);
+      console.log(`✓ Found ${cows.length} COWs (direct array)`);
     } else if (cowsData.data && Array.isArray(cowsData.data)) {
       cows = cowsData.data;
-      console.log(`Found ${cows.length} COWs (in data field)`);
-    } else if (cowsData.cows && Array.isArray(cowsData.cows)) {
-      cows = cowsData.cows;
-      console.log(`Found ${cows.length} COWs (in cows field)`);
-    } else if (cowsData && typeof cowsData === 'object') {
-      // Try to find an array in the object
-      const arrayField = Object.values(cowsData).find((val) => Array.isArray(val));
-      if (arrayField && Array.isArray(arrayField)) {
-        cows = arrayField;
-        console.log(`Found ${cows.length} COWs (in first array field)`);
-      } else {
-        throw new Error(
-          `Invalid cows.json structure. Found keys: ${Object.keys(cowsData).join(", ")}`,
-        );
+      console.log(`✓ Found ${cows.length} COWs (in data field)`);
+    } else if (cowsData.cows) {
+      // Try direct assignment without checking isArray (in case it's already parsed)
+      if (Array.isArray(cowsData.cows)) {
+        cows = cowsData.cows;
+      } else if (typeof cowsData.cows === 'object' && cowsData.cows !== null) {
+        // It might be a single object, but in our case it should be an array
+        console.warn(`⚠️  cows field exists but is not an array. Type: ${typeof cowsData.cows}`);
+        if (cowsData.cows.data && Array.isArray(cowsData.cows.data)) {
+          cows = cowsData.cows.data;
+        } else {
+          throw new Error(`cows field is not an array`);
+        }
       }
+      console.log(`✓ Found ${cows.length} COWs (in cows field)`);
     } else {
       throw new Error(
         `Invalid cows.json structure. Found keys: ${Object.keys(cowsData).join(", ")}`,
