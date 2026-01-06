@@ -76,7 +76,11 @@ const INITIAL_SUPPLIERS: Supplier[] = [
 
 export default function Suppliers() {
   const [suppliers, setSuppliers] = useState<Supplier[]>(INITIAL_SUPPLIERS);
-  const [dialogOpen, setDialogOpen] = useState(false);
+  const [formDialogOpen, setFormDialogOpen] = useState(false);
+  const [detailDialogOpen, setDetailDialogOpen] = useState(false);
+  const [selectedSupplier, setSelectedSupplier] = useState<Supplier | null>(
+    null,
+  );
   const [editingId, setEditingId] = useState<string | null>(null);
   const [formData, setFormData] = useState<Supplier>({
     id: "",
