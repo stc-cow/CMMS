@@ -175,15 +175,19 @@ export default function Suppliers() {
   return (
     <Layout>
       <div className="space-y-6">
-        {/* Header */}
+        {/* Header with ACES Branding */}
         <div className="flex items-center justify-between">
           <div>
-            <h1 className="text-3xl font-bold text-foreground mb-2">
-              Supplier Management
-            </h1>
-            <p className="text-muted-foreground">
-              Manage supplier master data including names, CR/VAT numbers,
-              contact details, equipment, and contract terms
+            <div className="flex items-center gap-3 mb-2">
+              <div className="w-2 h-8 bg-primary rounded-sm"></div>
+              <h1 className="text-3xl font-bold text-foreground">
+                Supplier Management
+              </h1>
+            </div>
+            <p className="text-muted-foreground ml-5">
+              ACES Supplier Registry • Manage supplier master data including
+              names, CR/VAT numbers, contact details, equipment, and contract
+              terms
             </p>
           </div>
           <Dialog open={formDialogOpen} onOpenChange={setFormDialogOpen}>
