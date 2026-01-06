@@ -33,6 +33,13 @@ export default function Login() {
     setShowConfirmPassword(false);
   };
 
+  const handleGoogleSignIn = async () => {
+    const { data, error } = await signInWithGoogle();
+    if (error) {
+      console.error("Google sign-in error:", error);
+    }
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (isSignUp) {
