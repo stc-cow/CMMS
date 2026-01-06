@@ -162,12 +162,13 @@ export default function Suppliers() {
       setSuppliers([...suppliers, newSupplier]);
     }
 
-    handleCloseDialog();
+    handleCloseFormDialog();
   };
 
   const handleDelete = (id: string) => {
     if (confirm("Are you sure you want to delete this supplier?")) {
       setSuppliers(suppliers.filter((s) => s.id !== id));
+      handleCloseDetailDialog();
     }
   };
 
