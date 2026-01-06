@@ -3,10 +3,13 @@ import { ReactNode, useState, useRef, useEffect } from "react";
 import { Sidebar } from "./sidebar";
 import { Bell, User, LogOut, Settings } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "@/context/AuthContext";
 
 export function Layout({ children }: { children: ReactNode }) {
   const navigate = useNavigate();
+  const { user, signOut } = useAuth();
   const [showUserMenu, setShowUserMenu] = useState(false);
+  const [isSigningOut, setIsSigningOut] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
 
   // Close menu when clicking outside
@@ -21,10 +24,15 @@ export function Layout({ children }: { children: ReactNode }) {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
-  const handleLogout = () => {
-    // Clear any stored session data (if needed)
-    localStorage.removeItem("authToken");
-    navigate("/login");
+  const handleLogout = async () => {
+    setIsSigningOut(true);
+    try {
+      await signOut();
+      navigate("/login");
+    } catch (error) {
+      console.error("Error signing out:", error);
+      setIsSigningOut(false);
+    }
   };
 
   return (
