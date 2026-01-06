@@ -18,9 +18,14 @@
     "start": "node dist/server/node-build.mjs",
     "test": "vitest --run",
     "format.fix": "prettier --write .",
-    "typecheck": "tsc"
+    "typecheck": "tsc",
+    "migrate:cows": "tsx server/scripts/migrate-cows.ts",
+    "migrate:suppliers": "tsx server/scripts/migrate-suppliers.ts",
+    "migrate:warehouses": "tsx server/scripts/migrate-warehouses.ts",
+    "migrate:all": "npm run migrate:warehouses && npm run migrate:cows && npm run migrate:suppliers"
   },
   "dependencies": {
+    "@supabase/supabase-js": "^2.39.1",
     "dotenv": "^17.2.1",
     "express": "^5.1.0",
     "zod": "^3.25.76"
