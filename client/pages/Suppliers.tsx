@@ -88,7 +88,7 @@ export default function Suppliers() {
     equipment: [],
   });
 
-  const handleOpenDialog = (supplier?: Supplier) => {
+  const handleOpenFormDialog = (supplier?: Supplier) => {
     if (supplier) {
       setFormData({ ...supplier, equipment: supplier.equipment || [] });
       setEditingId(supplier.id);
@@ -96,13 +96,24 @@ export default function Suppliers() {
       setFormData({ id: "", name: "", equipment: [] });
       setEditingId(null);
     }
-    setDialogOpen(true);
+    setDetailDialogOpen(false);
+    setFormDialogOpen(true);
   };
 
-  const handleCloseDialog = () => {
-    setDialogOpen(false);
+  const handleCloseFormDialog = () => {
+    setFormDialogOpen(false);
     setFormData({ id: "", name: "", equipment: [] });
     setEditingId(null);
+  };
+
+  const handleOpenDetailDialog = (supplier: Supplier) => {
+    setSelectedSupplier(supplier);
+    setDetailDialogOpen(true);
+  };
+
+  const handleCloseDetailDialog = () => {
+    setDetailDialogOpen(false);
+    setSelectedSupplier(null);
   };
 
   const handleEquipmentChange = (equipment: string, checked: boolean) => {
