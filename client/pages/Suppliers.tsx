@@ -330,7 +330,7 @@ export default function Suppliers() {
                   <Button
                     type="button"
                     variant="outline"
-                    onClick={handleCloseDialog}
+                    onClick={handleCloseFormDialog}
                     className="flex-1"
                   >
                     Cancel
