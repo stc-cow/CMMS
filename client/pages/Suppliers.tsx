@@ -417,11 +417,16 @@ export default function Suppliers() {
             {selectedSupplier && (
               <>
                 <DialogHeader>
-                  <div className="flex items-start justify-between w-full">
-                    <DialogTitle>{selectedSupplier.name}</DialogTitle>
+                  <div className="flex items-start justify-between w-full pb-4 border-b-2 border-primary/20">
+                    <div className="flex items-center gap-2">
+                      <div className="w-1 h-6 bg-primary rounded-sm"></div>
+                      <DialogTitle className="text-foreground">
+                        {selectedSupplier.name}
+                      </DialogTitle>
+                    </div>
                     <button
                       onClick={handleCloseDetailDialog}
-                      className="mt-2 text-muted-foreground hover:text-foreground"
+                      className="text-muted-foreground hover:text-foreground transition-colors"
                     >
                       <X size={20} />
                     </button>
