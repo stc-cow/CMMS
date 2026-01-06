@@ -186,9 +186,9 @@ export default function Suppliers() {
               contact details, equipment, and contract terms
             </p>
           </div>
-          <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
+          <Dialog open={formDialogOpen} onOpenChange={setFormDialogOpen}>
             <DialogTrigger asChild>
-              <Button onClick={() => handleOpenDialog()} className="gap-2">
+              <Button onClick={() => handleOpenFormDialog()} className="gap-2">
                 <Plus size={18} />
                 Add Supplier
               </Button>
