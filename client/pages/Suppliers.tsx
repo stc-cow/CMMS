@@ -383,14 +383,14 @@ export default function Suppliers() {
           )}
         </div>
 
-        {/* Summary */}
+        {/* Summary - ACES Styled */}
         {suppliers.length > 0 && (
-          <Card className="p-4 bg-secondary/30">
+          <Card className="p-4 bg-gradient-to-r from-primary/5 to-primary/10 border-l-4 border-primary">
             <div className="grid grid-cols-2 gap-4">
               <div>
                 <p className="text-sm text-muted-foreground">
                   Total suppliers:{" "}
-                  <span className="font-semibold text-foreground">
+                  <span className="font-semibold text-foreground text-lg">
                     {suppliers.length}
                   </span>
                 </p>
@@ -398,7 +398,7 @@ export default function Suppliers() {
               <div>
                 <p className="text-sm text-muted-foreground">
                   Suppliers with equipment:{" "}
-                  <span className="font-semibold text-foreground">
+                  <span className="font-semibold text-foreground text-lg">
                     {
                       suppliers.filter(
                         (s) => s.equipment && s.equipment.length > 0,
