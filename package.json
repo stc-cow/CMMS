@@ -19,6 +19,7 @@
     "test": "vitest --run",
     "format.fix": "prettier --write .",
     "typecheck": "tsc",
+    "migrate:setup": "tsx server/setup-and-migrate.ts",
     "migrate:cows": "tsx server/scripts/migrate-cows.ts",
     "migrate:suppliers": "tsx server/scripts/migrate-suppliers.ts",
     "migrate:warehouses": "tsx server/scripts/migrate-warehouses.ts",
