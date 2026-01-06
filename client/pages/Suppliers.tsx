@@ -401,6 +401,123 @@ export default function Suppliers() {
             </div>
           </Card>
         )}
+
+        {/* Supplier Detail Dialog */}
+        <Dialog open={detailDialogOpen} onOpenChange={setDetailDialogOpen}>
+          <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
+            {selectedSupplier && (
+              <>
+                <DialogHeader>
+                  <div className="flex items-start justify-between w-full">
+                    <DialogTitle>{selectedSupplier.name}</DialogTitle>
+                    <button
+                      onClick={handleCloseDetailDialog}
+                      className="mt-2 text-muted-foreground hover:text-foreground"
+                    >
+                      <X size={20} />
+                    </button>
+                  </div>
+                </DialogHeader>
+
+                <div className="space-y-6 py-4">
+                  {/* Basic Information */}
+                  <div className="space-y-3">
+                    <h3 className="text-sm font-semibold text-foreground">
+                      Basic Information
+                    </h3>
+                    <div className="grid grid-cols-2 gap-4 text-sm">
+                      {selectedSupplier.crNumber && (
+                        <div>
+                          <p className="text-muted-foreground">CR Number</p>
+                          <p className="font-medium text-foreground">
+                            {selectedSupplier.crNumber}
+                          </p>
+                        </div>
+                      )}
+                      {selectedSupplier.vatNumber && (
+                        <div>
+                          <p className="text-muted-foreground">VAT Number</p>
+                          <p className="font-medium text-foreground">
+                            {selectedSupplier.vatNumber}
+                          </p>
+                        </div>
+                      )}
+                      {selectedSupplier.contactPerson && (
+                        <div>
+                          <p className="text-muted-foreground">Contact Person</p>
+                          <p className="font-medium text-foreground">
+                            {selectedSupplier.contactPerson}
+                          </p>
+                        </div>
+                      )}
+                      {selectedSupplier.phone && (
+                        <div>
+                          <p className="text-muted-foreground">Phone</p>
+                          <p className="font-medium text-foreground">
+                            {selectedSupplier.phone}
+                          </p>
+                        </div>
+                      )}
+                      {selectedSupplier.email && (
+                        <div className="col-span-2">
+                          <p className="text-muted-foreground">Email</p>
+                          <p className="font-medium text-foreground break-all">
+                            {selectedSupplier.email}
+                          </p>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+
+                  {/* Equipment Section */}
+                  <div className="space-y-3">
+                    <div className="flex items-center gap-2">
+                      <Package size={16} className="text-primary" />
+                      <h3 className="text-sm font-semibold text-foreground">
+                        Equipment ({selectedSupplier.equipment?.length || 0})
+                      </h3>
+                    </div>
+                    {selectedSupplier.equipment && selectedSupplier.equipment.length > 0 ? (
+                      <div className="grid grid-cols-2 gap-2">
+                        {selectedSupplier.equipment.map((eq) => (
+                          <div
+                            key={eq}
+                            className="text-sm bg-primary/10 text-primary px-3 py-2 rounded"
+                          >
+                            {eq}
+                          </div>
+                        ))}
+                      </div>
+                    ) : (
+                      <p className="text-sm text-muted-foreground italic">
+                        No equipment assigned
+                      </p>
+                    )}
+                  </div>
+
+                  {/* Actions */}
+                  <div className="flex gap-2 pt-4 border-t border-border">
+                    <Button
+                      onClick={() => handleOpenFormDialog(selectedSupplier)}
+                      className="flex-1 gap-2"
+                    >
+                      <Edit2 size={16} />
+                      Edit
+                    </Button>
+                    <Button
+                      onClick={() => handleDelete(selectedSupplier.id)}
+                      variant="outline"
+                      className="gap-2 text-red-600 hover:text-red-700"
+                    >
+                      <Trash2 size={16} />
+                      Delete
+                    </Button>
+                  </div>
+                </div>
+              </>
+            )}
+          </DialogContent>
+        </Dialog>
       </div>
     </Layout>
   );
