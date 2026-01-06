@@ -345,7 +345,7 @@ export default function Suppliers() {
           </Dialog>
         </div>
 
-        {/* Suppliers Grid - High Density Cards */}
+        {/* Suppliers Grid - ACES Themed Cards */}
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3">
           {suppliers.length === 0 ? (
             <div className="col-span-full flex items-center justify-center min-h-96 text-center">
@@ -362,9 +362,14 @@ export default function Suppliers() {
             suppliers.map((supplier) => (
               <Card
                 key={supplier.id}
-                className="p-3 cursor-pointer hover:shadow-md hover:border-primary/50 transition-all"
+                className="p-3 cursor-pointer border-2 border-primary/20 hover:border-primary hover:bg-primary/5 transition-all duration-200 relative overflow-hidden group"
                 onClick={() => handleOpenDetailDialog(supplier)}
               >
+                {/* ACES Frame Top-Left Accent */}
+                <div className="absolute top-0 left-0 w-1 h-6 bg-primary rounded-br opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                {/* ACES Frame Top-Right Accent */}
+                <div className="absolute top-0 right-0 w-1 h-6 bg-primary rounded-bl opacity-0 group-hover:opacity-100 transition-opacity"></div>
+
                 <p className="text-sm font-medium text-foreground text-center truncate">
                   {supplier.name}
                 </p>
