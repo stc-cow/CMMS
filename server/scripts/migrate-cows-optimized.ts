@@ -34,6 +34,17 @@ async function migrateCows() {
     } else if (cowsData.cows && Array.isArray(cowsData.cows)) {
       cows = cowsData.cows;
       console.log(`Found ${cows.length} COWs (in cows field)`);
+    } else if (cowsData && typeof cowsData === 'object') {
+      // Try to find an array in the object
+      const arrayField = Object.values(cowsData).find((val) => Array.isArray(val));
+      if (arrayField && Array.isArray(arrayField)) {
+        cows = arrayField;
+        console.log(`Found ${cows.length} COWs (in first array field)`);
+      } else {
+        throw new Error(
+          `Invalid cows.json structure. Found keys: ${Object.keys(cowsData).join(", ")}`,
+        );
+      }
     } else {
       throw new Error(
         `Invalid cows.json structure. Found keys: ${Object.keys(cowsData).join(", ")}`,
