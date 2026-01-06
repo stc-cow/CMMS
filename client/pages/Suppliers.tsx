@@ -513,19 +513,19 @@ export default function Suppliers() {
                     )}
                   </div>
 
-                  {/* Actions */}
-                  <div className="flex gap-2 pt-4 border-t border-border">
+                  {/* Actions - ACES Styled */}
+                  <div className="flex gap-2 pt-4 border-t-2 border-primary/20">
                     <Button
                       onClick={() => handleOpenFormDialog(selectedSupplier)}
-                      className="flex-1 gap-2"
+                      className="flex-1 gap-2 bg-primary hover:bg-primary/90"
                     >
                       <Edit2 size={16} />
-                      Edit
+                      Edit Supplier
                     </Button>
                     <Button
                       onClick={() => handleDelete(selectedSupplier.id)}
                       variant="outline"
-                      className="gap-2 text-red-600 hover:text-red-700"
+                      className="gap-2 text-red-600 hover:text-red-700 hover:bg-red-50"
                     >
                       <Trash2 size={16} />
                       Delete
