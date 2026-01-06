@@ -341,8 +341,8 @@ export default function Suppliers() {
           </Dialog>
         </div>
 
-        {/* Suppliers Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        {/* Suppliers Grid - High Density Cards */}
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3">
           {suppliers.length === 0 ? (
             <div className="col-span-full flex items-center justify-center min-h-96 text-center">
               <div className="space-y-2">
@@ -358,98 +358,17 @@ export default function Suppliers() {
             suppliers.map((supplier) => (
               <Card
                 key={supplier.id}
-                className="p-4 space-y-3 hover:shadow-md transition-shadow flex flex-col"
+                className="p-3 cursor-pointer hover:shadow-md hover:border-primary/50 transition-all"
+                onClick={() => handleOpenDetailDialog(supplier)}
               >
-                <div className="space-y-2 flex-1">
-                  <h3 className="text-lg font-semibold text-foreground truncate">
-                    {supplier.name}
-                  </h3>
-                  {supplier.crNumber && (
-                    <p className="text-xs text-muted-foreground">
-                      <span className="font-medium">CR:</span>{" "}
-                      {supplier.crNumber}
-                    </p>
-                  )}
-                  {supplier.vatNumber && (
-                    <p className="text-xs text-muted-foreground">
-                      <span className="font-medium">VAT:</span>{" "}
-                      {supplier.vatNumber}
-                    </p>
-                  )}
-                  {supplier.contactPerson && (
-                    <p className="text-xs text-muted-foreground">
-                      <span className="font-medium">Contact:</span>{" "}
-                      {supplier.contactPerson}
-                    </p>
-                  )}
-                  {supplier.phone && (
-                    <p className="text-xs text-muted-foreground">
-                      <span className="font-medium">Phone:</span>{" "}
-                      {supplier.phone}
-                    </p>
-                  )}
-                  {supplier.email && (
-                    <p className="text-xs text-muted-foreground truncate">
-                      <span className="font-medium">Email:</span>{" "}
-                      {supplier.email}
-                    </p>
-                  )}
-
-                  {/* Equipment Section */}
-                  {supplier.equipment && supplier.equipment.length > 0 && (
-                    <div className="pt-3 border-t border-border">
-                      <div className="flex items-center gap-2 mb-2">
-                        <Package size={14} className="text-primary" />
-                        <p className="text-xs font-medium text-foreground">
-                          Equipment ({supplier.equipment.length})
-                        </p>
-                      </div>
-                      <div className="flex flex-wrap gap-1">
-                        {supplier.equipment.slice(0, 3).map((eq) => (
-                          <span
-                            key={eq}
-                            className="inline-block text-xs bg-primary/10 text-primary px-2 py-1 rounded"
-                          >
-                            {eq}
-                          </span>
-                        ))}
-                        {supplier.equipment.length > 3 && (
-                          <span className="inline-block text-xs bg-secondary text-muted-foreground px-2 py-1 rounded">
-                            +{supplier.equipment.length - 3} more
-                          </span>
-                        )}
-                      </div>
-                    </div>
-                  )}
-                  {(!supplier.equipment || supplier.equipment.length === 0) && (
-                    <div className="pt-3 border-t border-border">
-                      <p className="text-xs text-muted-foreground italic">
-                        No equipment assigned
-                      </p>
-                    </div>
-                  )}
-                </div>
-
-                <div className="flex gap-2 pt-2 border-t border-border">
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    onClick={() => handleOpenDialog(supplier)}
-                    className="flex-1 gap-2"
-                  >
-                    <Edit2 size={16} />
-                    Edit
-                  </Button>
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    onClick={() => handleDelete(supplier.id)}
-                    className="flex-1 gap-2 text-red-600 hover:text-red-700"
-                  >
-                    <Trash2 size={16} />
-                    Delete
-                  </Button>
-                </div>
+                <p className="text-sm font-medium text-foreground text-center truncate">
+                  {supplier.name}
+                </p>
+                {supplier.equipment && supplier.equipment.length > 0 && (
+                  <p className="text-xs text-muted-foreground text-center mt-2">
+                    {supplier.equipment.length} equipment
+                  </p>
+                )}
               </Card>
             ))
           )}
