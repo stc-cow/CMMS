@@ -69,10 +69,10 @@ export function Layout({ children }: { children: ReactNode }) {
                   {/* User Info */}
                   <div className="px-4 py-3 border-b border-border">
                     <p className="text-sm font-semibold text-foreground">
-                      Admin User
+                      {user?.user_metadata?.full_name || user?.email?.split("@")[0] || "User"}
                     </p>
                     <p className="text-xs text-muted-foreground">
-                      admin@aces.com
+                      {user?.email || "No email"}
                     </p>
                   </div>
 
