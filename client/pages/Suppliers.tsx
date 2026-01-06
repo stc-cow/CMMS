@@ -489,6 +489,7 @@ export default function Suppliers() {
                   {/* Equipment Section */}
                   <div className="space-y-3">
                     <div className="flex items-center gap-2">
+                      <div className="w-1 h-4 bg-primary rounded-sm"></div>
                       <Package size={16} className="text-primary" />
                       <h3 className="text-sm font-semibold text-foreground">
                         Equipment ({selectedSupplier.equipment?.length || 0})
