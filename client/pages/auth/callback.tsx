@@ -19,7 +19,7 @@ export default function AuthCallback() {
           // Handle OTP expired or other errors
           if (errorCode === "otp_expired") {
             setMessage(
-              "Email link expired. Please sign up again or request a new confirmation link."
+              "Email link expired. Please sign up again or request a new confirmation link.",
             );
             setTimeout(() => navigate("/login?tab=signup"), 3000);
             return;
