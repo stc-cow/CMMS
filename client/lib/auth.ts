@@ -10,6 +10,15 @@ if (!supabaseUrl || !supabaseAnonKey) {
 export const supabase = createClient(supabaseUrl, supabaseAnonKey);
 
 /**
+ * Get the callback URL for Supabase auth redirects
+ * Handles both development and GitHub Pages deployment
+ */
+function getCallbackUrl(path: string = "/auth/callback"): string {
+  const basePath = import.meta.env.DEV ? "" : "/CMMS";
+  return `${window.location.origin}${basePath}${path}`;
+}
+
+/**
  * Sign up a new user with email and password
  */
 export async function signUp(
