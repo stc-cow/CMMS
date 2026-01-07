@@ -27,7 +27,7 @@ function App() {
         <AuthProvider>
           <Toaster />
           <Sonner />
-          <BrowserRouter>
+          <BrowserRouter basename={import.meta.env.DEV ? "/" : "/CMMS/"}>
             <Routes>
               <Route path="/login" element={<Login />} />
               <Route
