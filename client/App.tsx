@@ -31,6 +31,7 @@ function App() {
           <BrowserRouter basename={import.meta.env.DEV ? "/" : "/CMMS/"}>
             <Routes>
               <Route path="/login" element={<Login />} />
+              <Route path="/auth/callback" element={<AuthCallback />} />
               <Route
                 path="/"
                 element={
