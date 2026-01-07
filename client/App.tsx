@@ -17,6 +17,7 @@ import Suppliers from "./pages/Suppliers";
 import RateCards from "./pages/RateCards";
 import Invoices from "./pages/Invoices";
 import Settings from "./pages/Settings";
+import AuthCallback from "./pages/auth/callback";
 
 const queryClient = new QueryClient();
 
