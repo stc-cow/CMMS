@@ -33,7 +33,7 @@ export async function signUp(
       data: {
         full_name: fullName || "",
       },
-      emailRedirectTo: `${window.location.origin}/auth/callback`,
+      emailRedirectTo: getCallbackUrl(),
     },
   });
 
@@ -131,7 +131,7 @@ export async function resendConfirmationEmail(email: string) {
     type: "signup",
     email,
     options: {
-      emailRedirectTo: `${window.location.origin}/auth/callback`,
+      emailRedirectTo: getCallbackUrl(),
     },
   });
 
